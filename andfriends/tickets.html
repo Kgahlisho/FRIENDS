@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>&FRIENDS Admin — Tickets</title>
+    <link rel="stylesheet" href="css/admin.css" />
+</head>
+
+<body>
+
+    <div id="sidebarMount"></div>
+
+    <div class="admin-main">
+        <header class="admin-topbar">
+            <h1 class="admin-page-title">Tickets</h1>
+            <div class="admin-topbar-actions">
+                <input type="text" id="ticketSearch" class="form-input"
+                    placeholder="Search by ticket ID, name or event…" style="width:280px;" oninput="renderTickets()" />
+                <button class="btn-primary" onclick="openAdminModal('validateModal')">🔍 Validate Ticket</button>
+            </div>
+        </header>
+
+        <main class="admin-content">
+
+            <!-- Summary -->
+            <div class="stats-grid" id="ticketStats" style="grid-template-columns:repeat(4,1fr);margin-bottom:24px;">
+            </div>
+
+            <div class="admin-card">
+                <div class="admin-card-header">
+                    <span class="admin-card-title">All Ticket Sales</span>
+                    <select class="form-select" id="ticketEventFilter" style="width:200px;" onchange="renderTickets()" title="Filter by event">
+                        <option value="all">All Events</option>
+                    </select>
+                </div>
+                <div id="ticketsTableWrap"></div>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- Validate Modal -->
+    <div class="admin-modal-backdrop" id="validateModal" style="display:none;">
+        <div class="admin-modal" style="max-width:440px;">
+            <div class="admin-modal-header">
+                <h2 class="admin-modal-title">Validate Ticket</h2>
+                <button class="admin-modal-close" onclick="closeAdminModal('validateModal')">✕</button>
+            </div>
+            <div class="admin-modal-body">
+                <p style="font-size:14px;color:var(--admin-muted);margin-bottom:16px;">Enter the ticket ID manually or
+                    scan via the mobile app.</p>
+                <div class="form-field">
+                    <label class="form-label">Ticket ID</label>
+                    <input type="text" id="validateInput" class="form-input" placeholder="e.g. TKT-A1B2C3D4"
+                        style="text-transform:uppercase;letter-spacing:0.05em;" />
+                </div>
+                <div id="validateResult" style="margin-top:16px;"></div>
+            </div>
+            <div class="admin-modal-footer">
+                <button class="btn-secondary" onclick="closeAdminModal('validateModal')">Close</button>
+                <button class="btn-primary" onclick="validateTicket()">Validate →</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/store.js"></script>
+    <script src="js/admin-core.js"></script>
+  <script src="js/tickets-admin.js"></script>
+</body>
+
+</html>

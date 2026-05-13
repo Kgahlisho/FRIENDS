@@ -1,0 +1,200 @@
+/* &FRIENDS — gallery.css — Public gallery page */
+
+.gallery-hero {
+  padding: 160px 40px 80px;
+  text-align: center;
+}
+.gallery-hero-inner { max-width: 800px; margin: 0 auto; }
+.gallery-hero-title {
+  font-family: var(--font-display);
+  font-size: clamp(60px, 10vw, 120px);
+  line-height: 0.9;
+  color: var(--dark-brown);
+  margin-bottom: 20px;
+}
+.gallery-hero-title span { color: var(--orange); }
+.gallery-hero-sub {
+  font-family: var(--font-body);
+  font-size: 16px;
+  color: var(--dark);
+  letter-spacing: 0.05em;
+}
+
+/* Filter bar */
+.gallery-filter-bar {
+  display: flex;
+  gap: 10px;
+  padding: 0 40px 40px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.gallery-filter-btn {
+  padding: 9px 22px;
+  border: 1.5px solid var(--pink-mid);
+  border-radius: 20px;
+  background: transparent;
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  color: var(--dark);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.gallery-filter-btn:hover,
+.gallery-filter-btn.active {
+  background: var(--dark-brown);
+  border-color: var(--dark-brown);
+  color: var(--warm-white);
+}
+
+/* Campaigns */
+.gallery-campaigns { padding: 0 40px 100px; max-width: 1300px; margin: 0 auto; }
+
+.campaign-block { margin-bottom: 80px; }
+
+.campaign-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 2px solid var(--pink-mid);
+}
+.campaign-tag {
+  display: inline-block;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--orange);
+  margin-bottom: 6px;
+}
+.campaign-title {
+  font-family: var(--font-display);
+  font-size: 36px;
+  color: var(--dark-brown);
+  letter-spacing: 0.02em;
+}
+.campaign-date {
+  display: block;
+  font-size: 13px;
+  color: var(--dark);
+  margin-top: 4px;
+}
+.campaign-count {
+  font-size: 13px;
+  color: var(--dark);
+  letter-spacing: 0.05em;
+}
+
+.campaign-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 12px;
+}
+
+.campaign-img-wrap {
+  position: relative;
+  aspect-ratio: 4/3;
+  overflow: hidden;
+  border-radius: 10px;
+  cursor: pointer;
+  background: var(--pink-light);
+}
+.campaign-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+.campaign-img-wrap:hover img { transform: scale(1.06); }
+
+.campaign-img-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(28,14,4,0.7) 0%, transparent 50%);
+  opacity: 0;
+  transition: opacity 0.3s;
+  display: flex;
+  align-items: flex-end;
+  padding: 16px;
+}
+.campaign-img-wrap:hover .campaign-img-overlay { opacity: 1; }
+.campaign-img-overlay span {
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: var(--warm-white);
+  letter-spacing: 0.03em;
+}
+
+.gallery-empty {
+  text-align: center;
+  padding: 80px;
+  color: var(--dark);
+  font-size: 16px;
+}
+
+/* Lightbox */
+.gallery-lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(20,10,2,0.95);
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  padding: 20px;
+}
+.lightbox-content {
+  max-width: 900px;
+  width: 100%;
+  text-align: center;
+}
+.lightbox-content img {
+  max-height: 80vh;
+  max-width: 100%;
+  object-fit: contain;
+  border-radius: 8px;
+}
+.lightbox-caption {
+  color: rgba(253,246,242,0.7);
+  font-size: 14px;
+  margin-top: 14px;
+  letter-spacing: 0.04em;
+}
+.lightbox-close {
+  position: fixed;
+  top: 20px; right: 24px;
+  background: rgba(255,255,255,0.1);
+  border: none;
+  color: white;
+  font-size: 22px;
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background 0.2s;
+  z-index: 10;
+}
+.lightbox-close:hover { background: rgba(255,255,255,0.2); }
+.lightbox-prev, .lightbox-next {
+  background: rgba(255,255,255,0.1);
+  border: none;
+  color: white;
+  font-size: 32px;
+  width: 52px; height: 52px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background 0.2s;
+  flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+}
+.lightbox-prev:hover, .lightbox-next:hover { background: rgba(255,255,255,0.2); }
+
+@media (max-width: 768px) {
+  .gallery-hero { padding: 140px 20px 60px; }
+  .gallery-filter-bar { padding: 0 20px 30px; }
+  .gallery-campaigns { padding: 0 20px 60px; }
+  .campaign-grid { grid-template-columns: 1fr 1fr; gap: 8px; }
+  .lightbox-prev, .lightbox-next { width: 40px; height: 40px; font-size: 24px; }
+}

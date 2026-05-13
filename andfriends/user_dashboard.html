@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>&FRIENDS — My Dashboard</title>
+    <link rel="stylesheet" href="css/admin.css" />
+
+    
+
+    <style>
+        :root {
+            --admin-sidebar-w: 220px;
+        }
+
+        .res-sidebar {
+            background: var(--dark-brown);
+        }
+
+        .upcoming-event-card {
+            display: flex;
+            gap: 16px;
+            padding: 16px 0;
+            border-bottom: 1px solid var(--admin-border);
+        }
+
+        .upcoming-event-card:last-child {
+            border-bottom: none;
+        }
+
+        .upcoming-event-img {
+            width: 72px;
+            height: 72px;
+            border-radius: 8px;
+            object-fit: cover;
+            flex-shrink: 0;
+        }
+
+        .upcoming-event-info {
+            flex: 1;
+        }
+
+        .upcoming-event-title {
+            font-weight: 600;
+            font-size: 15px;
+            margin-bottom: 4px;
+        }
+
+        .upcoming-event-meta {
+            font-size: 12px;
+            color: var(--admin-muted);
+        }
+
+        .upcoming-event-tag {
+            display: inline-block;
+            font-size: 10px;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            background: rgba(232, 93, 4, .12);
+            color: var(--orange);
+            padding: 2px 8px;
+            border-radius: 20px;
+            margin-bottom: 4px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Resident Sidebar -->
+    <aside class="admin-sidebar res-sidebar">
+        <div class="admin-sidebar-brand">
+            <div class="brand-amp">&amp;</div>
+            <div class="brand-name">FRIENDS</div>
+            <span class="brand-role">Resident Portal</span>
+        </div>
+        <nav class="admin-nav">
+            <div class="admin-nav-section-label">My Account</div>
+            <a href="user_dashboard.html" class="active"><span>🏠</span> Dashboard</a>
+            <a href="user_tickets.html"><span>🎟</span> My Tickets</a>
+            <a href="user_profile.html"><span>👤</span> My Profile</a>
+            <div class="admin-nav-section-label" style="margin-top:8px;">Explore</div>
+            <a href="html/play.html"><span>🗓</span> Upcoming Events</a>
+            <a href="html/gallery.html"><span>🖼</span> Gallery</a>
+            <a href="html/index.html"><span>🏡</span> Back to Website</a>
+        </nav>
+        <div class="admin-sidebar-footer">
+            <div class="admin-sidebar-user" id="sidebarUser"></div>
+            <button class="btn-logout" onclick="resLogout()">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+                    <polyline points="16 17 21 12 16 7" />
+                    <line x1="21" y1="12" x2="9" y2="12" />
+                </svg>
+                Log Out
+            </button>
+        </div>
+    </aside>
+
+    <div class="admin-main">
+        <header class="admin-topbar">
+            <h1 class="admin-page-title" id="dashGreeting">Dashboard</h1>
+            <div class="admin-topbar-actions">
+                <a href="html/play.html" class="btn-primary">Browse Events →</a>
+            </div>
+        </header>
+
+        <main class="admin-content">
+            <div class="stats-grid" id="resStats" style="grid-template-columns:repeat(3,1fr);margin-bottom:24px;"></div>
+
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;">
+
+                <!-- My recent tickets -->
+                <div class="admin-card">
+                    <div class="admin-card-header">
+                        <span class="admin-card-title">My Recent Tickets</span>
+                        <a href="user_tickets.html" class="btn-secondary btn-sm">View All →</a>
+                    </div>
+                    <div class="admin-card-body" id="recentTickets"></div>
+                </div>
+
+                <!-- Upcoming events -->
+                <div class="admin-card">
+                    <div class="admin-card-header">
+                        <span class="admin-card-title">Upcoming Events</span>
+                        <a href="html/play.html" class="btn-secondary btn-sm">See All →</a>
+                    </div>
+                    <div class="admin-card-body" id="upcomingEvents"></div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <script src="js/store.js"></script>
+  <script src="js/user-dashboard.js"></script>
+</body>
+
+</html>

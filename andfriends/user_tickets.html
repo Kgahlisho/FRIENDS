@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>&FRIENDS — My Tickets</title>
+    <link rel="stylesheet" href="css/admin.css" />
+    <style>
+        :root {
+            --admin-sidebar-w: 220px;
+        }
+
+        .ticket-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 20px;
+        }
+
+        .rf-ticket {
+            background: var(--dark-brown);
+            border-radius: 16px;
+            overflow: hidden;
+            color: var(--warm-white);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .rf-ticket:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 36px rgba(44, 26, 14, 0.25);
+        }
+
+        .rf-ticket-top {
+            padding: 20px 22px 16px;
+        }
+
+        .rf-ticket-tag {
+            display: inline-block;
+            font-size: 10px;
+            letter-spacing: .12em;
+            text-transform: uppercase;
+            background: var(--orange);
+            color: white;
+            padding: 3px 10px;
+            border-radius: 20px;
+            margin-bottom: 10px;
+        }
+
+        .rf-ticket-title {
+            font-family: var(--font-display);
+            font-size: 26px;
+            letter-spacing: .03em;
+            margin-bottom: 4px;
+        }
+
+        .rf-ticket-meta {
+            font-size: 12px;
+            opacity: .65;
+        }
+
+        .rf-perf {
+            display: flex;
+            align-items: center;
+            margin: 0 -0px;
+            padding: 0 0;
+        }
+
+        .rf-perf-hole {
+            width: 18px;
+            height: 18px;
+            background: #f8f4f1;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .rf-perf-hole.l {
+            margin-left: -9px;
+        }
+
+        .rf-perf-hole.r {
+            margin-right: -9px;
+        }
+
+        .rf-perf-line {
+            flex: 1;
+            border-top: 1.5px dashed rgba(253, 246, 242, .18);
+        }
+
+        .rf-ticket-bottom {
+            padding: 16px 22px 20px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .rf-ticket-details {
+            flex: 1;
+        }
+
+        .rf-detail-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            padding: 5px 0;
+            border-bottom: 1px solid rgba(253, 246, 242, .1);
+        }
+
+        .rf-detail-row:last-child {
+            border-bottom: none;
+        }
+
+        .rf-detail-row span {
+            opacity: .6;
+        }
+
+        .rf-qr {
+            flex-shrink: 0;
+            padding: 8px;
+            background: var(--warm-white);
+            border-radius: 8px;
+        }
+
+        .rf-ticket-status {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 22px;
+            background: rgba(0, 0, 0, .18);
+            font-size: 11px;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+        }
+
+        .status-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 6px;
+        }
+
+        .status-active .status-dot {
+            background: #66bb6a;
+        }
+
+        .status-used .status-dot {
+            background: #ef9a9a;
+        }
+
+        @media(max-width:600px) {
+            .ticket-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <aside class="admin-sidebar">
+        <div class="admin-sidebar-brand">
+            <div class="brand-amp">&amp;</div>
+            <div class="brand-name">FRIENDS</div>
+            <span class="brand-role">Resident Portal</span>
+        </div>
+        <nav class="admin-nav">
+            <div class="admin-nav-section-label">My Account</div>
+            <a href="user_dashboard.html"><span>🏠</span> Dashboard</a>
+            <a href="user_tickets.html" class="active"><span>🎟</span> My Tickets</a>
+            <a href="user_profile.html"><span>👤</span> My Profile</a>
+            <div class="admin-nav-section-label" style="margin-top:8px;">Explore</div>
+            <a href="html/play.html"><span>🗓</span> Upcoming Events</a>
+            <a href="html/gallery.html"><span>🖼</span> Gallery</a>
+            <a href="html/index.html"><span>🏡</span> Back to Website</a>
+        </nav>
+        <div class="admin-sidebar-footer">
+            <div class="admin-sidebar-user" id="sidebarUser"></div>
+            <button class="btn-logout" onclick="Store.Auth.logout();window.location.href='html/index.html'">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+                    <polyline points="16 17 21 12 16 7" />
+                    <line x1="21" y1="12" x2="9" y2="12" />
+                </svg>
+                Log Out
+            </button>
+        </div>
+    </aside>
+
+    <div class="admin-main">
+        <header class="admin-topbar">
+            <h1 class="admin-page-title">My Tickets</h1>
+            <div class="admin-topbar-actions">
+                <select id="filterStatus" class="form-select" style="width:160px;" title="Filter by status" onchange="renderTickets()">
+                    <option value="all">All Tickets</option>
+                    <option value="active">Active</option>
+                    <option value="used">Used</option>
+                </select>
+                <a href="html/play.html" class="btn-primary">+ Get Tickets</a>
+            </div>
+        </header>
+
+        <main class="admin-content">
+            <div class="stats-grid" id="ticketStats" style="grid-template-columns:repeat(3,1fr);margin-bottom:28px;">
+            </div>
+            <div class="ticket-grid" id="ticketGrid"></div>
+        </main>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <script src="js/store.js"></script>
+  <script src="js/user-tickets.js"></script>
+</body>
+
+</html>

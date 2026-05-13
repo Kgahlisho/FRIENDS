@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>&FRIENDS Admin — Dashboard</title>
+  <link rel="stylesheet" href="css/admin.css" />
+</head>
+<body>
+
+  <!-- Sidebar injected by JS -->
+  <div id="sidebarMount"></div>
+
+  <div class="admin-main">
+    <header class="admin-topbar">
+      <h1 class="admin-page-title">Overview</h1>
+      <div class="admin-topbar-actions">
+        <a href="events.html" class="btn-primary">+ New Event</a>
+      </div>
+    </header>
+
+    <main class="admin-content">
+
+      <!-- Stats -->
+      <div class="stats-grid" id="statsGrid"></div>
+
+      <!-- 2 column layout -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;">
+
+        <!-- Recent events -->
+        <div class="admin-card">
+          <div class="admin-card-header">
+            <span class="admin-card-title">Recent Events</span>
+            <a href="events.html" class="btn-secondary btn-sm">Manage →</a>
+          </div>
+          <div id="recentEvents"></div>
+        </div>
+
+        <!-- Recent ticket sales -->
+        <div class="admin-card">
+          <div class="admin-card-header">
+            <span class="admin-card-title">Recent Ticket Sales</span>
+            <a href="tickets.html" class="btn-secondary btn-sm">View All →</a>
+          </div>
+          <div id="recentTickets"></div>
+        </div>
+
+      </div>
+
+      <!-- Quick actions -->
+      <div class="admin-card" style="margin-top:24px;">
+        <div class="admin-card-header">
+          <span class="admin-card-title">Quick Actions</span>
+        </div>
+        <div class="admin-card-body" style="display:flex;gap:12px;flex-wrap:wrap;">
+          <a href="events.html" class="btn-primary">+ Create Event</a>
+          <a href="admin_gallery.html" class="btn-primary">+ Upload to Gallery</a>
+          <a href="admin_content.html" class="btn-secondary">Edit Website Content</a>
+          <a href="admin.html" class="btn-secondary">Manage Users</a>
+          <a href="html/index.html" target="_blank" class="btn-secondary">↗ View Website</a>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <script src="js/store.js"></script>
+  <script src="js/admin-core.js"></script>
+  <script src="js/dashboard.js"></script>
+</body>
+</html>
