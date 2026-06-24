@@ -1,41 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>&FRIENDS Admin — Users</title>
-  <link rel="stylesheet" href="css/admin.css" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>&FRIENDS Admin — Users</title>
+    <link rel="stylesheet" href="css/admin.css" />
 </head>
+
 <body>
 
-  <div id="sidebarMount"></div>
+    <div id="sidebarMount"></div>
 
-  <div class="admin-main">
-    <header class="admin-topbar">
-      <h1 class="admin-page-title">Users</h1>
-      <div class="admin-topbar-actions">
-        <input type="text" id="userSearch" class="form-input" placeholder="Search by name or email…" style="width:240px;" oninput="renderUsers()" />
-        <select class="form-select" id="roleFilter" style="width:150px;" onchange="renderUsers()" title="Filter by role">
-          <option value="all">All Roles</option>
-          <option value="resident">Residents</option>
-          <option value="admin">Admins</option>
-        </select>
-      </div>
-    </header>
+    <div class="admin-main">
+        <header class="admin-topbar">
+            <h1 class="admin-page-title">Users</h1>
+            <div class="admin-topbar-actions">
+                <input type="text" id="userSearch" class="form-input" placeholder="Search by name or email…"
+                    style="width:240px;" oninput="renderUsers()" />
+                <select class="form-select" id="roleFilter" style="width:150px;" onchange="renderUsers()"
+                    title="Filter by role">
+                    <option value="all">All Roles</option>
+                    <option value="resident">Residents</option>
+                    <option value="admin">Admins</option>
+                </select>
+            </div>
+        </header>
 
-    <main class="admin-content">
-      <div class="stats-grid" id="userStats" style="grid-template-columns:repeat(3,1fr);margin-bottom:24px;"></div>
-      <div class="admin-card">
-        <div class="admin-card-header">
-          <span class="admin-card-title">All Users</span>
-        </div>
-        <div id="usersTableWrap"></div>
-      </div>
-    </main>
-  </div>
+        <main class="admin-content">
+            <div class="stats-grid" id="userStats" style="grid-template-columns:repeat(3,1fr);margin-bottom:24px;">
+            </div>
+            <div class="admin-card">
+                <div class="admin-card-header">
+                    <span class="admin-card-title">All Users</span>
+                </div>
+                <div id="usersTableWrap"></div>
+            </div>
+        </main>
+    </div>
 
-  <script src="js/store.js"></script>
-  <script src="js/admin-core.js"></script>
-  <script src="js/users-admin.js"></script>
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-storage-compat.js"></script>
+
+    <script src="js/firebase-config.js"></script>
+    <script src="js/firebase-store.js"></script>
+    <script src="js/admin-core.js"></script>
+    <script src="js/users-admin.js"></script>
 </body>
+
 </html>

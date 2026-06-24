@@ -71,7 +71,7 @@ function renderPage() {
   document.getElementById('eventPageRoot').innerHTML = `
     <section class="event-hero">
       <div class="event-hero-img-wrap">
-        <img src="${e.image}" alt="${e.title}" class="event-hero-img" />
+        <img src="${resolveImage(e.image)}" alt="${e.title}" class="event-hero-img" />
         <div class="event-hero-overlay"></div>
       </div>
       <div class="event-hero-content">

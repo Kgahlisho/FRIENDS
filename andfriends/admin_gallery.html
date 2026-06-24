@@ -1,106 +1,119 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>&FRIENDS Admin — Gallery</title>
-  <link rel="stylesheet" href="css/admin.css" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>&FRIENDS Admin — Gallery</title>
+    <link rel="stylesheet" href="css/admin.css" />
 </head>
+
 <body>
 
-  <div id="sidebarMount"></div>
+    <div id="sidebarMount"></div>
 
-  <div class="admin-main">
-    <header class="admin-topbar">
-      <h1 class="admin-page-title">Gallery</h1>
-      <div class="admin-topbar-actions">
-        <button class="btn-primary" onclick="openCampaignModal()">+ New Campaign</button>
-      </div>
-    </header>
+    <div class="admin-main">
+        <header class="admin-topbar">
+            <h1 class="admin-page-title">Gallery</h1>
+            <div class="admin-topbar-actions">
+                <button class="btn-primary" onclick="openCampaignModal()">+ New Campaign</button>
+            </div>
+        </header>
 
-    <main class="admin-content">
-      <div id="campaignsGrid" style="display:grid;gap:24px;"></div>
-    </main>
-  </div>
-
-
-  <!-- New / Edit Campaign Modal -->
- <div class="admin-modal-backdrop" id="campaignModal" style="display:none;">
-    <div class="admin-modal" style="max-width:640px;">
-      <div class="admin-modal-header">
-        <h2 class="admin-modal-title" id="campaignModalTitle">New Campaign</h2>
-        <button class="admin-modal-close" onclick="closeAdminModal('campaignModal')">✕</button>
-      </div>
-      <div class="admin-modal-body">
-        <div class="form-grid">
-          <div class="form-field">
-            <label class="form-label">Campaign Name *</label>
-            <input type="text" id="campName" class="form-input" placeholder="e.g. March Music Night" />
-          </div>
-          <div class="form-field">
-            <label class="form-label">Category Tag</label>
-            <select id="campTag" class="form-select">
-              <option value="&Bloom">&amp;Bloom</option>
-              <option value="&Music">&amp;Music</option>
-              <option value="&Fun">&amp;Fun</option>
-              <option value="&Talk">&amp;Talk</option>
-              <option value="&Food">&amp;Food</option>
-            </select>
-          </div>
-          <div class="form-field">
-            <label class="form-label">Date / Period</label>
-            <input type="text" id="campDate" class="form-input" placeholder="e.g. March 2026" />
-          </div>
-          <div class="form-field" style="justify-content:flex-end;">
-            <label class="form-label">&nbsp;</label>
-            <label style="display:flex;align-items:center;gap:10px;cursor:pointer;padding:10px 0;">
-              <input type="checkbox" id="campPublished" style="width:16px;height:16px;accent-color:var(--orange);" />
-              <span style="font-size:14px;">Publish this campaign</span>
-            </label>
-          </div>
-        </div>
-      </div>
-      <div class="admin-modal-footer">
-        <button class="btn-secondary" onclick="closeAdminModal('campaignModal')">Cancel</button>
-        <button class="btn-primary" onclick="saveCampaign()">Save Campaign</button>
-      </div>
+        <main class="admin-content">
+            <div id="campaignsGrid" style="display:grid;gap:24px;"></div>
+        </main>
     </div>
-  </div>
 
-  <!-- Add Images Modal -->
-  <div class="admin-modal-backdrop" id="imagesModal" style="display:none;">
-    <div class="admin-modal" style="max-width:720px;">
-      <div class="admin-modal-header">
-        <h2 class="admin-modal-title" id="imagesModalTitle">Add Images</h2>
-        <button class="admin-modal-close" onclick="closeAdminModal('imagesModal')">✕</button>
-      </div>
-      <div class="admin-modal-body">
-        <div class="upload-zone" id="imgUploadZone">
-          <input type="file" accept="image/*" multiple onchange="handleImageUploads(this)" />
-          <div class="upload-zone-icon">🖼</div>
-          <div class="upload-zone-text"><strong>Click to upload images</strong> or drag & drop<br>Multiple images allowed · JPG, PNG, WEBP</div>
+
+    <!-- New / Edit Campaign Modal -->
+    <div class="admin-modal-backdrop" id="campaignModal" style="display:none;">
+        <div class="admin-modal" style="max-width:640px;">
+            <div class="admin-modal-header">
+                <h2 class="admin-modal-title" id="campaignModalTitle">New Campaign</h2>
+                <button class="admin-modal-close" onclick="closeAdminModal('campaignModal')">✕</button>
+            </div>
+            <div class="admin-modal-body">
+                <div class="form-grid">
+                    <div class="form-field">
+                        <label class="form-label">Campaign Name *</label>
+                        <input type="text" id="campName" class="form-input" placeholder="e.g. March Music Night" />
+                    </div>
+                    <div class="form-field">
+                        <label class="form-label">Category Tag</label>
+                        <select id="campTag" class="form-select">
+                            <option value="&Bloom">&amp;Bloom</option>
+                            <option value="&Music">&amp;Music</option>
+                            <option value="&Fun">&amp;Fun</option>
+                            <option value="&Talk">&amp;Talk</option>
+                            <option value="&Food">&amp;Food</option>
+                        </select>
+                    </div>
+                    <div class="form-field">
+                        <label class="form-label">Date / Period</label>
+                        <input type="text" id="campDate" class="form-input" placeholder="e.g. March 2026" />
+                    </div>
+                    <div class="form-field" style="justify-content:flex-end;">
+                        <label class="form-label">&nbsp;</label>
+                        <label style="display:flex;align-items:center;gap:10px;cursor:pointer;padding:10px 0;">
+                            <input type="checkbox" id="campPublished"
+                                style="width:16px;height:16px;accent-color:var(--orange);" />
+                            <span style="font-size:14px;">Publish this campaign</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="admin-modal-footer">
+                <button class="btn-secondary" onclick="closeAdminModal('campaignModal')">Cancel</button>
+                <button class="btn-primary" onclick="saveCampaign()">Save Campaign</button>
+            </div>
         </div>
-
-        <div style="margin-top:20px;">
-          <label class="form-label">Caption for new images</label>
-          <input type="text" id="imgCaption" class="form-input" placeholder="Optional caption" style="margin-top:6px;" />
-        </div>
-
-        <div id="pendingImgPreview" class="img-preview-grid" style="margin-top:16px;"></div>
-
-
-        <!-- Existing images in this campaign -->
-       <div id="existingImagesWrap" style="margin-top:24px;"></div>
-      </div>
-      <div class="admin-modal-footer">
-        <button class="btn-secondary" onclick="closeAdminModal('imagesModal')">Done</button>
-        <button class="btn-primary" onclick="saveImages()">Add Images</button>
-      </div>
     </div>
-  </div>
 
-  <script src="js/store.js"></script>
-  <script src="js/admin-core.js"></script>
-  <script src="js/gallery-admin.js"></script>
+    <!-- Add Images Modal -->
+    <div class="admin-modal-backdrop" id="imagesModal" style="display:none;">
+        <div class="admin-modal" style="max-width:720px;">
+            <div class="admin-modal-header">
+                <h2 class="admin-modal-title" id="imagesModalTitle">Add Images</h2>
+                <button class="admin-modal-close" onclick="closeAdminModal('imagesModal')">✕</button>
+            </div>
+            <div class="admin-modal-body">
+                <div class="upload-zone" id="imgUploadZone">
+                    <input type="file" accept="image/*" multiple onchange="handleImageUploads(this)" />
+                    <div class="upload-zone-icon">🖼</div>
+                    <div class="upload-zone-text"><strong>Click to upload images</strong> or drag & drop<br>Multiple
+                        images allowed · JPG, PNG, WEBP</div>
+                </div>
+
+                <div style="margin-top:20px;">
+                    <label class="form-label">Caption for new images</label>
+                    <input type="text" id="imgCaption" class="form-input" placeholder="Optional caption"
+                        style="margin-top:6px;" />
+                </div>
+
+                <div id="pendingImgPreview" class="img-preview-grid" style="margin-top:16px;"></div>
+
+
+                <!-- Existing images in this campaign -->
+                <div id="existingImagesWrap" style="margin-top:24px;"></div>
+            </div>
+            <div class="admin-modal-footer">
+                <button class="btn-secondary" onclick="closeAdminModal('imagesModal')">Done</button>
+                <button class="btn-primary" onclick="saveImages()">Add Images</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-storage-compat.js"></script>
+
+    <script src="js/firebase-config.js"></script>
+    <script src="js/firebase-store.js"></script>
+    <script src="js/admin-core.js"></script>
+    <script src="js/gallery-admin.js"></script>
 </body>
+
 </html>

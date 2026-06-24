@@ -7,6 +7,7 @@
     <title>&FRIENDS — FUN</title>
     <meta name="description" content="Community events, workshops, and joy-filled gatherings at &FRIENDS." />
     <link rel="stylesheet" href="../css/styles.css" />
+<link rel="stylesheet" href="../css/auth.css" />  
 </head>
 
 <body>
@@ -25,8 +26,8 @@
     <nav aria-label="Main navigation">
         <div class="nav-pill">
             <a href="index.html#hero">Home</a>
-            <a href="index.html#services">Services</a>
-            <a href="index.html#events">Events</a>
+            <a href="Services.html">Services</a>
+            <a href="event.html">Events</a>
             <a href="Aboutus.html">About Us</a>
             <a href="#footer" class="active">Contact Us</a>
         </div>
@@ -45,7 +46,7 @@
             </div>
             <div class="hero-text-block">
                 <h1 class="hero-title"><span>&</span>FUN</h1>
-                <p class="hero-location">Laughter, joy, connection · 5 De Beer St</p>
+                <p class="hero-location">Laughter <br> joy <br> connection </p>
             </div>
         </div>
     </section>
@@ -59,7 +60,7 @@
                 <div class="who-img-wrap reveal-left">
                     <img src="../Resources/yomzansi_4458.jpg" alt="Community celebrations" class="who-img" />
                 </div>
-                <div class="who-text reveal">
+                <div class="who-text reveal" style="margin-top:60px;">
                     <p>&amp;FUN is life in full color. It's workshops that spark creativity you didn't know lived inside
                         you. Community events that birth friendships in real-time. Game nights, film screenings, dance
                         parties, and moments of pure shared joy.</p>
@@ -91,30 +92,30 @@
             <div class="section-big-title reveal"><span>&</span>WHAT WE DO</div>
             <div style="max-width:900px; margin:0 auto; padding:40px;">
 
-                <div class="reveal" style="margin-bottom: 60px;">
-                    <h3 style="font-family: var(--font-serif); font-size: 24px; margin: 0 0 12px 0;">Creative Workshops
+                <div class="reveal" style="margin-bottom: 25px;">
+                    <h3 style="font-family: var(--font-serif); font-size: 24px; margin: 0 0 2px 0;">Creative Workshops
                     </h3>
                     <p>Learn something new from people who live it. Pottery. Photography. Movement. Songwriting. These
                         sessions aren't lectures—they're collaborative explorations where everyone leaves with fresh
                         skills and fresh friendships.</p>
                 </div>
 
-                <div class="reveal" style="margin-bottom: 60px;">
-                    <h3 style="font-family: var(--font-serif); font-size: 24px; margin: 0 0 12px 0;">Community Game
+                <div class="reveal" style="margin-bottom: 25px;">
+                    <h3 style="font-family: var(--font-serif); font-size: 24px; margin: 0 0 2px 0;">Community Game
                         Nights</h3>
                     <p>Board games. Card games. Improv. The kind of nights where competition and camaraderie dance
                         together. Where strangers discover they're actually kindred spirits.</p>
                 </div>
 
-                <div class="reveal" style="margin-bottom: 60px;">
-                    <h3 style="font-family: var(--font-serif); font-size: 24px; margin: 0 0 12px 0;">Film & Screening
+                <div class="reveal" style="margin-bottom: 25px;">
+                    <h3 style="font-family: var(--font-serif); font-size: 24px; margin: 0 0 2px 0;">Film & Screening
                         Sessions</h3>
                     <p>Documentaries that ignite conversation. Indie films that shift perspective. Screenings followed
                         by discussions that dive deep. Cinema as communal experience.</p>
                 </div>
 
-                <div class="reveal" style="margin-bottom: 60px;">
-                    <h3 style="font-family: var(--font-serif); font-size: 24px; margin: 0 0 12px 0;">Dance Parties &
+                <div class="reveal" style="margin-bottom: 25px;">
+                    <h3 style="font-family: var(--font-serif); font-size: 24px; margin: 0 0 2px 0;">Dance Parties &
                         Movement</h3>
                     <p>DJ sets curated with intention. Dance floors that welcome all levels. From groove-focused
                         sessions to high-energy electronic nights—the rhythm adapts to the community.</p>
@@ -134,7 +135,7 @@
     <section id="upcoming-fun">
         <div style="max-width:900px; margin:0 auto; padding:80px 40px;">
             <div class="section-amp">&</div>
-            <div class="section-label">Coming Up :</div>
+            <div class="section-label"> Coming Up This Weekend :</div>
             <div class="reveal">
                 <p style="font-size: 16px; line-height: 1.8; margin-bottom: 24px;">Our event calendar is constantly
                     filling with new experiences. Check back regularly for upcoming workshops, game nights, screenings,
@@ -172,11 +173,11 @@
                 <div class="footer-links">
                     <h4>&amp;Friends</h4>
                     <nav aria-label="Footer navigation">
-                        <a href="Aboutus.html">About Us</a>
-                        <a href="#footer">Contact Us</a>
-                        <a href="index.html#events">Events</a>
-                        <a href="index.html#moments">Gallery</a>
-                        <a href="index.html#services">Bookings</a>
+                          <a href="Aboutus.html">About Us</a>
+                        <a href="contactUs.html">Contact Us</a>
+                        <a href="play.html">Events</a>
+                        <a href="gallery.html">Gallery</a>
+                        <a href="services.html">Bookings</a>
                         <a href="#">Privacy Policy</a>
                     </nav>
                 </div>
@@ -187,8 +188,16 @@
             </div>
         </section>
     </footer>
-
+   <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-storage-compat.js"></script>
+    <script src="../js/firebase-config.js"></script>
+    <script src="../js/firebase-store.js"></script>
+    <script src="../js/auth.js"></script>
     <script src="../js/main.js"></script>
+
 </body>
 
 </html>

@@ -8,6 +8,7 @@
     <meta name="description"
         content="Join conversations that matter at &FRIENDS. Panels, discussions, and thought leadership." />
     <link rel="stylesheet" href="../css/styles.css" />
+    <link rel="stylesheet" href="../css/auth.css" />
 </head>
 
 <body>
@@ -26,8 +27,8 @@
     <nav aria-label="Main navigation">
         <div class="nav-pill">
             <a href="index.html#hero">Home</a>
-            <a href="index.html#services">Services</a>
-            <a href="index.html#events">Events</a>
+            <a href="Services.html">Services</a>
+            <a href="event.html">Events</a>
             <a href="Aboutus.html">About Us</a>
             <a href="#footer" class="active">Contact Us</a>
         </div>
@@ -46,7 +47,7 @@
             </div>
             <div class="hero-text-block">
                 <h1 class="hero-title"><span>&</span>TALK</h1>
-                <p class="hero-location">Where conversations matter · 5 De Beer St</p>
+                <p class="hero-location">Where conversations matter </p>
             </div>
         </div>
     </section>
@@ -57,15 +58,16 @@
             <div class="section-amp">&</div>
             <div class="section-label">What Happens Here :</div>
             <div class="who-grid">
-                <div class="who-img-wrap reveal-left">
-                    <img src="../Resources/1E6A6485-2.jpg" alt="Talk sessions at &FRIENDS" class="who-img" />
-                </div>
-                <div class="who-text reveal">
+
+                <div class="who-text reveal" style="margin-top:40px;">The Essence of &TALK
                     <p>&amp;TALK is where minds collide in the best possible way. Panels that challenge. Discussions
                         that heal. Conversations that spark something you didn't know you were searching for.</p>
                     <p>These aren't sterile boardroom sit-downs. They're intimate exchanges between creators,
                         entrepreneurs, visionaries, and curious souls. The kind of talks where someone says something
                         that shifts your entire trajectory.</p>
+                </div>
+                <div class="who-img-wrap reveal-left">
+                    <img src="../Resources/1E6A6485-2.jpg" alt="Talk sessions at &FRIENDS" class="who-img" />
                 </div>
             </div>
         </div>
@@ -75,7 +77,8 @@
     <section id="the-vibe">
         <div class="about-inner">
             <div class="reveal-left">
-                <img src="../Resources/imagesGallet.jpg" alt="The conversational energy at &FRIENDS" class="about-img" />
+                <img src="../Resources/imagesGallet.jpg" alt="The conversational energy at &FRIENDS"
+                    class="about-img" />
             </div>
             <div class="about-text reveal">
                 <div class="section-label">You'll Feel It :</div>
@@ -91,20 +94,20 @@
     <section id="past-talks" class="striped-bg">
         <div class="talk-inner">
             <div class="section-big-title reveal"><span>&</span>PAST ECHOES</div>
-            <div style="max-width:900px; margin:0 auto; padding:40px;">
+            <div style="max-width:900px; margin:0 auto;">
                 <div class="reveal">
                     <h3 style="font-family: var(--font-serif); font-size: 24px; margin: 32px 0 12px 0;">Thought
                         Leadership Masterclasses</h3>
                     <p>Industry veterans unpacking decades of wisdom. Strategy. Failure. Victory. The unfiltered truths
                         that textbooks never teach.</p>
                 </div>
-                <div class="reveal" style="margin-top: 40px;">
+                <div class="reveal" style="margin-top: 25px;">
                     <h3 style="font-family: var(--font-serif); font-size: 24px; margin: 32px 0 12px 0;">Creative
                         Community Panels</h3>
                     <p>Cross-disciplinary conversations. A filmmaker, a chef, a musician, a poet—all riffing on
                         creativity's infinite forms. Sparks fly. Ideas multiply.</p>
                 </div>
-                <div class="reveal" style="margin-top: 40px;">
+                <div class="reveal" style="margin-top: 25px;">
                     <h3 style="font-family: var(--font-serif); font-size: 24px; margin: 32px 0 12px 0;">Intimate
                         Roundtables</h3>
                     <p>Smaller gatherings where vulnerability thrives. The conversations that heal. The ones that birth
@@ -138,8 +141,7 @@
                     style="font-size: 16px; margin-bottom: 32px; max-width: 600px; margin-left: auto; margin-right: auto;">
                     Have an idea for a panel? A masterclass? A talk that needs amplification? Let's make it happen
                     together.</p>
-                <a href="#footer" class="btn">Get In Touch</a>
-            </div>
+                <a href="contactUs.html" class="btn">Get In Touch</a>
         </div>
     </section>
 
@@ -157,10 +159,10 @@
                     <h4>&amp;Friends</h4>
                     <nav aria-label="Footer navigation">
                         <a href="Aboutus.html">About Us</a>
-                        <a href="#footer">Contact Us</a>
-                        <a href="index.html#events">Events</a>
-                        <a href="index.html#moments">Gallery</a>
-                        <a href="index.html#services">Bookings</a>
+                        <a href="contactUs.html">Contact Us</a>
+                        <a href="play.html">Events</a>
+                        <a href="gallery.html">Gallery</a>
+                        <a href="services.html">Bookings</a>
                         <a href="#">Privacy Policy</a>
                     </nav>
                 </div>
@@ -171,8 +173,16 @@
             </div>
         </section>
     </footer>
-
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-storage-compat.js"></script>
+    <script src="../js/firebase-config.js"></script>
+    <script src="../js/firebase-store.js"></script>
+    <script src="../js/auth.js"></script>
     <script src="../js/main.js"></script>
+
 </body>
 
 </html>

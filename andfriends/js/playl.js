@@ -5,9 +5,22 @@
  */
 
 document.addEventListener('DOMContentLoaded', () => {
+
+    try{
+        await Store.Events.fetchPublished();
+
+        await Store.Content.fetch();
+
+        console.log('Published events:', Store.Events.getPublished());
+
+    
   renderEventsPage();
   loadFooter();
-});
+}catch(err) {
+    console.error('play page load failed',err);
+}
+}
+);
 
 function loadFooter() {
   const c = Store.Content.getSection('contact');
@@ -68,7 +81,7 @@ function renderEventsPage() {
 function buildHeroCard(e) {
   return `
     <div class="poster-card poster-card--hero" data-event-id="${e.id}">
-      <img src="${e.image}" alt="${e.title}" class="poster-img" />
+      <img src="${resolveImage(e.image)}" alt="${e.title}" class="poster-img" />
       <div class="poster-overlay"></div>
       <div class="poster-content">
         <span class="poster-tag">${e.tag}</span>
@@ -85,7 +98,7 @@ function buildHeroCard(e) {
 function buildSmallCard(e) {
   return `
     <div class="poster-card poster-card--sm" data-event-id="${e.id}">
-      <img src="${e.image}" alt="${e.title}" class="poster-img" />
+      <img src="${resolveImage(e.image)}" alt="${e.title}" class="poster-img" />
       <div class="poster-overlay"></div>
       <div class="poster-content">
         <span class="poster-tag">${e.tag}</span>

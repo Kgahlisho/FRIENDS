@@ -7,6 +7,8 @@
     <title>&FRIENDS — About Us</title>
     <meta name="description" content="Learn the story of Mamakashaka &amp; Friends at 5 De Beer St, Braamfontein." />
     <link rel="stylesheet" href="../css/styles.css" />
+
+<link rel="stylesheet" href="../css/auth.css" />  
 </head>
 
 <body>
@@ -18,17 +20,17 @@
         <a href="index.html#services">Services</a>
         <a href="index.html#events">Events</a>
         <a href="#who-we-are">About Us</a>
-        <a href="#footer">Contact Us</a>
+        <a href="contactUs.html">Contact Us</a>
     </div>
 
     <!--  NAVIGATION  -->
     <nav aria-label="Main navigation">
         <div class="nav-pill">
             <a href="index.html#hero">Home</a>
-            <a href="index.html#services">Services</a>
-            <a href="index.html#events">Events</a>
+            <a href="Services.html">Services</a>
+            <a href="play.html">Events</a>
             <a href="#who-we-are" class="active">About Us</a>
-            <a href="#footer">Contact Us</a>
+            <a href="contactUs.html">Contact Us</a>
         </div>
         <div class="hamburger" role="button" aria-label="Open menu" tabindex="0">
             <span></span>
@@ -59,7 +61,7 @@
                     <img src="../Resources/wvpw8vannd2pwexpidcz.webp" alt="Historic building at 5 De Beer"
                         class="who-img" />
                 </div>
-                <div class="who-text reveal">
+                <div class="who-text reveal" style="margin-top:60px;">
                     <p>Every brick holds rhythm. Every room breathes heritage. When Mamakashaka stepped into this sacred
                         space, it wasn't about erasing history—it was about amplifying it, remixing it, making it
                         resonate for today's creators.</p>
@@ -117,7 +119,7 @@
                 <div class="who-img-wrap reveal-left">
                     <img src="../Resources/nandi.webp" alt="Mamakashaka founder" class="who-img" />
                 </div>
-                <div class="who-text reveal">
+                <div class="who-text reveal" style="margin-top:70px;">
                     <h3 style="font-family: var(--font-serif); font-size: 28px; margin-bottom: 16px;">Nandi Dlapo.</h3>
                     <p>The visionary architect of this space. A creative force who understood that Johannesburg needed
                         more than a venue—it needed a sanctuary for ideas to breathe, for collaborations to flourish,
@@ -166,11 +168,11 @@
                 <div class="footer-links">
                     <h4>&amp;Friends</h4>
                     <nav aria-label="Footer navigation">
-                        <a href="#who-we-are">About Us</a>
-                        <a href="#footer">Contact Us</a>
-                        <a href="index.html#events">Events</a>
-                        <a href="index.html#moments">Gallery</a>
-                        <a href="index.html#services">Bookings</a>
+                        <a href="Aboutus.html">About Us</a>
+                        <a href="contactUs.html">Contact Us</a>
+                        <a href="play.html">Events</a>
+                        <a href="gallery.html">Gallery</a>
+                        <a href="services.html">Bookings</a>
                         <a href="#">Privacy Policy</a>
                     </nav>
                 </div>
@@ -182,7 +184,16 @@
         </section>
     </footer>
 
+   <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-storage-compat.js"></script>
+    <script src="../js/firebase-config.js"></script>
+    <script src="../js/firebase-store.js"></script>
+    <script src="../js/auth.js"></script>
     <script src="../js/main.js"></script>
+
 </body>
 
 </html>

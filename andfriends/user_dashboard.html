@@ -6,64 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>&FRIENDS — My Dashboard</title>
     <link rel="stylesheet" href="css/admin.css" />
-
-    
-
-    <style>
-        :root {
-            --admin-sidebar-w: 220px;
-        }
-
-        .res-sidebar {
-            background: var(--dark-brown);
-        }
-
-        .upcoming-event-card {
-            display: flex;
-            gap: 16px;
-            padding: 16px 0;
-            border-bottom: 1px solid var(--admin-border);
-        }
-
-        .upcoming-event-card:last-child {
-            border-bottom: none;
-        }
-
-        .upcoming-event-img {
-            width: 72px;
-            height: 72px;
-            border-radius: 8px;
-            object-fit: cover;
-            flex-shrink: 0;
-        }
-
-        .upcoming-event-info {
-            flex: 1;
-        }
-
-        .upcoming-event-title {
-            font-weight: 600;
-            font-size: 15px;
-            margin-bottom: 4px;
-        }
-
-        .upcoming-event-meta {
-            font-size: 12px;
-            color: var(--admin-muted);
-        }
-
-        .upcoming-event-tag {
-            display: inline-block;
-            font-size: 10px;
-            letter-spacing: .1em;
-            text-transform: uppercase;
-            background: rgba(232, 93, 4, .12);
-            color: var(--orange);
-            padding: 2px 8px;
-            border-radius: 20px;
-            margin-bottom: 4px;
-        }
-    </style>
+    <link rel="stylesheet" href="css/event_detail.css" />
+    <link rel="stylesheet" href="css/user-dashboard.css" />
 </head>
 
 <body>
@@ -81,7 +25,7 @@
             <a href="user_tickets.html"><span>🎟</span> My Tickets</a>
             <a href="user_profile.html"><span>👤</span> My Profile</a>
             <div class="admin-nav-section-label" style="margin-top:8px;">Explore</div>
-            <a href="html/play.html"><span>🗓</span> Upcoming Events</a>
+            <a href="#" onclick="showEventsSection(); return false;"><span>🗓</span> Browse Events</a>
             <a href="html/gallery.html"><span>🖼</span> Gallery</a>
             <a href="html/index.html"><span>🏡</span> Back to Website</a>
         </nav>
@@ -102,39 +46,190 @@
         <header class="admin-topbar">
             <h1 class="admin-page-title" id="dashGreeting">Dashboard</h1>
             <div class="admin-topbar-actions">
-                <a href="html/play.html" class="btn-primary">Browse Events →</a>
+                <button class="btn-primary" onclick="showEventsSection()">Browse Events →</button>
             </div>
         </header>
 
         <main class="admin-content">
-            <div class="stats-grid" id="resStats" style="grid-template-columns:repeat(3,1fr);margin-bottom:24px;"></div>
+            <!-- Dashboard View -->
+            <div id="dashboardView">
+                <div class="stats-grid" id="resStats" style="grid-template-columns:repeat(3,1fr);margin-bottom:24px;"></div>
 
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;">
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;">
+                    <div class="admin-card">
+                        <div class="admin-card-header">
+                            <span class="admin-card-title">My Recent Tickets</span>
+                            <a href="user_tickets.html" class="btn-secondary btn-sm">View All →</a>
+                        </div>
+                        <div class="admin-card-body" id="recentTickets"></div>
+                    </div>
 
-                <!-- My recent tickets -->
+                    <div class="admin-card">
+                        <div class="admin-card-header">
+                            <span class="admin-card-title">Upcoming Events</span>
+                            <button class="btn-secondary btn-sm" onclick="showEventsSection()">See All →</button>
+                        </div>
+                        <div class="admin-card-body" id="upcomingEventsPreview"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Events View -->
+            <div id="eventsView" style="display: none;">
                 <div class="admin-card">
                     <div class="admin-card-header">
-                        <span class="admin-card-title">My Recent Tickets</span>
-                        <a href="user_tickets.html" class="btn-secondary btn-sm">View All →</a>
+                        <span class="admin-card-title">All Events</span>
+                        <button class="btn-secondary btn-sm" onclick="showDashboardView()">← Back to Dashboard</button>
                     </div>
-                    <div class="admin-card-body" id="recentTickets"></div>
-                </div>
-
-                <!-- Upcoming events -->
-                <div class="admin-card">
-                    <div class="admin-card-header">
-                        <span class="admin-card-title">Upcoming Events</span>
-                        <a href="html/play.html" class="btn-secondary btn-sm">See All →</a>
+                    <div class="admin-card-body">
+                        <div class="filter-bar" id="filterBar">
+                            <button class="filter-chip active" data-filter="all" onclick="filterEvents('all')">All Events</button>
+                            <button class="filter-chip" data-filter="Live Music" onclick="filterEvents('Live Music')">Live Music</button>
+                            <button class="filter-chip" data-filter="Afro Soul" onclick="filterEvents('Afro Soul')">Afro Soul</button>
+                            <button class="filter-chip" data-filter="Afro Jazz" onclick="filterEvents('Afro Jazz')">Afro Jazz</button>
+                            <button class="filter-chip" data-filter="Food & Culture" onclick="filterEvents('Food & Culture')">Food & Culture</button>
+                            <button class="filter-chip" data-filter="Workshop" onclick="filterEvents('Workshop')">Workshop</button>
+                        </div>
+                        <div id="allEventsGrid" class="events-full-grid">
+                            <div class="events-loading">Loading events...</div>
+                        </div>
                     </div>
-                    <div class="admin-card-body" id="upcomingEvents"></div>
                 </div>
-
             </div>
         </main>
     </div>
 
-    <script src="js/store.js"></script>
-  <script src="js/user-dashboard.js"></script>
+    <!-- Event Modal -->
+    <div id="dashboardEventModal" class="dashboard-event-modal" style="display: none;">
+        <div class="dashboard-event-container">
+            <div class="dashboard-event-header">
+                <h2 id="modalEventTitle">Event Details</h2>
+                <button class="dashboard-event-close" onclick="closeEventModal()">✕</button>
+            </div>
+            <div class="dashboard-event-body">
+                <div class="dashboard-event-image-section">
+                    <img id="modalEventImage" class="dashboard-event-image" src="" alt="Event image">
+                    <span class="event-tag-overlay" id="modalEventTag">EVENT</span>
+                </div>
+                <div class="dashboard-event-info">
+                    <h3 class="dashboard-event-name" id="modalEventName"></h3>
+                    
+                    <div class="event-meta-grid" id="modalEventMeta"></div>
+                    
+                    <div class="event-description" id="modalEventDescription"></div>
+                    
+                    <div class="dashboard-ticket-selector">
+                        <h4>🎟 Select Your Ticket</h4>
+                        <div id="modalTicketTiers"></div>
+                        
+                        <div class="dashboard-qty-control">
+                            <span class="qty-label">Quantity</span>
+                            <div class="qty-controls">
+                                <button class="dashboard-qty-btn" onclick="changeModalQty(-1)">−</button>
+                                <span id="modalQtyValue" style="min-width: 40px; text-align: center; font-weight: 600;">1</span>
+                                <button class="dashboard-qty-btn" onclick="changeModalQty(1)">+</button>
+                            </div>
+                        </div>
+                        
+                        <div class="total-row">
+                            <span class="total-label">Total Amount</span>
+                            <span class="total-price" id="modalTotalPrice">R0</span>
+                        </div>
+                        
+                        <button class="dashboard-purchase-btn" onclick="purchaseFromModal()">
+                            Purchase Tickets 
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Confirmation Modal -->
+    <div id="confirmationModal" class="dashboard-event-modal" style="display: none;">
+        <div class="dashboard-event-container confirmation-container">
+            <div class="dashboard-event-header">
+                <h2>Confirm Your Order</h2>
+                <button class="dashboard-event-close" onclick="closeConfirmationModal()">✕</button>
+            </div>
+            <div class="dashboard-event-body">
+                <div class="dashboard-event-info" style="padding: 30px;">
+                    <div style="text-align: center; margin-bottom: 24px;">
+                        <div style="font-size: 48px;">🎟</div>
+                        <h3 style="font-family: var(--font-display); font-size: 24px; margin-top: 8px;">Review Your Purchase</h3>
+                    </div>
+                    
+                    <!-- Event Summary -->
+                    <div class="confirmation-event-summary">
+                        <h4 style="font-family: var(--font-serif); margin-bottom: 16px; color: var(--dark-brown);">📅 Event Details</h4>
+                        <div style="display: flex; flex-direction: column; gap: 10px;">
+                            <div><strong>Event:</strong> <span id="confirmEventName"></span></div>
+                            <div><strong>Date:</strong> <span id="confirmEventDate"></span></div>
+                            <div><strong>Time:</strong> <span id="confirmEventTime"></span></div>
+                            <div><strong>Location:</strong> <span id="confirmEventLocation"></span></div>
+                        </div>
+                    </div>
+                    
+                    <!-- Ticket Summary -->
+                    <div class="confirmation-ticket-summary">
+                        <h4 style="font-family: var(--font-serif); margin-bottom: 16px; color: var(--dark-brown);">🎫 Ticket Summary</h4>
+                        <div style="display: flex; flex-direction: column; gap: 12px;">
+                            <div style="display: flex; justify-content: space-between;">
+                                <span>Ticket Type:</span>
+                                <strong id="confirmTicketTier"></strong>
+                            </div>
+                            <div style="display: flex; justify-content: space-between;">
+                                <span>Quantity:</span>
+                                <strong id="confirmQuantity"></strong>
+                            </div>
+                            <div style="display: flex; justify-content: space-between;">
+                                <span>Price per ticket:</span>
+                                <strong id="confirmPricePerTicket"></strong>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; padding-top: 12px; margin-top: 8px; border-top: 2px solid var(--orange);">
+                                <span style="font-size: 18px; font-weight: 600;">Total Amount:</span>
+                                <strong style="font-size: 24px; color: var(--orange);" id="confirmTotalAmount"></strong>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Attendee Info -->
+                    <div class="confirmation-attendee-summary">
+                        <h4 style="font-family: var(--font-serif); margin-bottom: 16px; color: var(--dark-brown);">👤 Ticket Holder</h4>
+                        <div style="display: flex; flex-direction: column; gap: 10px;">
+                            <div><strong>Name:</strong> <span id="confirmAttendeeName"></span></div>
+                            <div><strong>Email:</strong> <span id="confirmAttendeeEmail"></span></div>
+                        </div>
+                    </div>
+                    
+                    <!-- Terms -->
+                    <div class="confirmation-terms">
+                        <label style="display: flex; align-items: flex-start; gap: 12px; cursor: pointer;">
+                            <input type="checkbox" id="confirmTermsCheckbox" style="margin-top: 2px;">
+                            <span style="font-size: 12px; line-height: 1.5;">I confirm that all information is correct and agree to the terms & conditions. Tickets are non-refundable.</span>
+                        </label>
+                    </div>
+                    
+                    <!-- Buttons -->
+                    <div class="confirmation-buttons">
+                        <button class="confirmation-cancel-btn" onclick="closeConfirmationModal()">Cancel</button>
+                        <button id="finalConfirmBtn" class="confirmation-confirm-btn" onclick="finalizePurchase()" disabled>Confirm Purchase</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-storage-compat.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+    <script src="js/firebase-config.js"></script>
+    <script src="js/firebase-store.js"></script>
+    <script src="js/user-dashboard.js"></script>
 </body>
 
 </html>

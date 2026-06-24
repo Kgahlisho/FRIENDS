@@ -1,71 +1,280 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>&FRIENDS Admin — Dashboard</title>
-  <link rel="stylesheet" href="css/admin.css" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>&FRIENDS Admin — Dashboard</title>
+    <link rel="stylesheet" href="css/admin.css" />
+    <style>
+        /* Loading overlay styles */
+        .admin-loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--warm-white);
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 20px;
+            transition: opacity 0.3s ease;
+        }
+        
+        .admin-loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 3px solid var(--admin-border);
+            border-top-color: var(--orange);
+            border-radius: 50%;
+            animation: adminSpin 0.8s linear infinite;
+        }
+        
+        @keyframes adminSpin {
+            to { transform: rotate(360deg); }
+        }
+        
+        .admin-loading-text {
+            font-family: var(--font-body);
+            font-size: 14px;
+            color: var(--admin-muted);
+            letter-spacing: 0.05em;
+        }
+        
+        .admin-loading-sub {
+            font-family: var(--font-body);
+            font-size: 12px;
+            color: var(--admin-muted);
+            opacity: 0.6;
+        }
+        
+        /* Stats grid fix */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 20px;
+            margin-bottom: 28px;
+        }
+        
+        .stat-card {
+            background: white;
+            border-radius: 16px;
+            padding: 20px;
+            text-align: center;
+            border: 1px solid var(--admin-border);
+            transition: all 0.2s;
+        }
+        
+        .stat-card.accent {
+            background: linear-gradient(135deg, var(--dark-brown), #2a160d);
+            color: var(--warm-white);
+        }
+        
+        .stat-card.accent .stat-value,
+        .stat-card.accent .stat-label {
+            color: var(--warm-white);
+        }
+        
+        .stat-icon {
+            font-size: 28px;
+            margin-bottom: 12px;
+        }
+        
+        .stat-value {
+            font-family: var(--font-display);
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--dark-brown);
+            margin-bottom: 4px;
+        }
+        
+        .stat-label {
+            font-size: 11px;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--admin-muted);
+        }
+        
+        /* Empty states */
+        .admin-empty {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--admin-muted);
+        }
+        
+        .admin-empty-icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+            opacity: 0.5;
+        }
+        
+        /* Table styles */
+        .admin-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .admin-table th {
+            text-align: left;
+            padding: 12px 8px;
+            font-size: 11px;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--admin-muted);
+            border-bottom: 1px solid var(--admin-border);
+        }
+        
+        .admin-table td {
+            padding: 12px 8px;
+            font-size: 13px;
+            border-bottom: 1px solid var(--admin-border);
+        }
+        
+        .admin-table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .badge {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+        
+        .badge-published {
+            background: #4caf50;
+            color: white;
+        }
+        
+        .badge-draft {
+            background: #ff9800;
+            color: white;
+        }
+        
+        .badge-pending {
+            background: #9e9e9e;
+            color: white;
+        }
+        
+        .badge-validated {
+            background: #4caf50;
+            color: white;
+        }
+    </style>
 </head>
+
 <body>
 
-  <!-- Sidebar injected by JS -->
-  <div id="sidebarMount"></div>
+    <!-- Loading Overlay -->
+    <div id="adminLoadingOverlay" class="admin-loading-overlay">
+        <div class="admin-loading-spinner"></div>
+        <div class="admin-loading-text">Loading Dashboard...</div>
+        <div class="admin-loading-sub">Verifying credentials</div>
+    </div>
 
-  <div class="admin-main">
-    <header class="admin-topbar">
-      <h1 class="admin-page-title">Overview</h1>
-      <div class="admin-topbar-actions">
-        <a href="events.html" class="btn-primary">+ New Event</a>
-      </div>
-    </header>
+    <!-- Sidebar injected by JS -->
+    <div id="sidebarMount"></div>
 
-    <main class="admin-content">
+    <div class="admin-main">
+        <header class="admin-topbar">
+            <h1 class="admin-page-title">Overview</h1>
+            <div class="admin-topbar-actions">
+                <a href="events.html" class="btn-primary">+ New Event</a>
+            </div>
+        </header>
 
-      <!-- Stats -->
-      <div class="stats-grid" id="statsGrid"></div>
+        <main class="admin-content">
 
-      <!-- 2 column layout -->
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;">
+            <!-- Stats -->
+            <div class="stats-grid" id="statsGrid">
+                <div class="stat-card" style="grid-column:1/-1; text-align:center;">
+                    <div class="stat-icon">⏳</div>
+                    <div class="stat-value">Loading...</div>
+                    <div class="stat-label">Fetching data</div>
+                </div>
+            </div>
 
-        <!-- Recent events -->
-        <div class="admin-card">
-          <div class="admin-card-header">
-            <span class="admin-card-title">Recent Events</span>
-            <a href="events.html" class="btn-secondary btn-sm">Manage →</a>
-          </div>
-          <div id="recentEvents"></div>
-        </div>
+            <!-- 2 column layout -->
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;">
 
-        <!-- Recent ticket sales -->
-        <div class="admin-card">
-          <div class="admin-card-header">
-            <span class="admin-card-title">Recent Ticket Sales</span>
-            <a href="tickets.html" class="btn-secondary btn-sm">View All →</a>
-          </div>
-          <div id="recentTickets"></div>
-        </div>
+                <!-- Recent events -->
+                <div class="admin-card">
+                    <div class="admin-card-header">
+                        <span class="admin-card-title">Recent Events</span>
+                        <a href="events.html" class="btn-secondary btn-sm">Manage →</a>
+                    </div>
+                    <div id="recentEvents">
+                        <div class="admin-empty">
+                            <div class="admin-empty-icon">🗓</div>
+                            <p>Loading events...</p>
+                        </div>
+                    </div>
+                </div>
 
-      </div>
+                <!-- Recent ticket sales -->
+                <div class="admin-card">
+                    <div class="admin-card-header">
+                        <span class="admin-card-title">Recent Ticket Sales</span>
+                        <a href="tickets.html" class="btn-secondary btn-sm">View All →</a>
+                    </div>
+                    <div id="recentTickets">
+                        <div class="admin-empty">
+                            <div class="admin-empty-icon">🎟</div>
+                            <p>Loading tickets...</p>
+                        </div>
+                    </div>
+                </div>
 
-      <!-- Quick actions -->
-      <div class="admin-card" style="margin-top:24px;">
-        <div class="admin-card-header">
-          <span class="admin-card-title">Quick Actions</span>
-        </div>
-        <div class="admin-card-body" style="display:flex;gap:12px;flex-wrap:wrap;">
-          <a href="events.html" class="btn-primary">+ Create Event</a>
-          <a href="admin_gallery.html" class="btn-primary">+ Upload to Gallery</a>
-          <a href="admin_content.html" class="btn-secondary">Edit Website Content</a>
-          <a href="admin.html" class="btn-secondary">Manage Users</a>
-          <a href="html/index.html" target="_blank" class="btn-secondary">↗ View Website</a>
-        </div>
-      </div>
+            </div>
 
-    </main>
-  </div>
+            <!-- Quick actions -->
+            <div class="admin-card" style="margin-top:24px;">
+                <div class="admin-card-header">
+                    <span class="admin-card-title">Quick Actions</span>
+                </div>
+                <div class="admin-card-body" style="display:flex;gap:12px;flex-wrap:wrap;">
+                    <a href="events.html" class="btn-primary">+ Create Event</a>
+                    <a href="admin_gallery.html" class="btn-primary">+ Upload to Gallery</a>
+                    <a href="admin_content.html" class="btn-secondary">Edit Website Content</a>
+                    <a href="admin.html" class="btn-secondary">Manage Users</a>
+                    <a href="../html/index.html" target="_blank" class="btn-secondary">↗ View Website</a>
+                </div>
+            </div>
 
-  <script src="js/store.js"></script>
-  <script src="js/admin-core.js"></script>
-  <script src="js/dashboard.js"></script>
+        </main>
+    </div>
+
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-storage-compat.js"></script>
+
+    <script src="js/firebase-config.js"></script>
+    <script src="js/firebase-store.js"></script>
+    <script src="js/admin-core.js"></script>
+    <script src="js/dashboard.js"></script>
+    
+    <script>
+        // Remove loading overlay when page is ready
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                const overlay = document.getElementById('adminLoadingOverlay');
+                if (overlay) {
+                    overlay.style.opacity = '0';
+                    setTimeout(function() {
+                        overlay.style.display = 'none';
+                    }, 300);
+                }
+            }, 500);
+        });
+    </script>
 </body>
+
 </html>

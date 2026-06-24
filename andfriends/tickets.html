@@ -31,7 +31,8 @@
             <div class="admin-card">
                 <div class="admin-card-header">
                     <span class="admin-card-title">All Ticket Sales</span>
-                    <select class="form-select" id="ticketEventFilter" style="width:200px;" onchange="renderTickets()" title="Filter by event">
+                    <select class="form-select" id="ticketEventFilter" style="width:200px;" onchange="renderTickets()"
+                        title="Filter by event">
                         <option value="all">All Events</option>
                     </select>
                 </div>
@@ -65,9 +66,16 @@
         </div>
     </div>
 
-    <script src="js/store.js"></script>
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-storage-compat.js"></script>
+
+    <script src="js/firebase-config.js"></script>
+    <script src="js/firebase-store.js"></script>
     <script src="js/admin-core.js"></script>
-  <script src="js/tickets-admin.js"></script>
+    <script src="js/tickets-admin.js"></script>
 </body>
 
 </html>

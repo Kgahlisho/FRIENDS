@@ -1,102 +1,113 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>&FRIENDS — Gallery</title>
-  <link rel="stylesheet" href="../css/styles.css" />
-  <link rel="stylesheet" href="../css/auth.css" />
-  <link rel="stylesheet" href="../css/gallery.css" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>&FRIENDS — Gallery</title>
+    <link rel="stylesheet" href="../css/styles.css" />
+    <link rel="stylesheet" href="../css/auth.css" />
+    <link rel="stylesheet" href="../css/gallery.css" />
 </head>
+
 <body>
 
-  <div class="mobile-nav" role="dialog" aria-label="Mobile navigation">
-    <button class="mobile-nav-close" aria-label="Close menu">✕</button>
-    <a href="index.html">Home</a>
-    <a href="Services.html">Services</a>
-    <a href="play.html">Events</a>
-    <a href="Aboutus.html">About Us</a>
-    <a href="index.html#footer">Contact Us</a>
-  </div>
-
-  <nav aria-label="Main navigation">
-    <div class="nav-pill">
-      <a href="index.html">Home</a>
-      <a href="Services.html">Services</a>
-      <a href="play.html">Events</a>
-      <a href="Aboutus.html">About Us</a>
-      <a href="index.html#footer">Contact Us</a>
+    <div class="mobile-nav" role="dialog" aria-label="Mobile navigation">
+        <button class="mobile-nav-close" aria-label="Close menu">✕</button>
+        <a href="index.html">Home</a>
+        <a href="Services.html">Services</a>
+        <a href="play.html">Events</a>
+        <a href="Aboutus.html">About Us</a>
+        <a href="index.html#footer">Contact Us</a>
     </div>
-    <div class="hamburger" role="button" aria-label="Open menu" tabindex="0">
-      <span></span><span></span><span></span>
-    </div>
-  </nav>
 
-  <section class="gallery-hero striped-bg">
-    <div class="gallery-hero-inner">
-      <div class="section-amp">&</div>
-      <h1 class="gallery-hero-title"><span>&amp;</span>MOMENTS</h1>
-      <p class="gallery-hero-sub">Every campaign. Every night. Every memory.</p>
-    </div>
-  </section>
-
-  <!-- Filter bar -->
-  <div class="gallery-filter-bar">
-    <button class="gallery-filter-btn active" data-tag="all" onclick="filterGallery('all', this)">All</button>
-    <button class="gallery-filter-btn" data-tag="&Bloom" onclick="filterGallery('&Bloom', this)">&amp;Bloom</button>
-    <button class="gallery-filter-btn" data-tag="&Music" onclick="filterGallery('&Music', this)">&amp;Music</button>
-    <button class="gallery-filter-btn" data-tag="&Fun" onclick="filterGallery('&Fun', this)">&amp;Fun</button>
-    <button class="gallery-filter-btn" data-tag="&Talk" onclick="filterGallery('&Talk', this)">&amp;Talk</button>
-    <button class="gallery-filter-btn" data-tag="&Food" onclick="filterGallery('&Food', this)">&amp;Food</button>
-  </div>
-
-  <section class="gallery-campaigns" id="galleryCampaigns">
-    <div class="gallery-empty" id="galleryEmpty" style="display:none;">
-      <p>No campaigns published yet.</p>
-    </div>
-  </section>
-
-  <!-- Lightbox -->
-  <div class="gallery-lightbox" id="lightbox" style="display:none;" onclick="closeLightbox(event)">
-    <button class="lightbox-close" onclick="closeLightbox()">✕</button>
-    <button class="lightbox-prev" onclick="lightboxNav(-1, event)">‹</button>
-    <div class="lightbox-content">
-      <img id="lightboxImg" src="" alt="" />
-      <p id="lightboxCaption" class="lightbox-caption"></p>
-    </div>
-    <button class="lightbox-next" onclick="lightboxNav(1, event)">›</button>
-  </div>
-
-  <footer>
-    <section id="footer">
-      <div class="footer-inner">
-        <div class="footer-brand">
-          <h4>&amp;Friends</h4>
-          <p id="footerPhone">Call Us: +27 ·········</p>
-          <p><a id="footerEmail" href="#">Email Us: friends@work.bc.za</a></p>
-        </div>
-        <img src="Resources/images (1).jpeg" alt="Mamakashaka & friends badge" class="footer-logo" />
-        <div class="footer-links">
-          <h4>&amp;Friends</h4>
-          <nav aria-label="Footer navigation">
+    <nav aria-label="Main navigation">
+        <div class="nav-pill">
+            <a href="index.html">Home</a>
+            <a href="Services.html">Services</a>
+            <a href="play.html">Events</a>
             <a href="Aboutus.html">About Us</a>
             <a href="index.html#footer">Contact Us</a>
-            <a href="play.html">Events</a>
-            <a href="gallery.html">Gallery</a>
-            <a href="Services.html">Bookings</a>
-          </nav>
         </div>
-      </div>
-      <div class="footer-bottom">
-        <span>2026 &amp;Friends · All Rights Reserved.</span>
-        <span>2026 © Copyright</span>
-      </div>
-    </section>
-  </footer>
+        <div class="hamburger" role="button" aria-label="Open menu" tabindex="0">
+            <span></span><span></span><span></span>
+        </div>
+    </nav>
 
-  <script src="../js/store.js"></script>
-  <script src="../js/auth.js"></script>
-  <script src="../js/gallery-public.js"></script>
-  <script src="../js/main.js"></script>
+    <section class="gallery-hero striped-bg">
+        <div class="gallery-hero-inner">
+            <h1 class="gallery-hero-title"><span>&amp;</span>MOMENTS</h1>
+            <p class="gallery-hero-sub">Every campaign. Every night. Every memory.</p>
+        </div>
+    </section>
+
+    <!-- Filter bar -->
+    <div class="gallery-filter-bar">
+        <button class="gallery-filter-btn active" data-tag="all" onclick="filterGallery('all', this)">All</button>
+        <button class="gallery-filter-btn" data-tag="Bloom" onclick="filterGallery('Bloom', this)">&amp;Bloom</button>
+        <button class="gallery-filter-btn" data-tag="Music" onclick="filterGallery('Music', this)">&amp;Music</button>
+        <button class="gallery-filter-btn" data-tag="Fun" onclick="filterGallery('Fun', this)">&amp;Fun</button>
+        <button class="gallery-filter-btn" data-tag="Talk" onclick="filterGallery('Talk', this)">&amp;Talk</button>
+        <button class="gallery-filter-btn" data-tag="Food" onclick="filterGallery('Food', this)">&amp;Food</button>
+    </div>
+
+    <section class="gallery-campaigns" id="galleryCampaigns">
+
+        <div class="gallery-empty" id="galleryEmpty" style="display:none;">
+            <p>No campaigns published yet.</p>
+        </div>
+
+    </section>
+
+    <!-- Lightbox -->
+    <div class="gallery-lightbox" id="lightbox" style="display:none;" onclick="closeLightbox(event)">
+        <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+        <button class="lightbox-prev" onclick="lightboxNav(-1, event)">‹</button>
+        <div class="lightbox-content">
+            <img id="lightboxImg" src="" alt="" />
+            <p id="lightboxCaption" class="lightbox-caption"></p>
+        </div>
+        <button class="lightbox-next" onclick="lightboxNav(1, event)">›</button>
+    </div>
+
+    <footer>
+        <section id="footer">
+            <div class="footer-inner">
+                <div class="footer-brand">
+                    <h4>&amp;Friends</h4>
+                    <p id="footerPhone">Call Us: +27 ·········</p>
+                    <p><a id="footerEmail" href="#">Email Us: friends@work.bc.za</a></p>
+                </div>
+                <img src="../Resources/Logo.jpeg" alt="Mamakashaka & friends badge" class="footer-logo" />
+                <div class="footer-links">
+                    <h4>&amp;Friends</h4>
+                    <nav aria-label="Footer navigation">
+                        <a href="Aboutus.html">About Us</a>
+                        <a href="index.html#footer">Contact Us</a>
+                        <a href="play.html">Events</a>
+                        <a href="gallery.html">Gallery</a>
+                        <a href="Services.html">Bookings</a>
+                    </nav>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <span>2026 &amp;Friends · All Rights Reserved.</span>
+                <span>2026 © Copyright</span>
+            </div>
+        </section>
+    </footer>
+
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-storage-compat.js"></script>
+
+    <script src="../js/firebase-config.js"></script>
+    <script src="../js/firebase-store.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/gallery-public.js"></script>
+    <script src="../js/main.js"></script>
 </body>
+
 </html>

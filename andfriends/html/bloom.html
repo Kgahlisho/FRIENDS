@@ -7,6 +7,7 @@
     <title>&FRIENDS — BLOOM</title>
     <meta name="description" content="Gallery, exhibitions, and visual experiences at &FRIENDS." />
     <link rel="stylesheet" href="../css/styles.css" />
+<link rel="stylesheet" href="../css/auth.css" />  
 </head>
 
 <body>
@@ -25,8 +26,8 @@
     <nav aria-label="Main navigation">
         <div class="nav-pill">
             <a href="index.html#hero">Home</a>
-            <a href="index.html#services">Services</a>
-            <a href="index.html#events">Events</a>
+            <a href="Services.html">Services</a>
+            <a href="event.html">Events</a>
             <a href="Aboutus.html">About Us</a>
             <a href="#footer" class="active">Contact Us</a>
         </div>
@@ -45,7 +46,7 @@
             </div>
             <div class="hero-text-block">
                 <h1 class="hero-title"><span>&</span>BLOOM</h1>
-                <p class="hero-location">Visual storytelling · Gallery · Creative expression · 5 De Beer St</p>
+                <p class="hero-location">Visual storytelling <br>  Pantone Sundays <br> Artistic Gallerys <br> Creative expression <br>  Delicacy</p>
             </div>
         </div>
     </section>
@@ -59,7 +60,7 @@
                 <div class="who-img-wrap reveal-left">
                     <img src="../Resources/yomzansi_4352.jpg" alt="Visual art at &FRIENDS" class="who-img" />
                 </div>
-                <div class="who-text reveal">
+                <div class="who-text reveal" style="margin-top:60px;">
                     <p>&amp;BLOOM is where vision takes form. Paintings that command attention. Sculptures that invite
                         touch. Photography that whispers secrets. Installations that transform spaces. Every piece tells
                         a truth its creator couldn't contain.</p>
@@ -89,17 +90,17 @@
     <!-- ======== ARTISTIC VOICES ======== -->
     <section id="artists" class="striped-bg">
         <div class="talk-inner">
-            <div class="section-big-title reveal"><span>&</span>FEATURED ARTISTS</div>
+            <div class="section-big-title reveal"><span>&</span> FEATURED COLLABORATIONS</div>
             <div style="max-width:900px; margin:0 auto; padding:40px;">
 
-                <div class="reveal" style="margin-bottom: 60px;">
+                <div class="reveal" style="margin-bottom: 29px;" >
                     <h3 style="font-family: var(--font-serif); font-size: 24px; margin: 0 0 12px 0;">Yomzansi Collection
                     </h3>
                     <p>Raw, unflinching capture of everyday moments becoming art. Photography that finds beauty in the
                         overlooked, dignity in the unposed. Stories told through light and shadow.</p>
                 </div>
 
-                <div class="reveal" style="margin-bottom: 60px;">
+                <div class="reveal" style="margin-bottom: 29px;">
                     <h3 style="font-family: var(--font-serif); font-size: 24px; margin: 0 0 12px 0;">Spoken Word &
                         Poetry</h3>
                     <p>Words of Azia and peers who transform language into performance art. Verses that sting, heal,
@@ -122,26 +123,26 @@
             <div class="section-amp">&</div>
             <div class="section-label">What We Show :</div>
 
-            <div class="reveal" style="margin-bottom: 40px;">
+            <div class="reveal" style="margin-bottom: 25px;">
                 <h3 style="font-family: var(--font-serif); font-size: 24px; margin: 0 0 12px 0;">Solo Exhibitions</h3>
                 <p>An artist's complete vision. Deep-dive retrospectives. Thematic collections that show range and
                     growth. Intimate showcase of a singular voice.</p>
             </div>
 
-            <div class="reveal" style="margin-bottom: 40px;">
+            <div class="reveal" style="margin-bottom: 25px;">
                 <h3 style="font-family: var(--font-serif); font-size: 24px; margin: 0 0 12px 0;">Collective Shows</h3>
                 <p>Curated selections bringing multiple perspectives into dialogue. New collaborations emerge when
                     diverse artists share the same space and intention.</p>
             </div>
 
-            <div class="reveal" style="margin-bottom: 40px;">
+            <div class="reveal" style="margin-bottom: 25px;">
                 <h3 style="font-family: var(--font-serif); font-size: 24px; margin: 0 0 12px 0;">Pop-Up Installations
                 </h3>
                 <p>Unexpected, temporary experiences that transform the space. Limited runs that create urgency and
                     community buzz. Art as event.</p>
             </div>
 
-            <div class="reveal">
+            <div class="reveal" style="margin-bottom: 25px;">
                 <h3 style="font-family: var(--font-serif); font-size: 24px; margin: 0 0 12px 0;">Interactive Experiences
                 </h3>
                 <p>Boundary-pushing work that demands participation. Art you engage with, not just observe.
@@ -177,11 +178,11 @@
                 <div class="footer-links">
                     <h4>&amp;Friends</h4>
                     <nav aria-label="Footer navigation">
-                        <a href="Aboutus.html">About Us</a>
-                        <a href="#footer">Contact Us</a>
-                        <a href="index.html#events">Events</a>
-                        <a href="index.html#moments">Gallery</a>
-                        <a href="index.html#services">Bookings</a>
+                         <a href="Aboutus.html">About Us</a>
+                        <a href="contactUs.html">Contact Us</a>
+                        <a href="play.html">Events</a>
+                        <a href="gallery.html">Gallery</a>
+                        <a href="services.html">Bookings</a>
                         <a href="#">Privacy Policy</a>
                     </nav>
                 </div>
@@ -192,8 +193,17 @@
             </div>
         </section>
     </footer>
-
+   
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-storage-compat.js"></script>
+    <script src="../js/firebase-config.js"></script>
+    <script src="../js/firebase-store.js"></script>
+    <script src="../js/auth.js"></script>
     <script src="../js/main.js"></script>
+
 </body>
 
 </html>

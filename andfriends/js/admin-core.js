@@ -1,13 +1,52 @@
 /**
  * &FRIENDS — admin-core.js
  * Shared utilities for all admin pages: auth guard, sidebar, toasts, modals.
+ *
+ * Auth guard is deferred: Firebase's onAuthStateChanged fires async,
+ * so we wait for the 'af:auth' event before checking isAdmin().
+ * A loading overlay hides the page until auth resolves (max 4 s).
  */
 
-// ── Auth guard ────────────────────────────────────────────────
+// ── Deferred auth guard ─────────────────────────────────────────
 (function adminGuard() {
-    if (!Store.Auth.isAdmin()) {
-        window.location.href = 'html/index.html';
+
+    // Show a loading overlay so the page content isn't visible
+    // before we know whether the user is an admin.
+    const overlay = document.createElement('div');
+    overlay.id = 'adminAuthOverlay';
+    overlay.style.cssText =
+        'position:fixed;inset:0;background:#1a1008;' +
+        'display:flex;align-items:center;justify-content:center;' +
+        'z-index:99999;color:#f5e6d0;font-family:sans-serif;font-size:14px;';
+    overlay.innerHTML = '<span>Loading…</span>';
+    document.body.appendChild(overlay);
+
+    function check() {
+        overlay.remove();
+        if (!Store.Auth.isAdmin()) {
+            window.location.href = 'html/index.html';
+        } else {
+            // Re-render sidebar user info now that session is confirmed
+            renderSidebarUser();
+        }
     }
+
+    // If session is already populated (page refresh with valid token), check immediately
+    if (Store.Auth.isAdmin()) {
+        overlay.remove();
+        return;
+    }
+
+    // Otherwise wait for Firebase onAuthStateChanged to resolve
+    document.addEventListener('af:auth', check, { once: true });
+
+    // Safety timeout: if auth never resolves in 4 s, redirect
+    setTimeout(() => {
+        if (document.getElementById('adminAuthOverlay')) {
+            check();
+        }
+    }, 4000);
+
 })();
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -17,19 +56,25 @@ document.addEventListener('DOMContentLoaded', () => {
     highlightActiveNav();
 });
 
-// ── Sidebar ───────────────────────────────────────────────────
+// ── Sidebar ─────────────────────────────────────────────────────
 function initSidebar() {
-    // Hamburger for mobile
     const ham = document.createElement('button');
     ham.className = 'admin-hamburger';
     ham.setAttribute('aria-label', 'Open menu');
-    ham.innerHTML = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>`;
+    ham.innerHTML = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <line x1="3" y1="6"  x2="21" y2="6"/>
+        <line x1="3" y1="12" x2="21" y2="12"/>
+        <line x1="3" y1="18" x2="21" y2="18"/>
+    </svg>`;
     document.body.prepend(ham);
 
     const sidebar = document.querySelector('.admin-sidebar');
+    if (!sidebar) return;
     ham.addEventListener('click', () => sidebar.classList.toggle('open'));
     document.addEventListener('click', e => {
-        if (sidebar.classList.contains('open') && !sidebar.contains(e.target) && e.target !== ham) {
+        if (sidebar.classList.contains('open') &&
+            !sidebar.contains(e.target) &&
+            e.target !== ham) {
             sidebar.classList.remove('open');
         }
     });
@@ -62,7 +107,7 @@ function adminLogout() {
     window.location.href = 'html/index.html';
 }
 
-// ── Toast system ──────────────────────────────────────────────
+// ── Toast system ─────────────────────────────────────────────────
 function injectToastContainer() {
     if (document.getElementById('toastContainer')) return;
     const el = document.createElement('div');
@@ -74,6 +119,7 @@ function injectToastContainer() {
 function showToast(message, type = 'success') {
     const icons = { success: '✓', error: '✕', info: 'ℹ' };
     const container = document.getElementById('toastContainer');
+    if (!container) return;
     const toast = document.createElement('div');
     toast.className = `toast toast-${type}`;
     toast.innerHTML = `<span>${icons[type] || '·'}</span> ${message}`;
@@ -86,7 +132,7 @@ function showToast(message, type = 'success') {
     }, 3200);
 }
 
-// ── Modal helpers ─────────────────────────────────────────────
+// ── Modal helpers ────────────────────────────────────────────────
 function openAdminModal(id) {
     const el = document.getElementById(id);
     if (!el) return;
@@ -101,7 +147,6 @@ function closeAdminModal(id) {
     setTimeout(() => { el.style.display = 'none'; }, 250);
 }
 
-// Close modal on backdrop click
 document.addEventListener('click', e => {
     if (e.target.classList.contains('admin-modal-backdrop')) {
         e.target.classList.remove('visible');
@@ -109,9 +154,11 @@ document.addEventListener('click', e => {
     }
 });
 
-// ── Confirm dialog ────────────────────────────────────────────
+// ── Confirm dialog ───────────────────────────────────────────────
 function adminConfirm(message, onConfirm) {
-    if (document.getElementById('confirmModal')) document.getElementById('confirmModal').remove();
+    if (document.getElementById('confirmModal')) {
+        document.getElementById('confirmModal').remove();
+    }
     const el = document.createElement('div');
     el.id = 'confirmModal';
     el.className = 'admin-modal-backdrop';
@@ -121,10 +168,14 @@ function adminConfirm(message, onConfirm) {
       <div class="admin-modal-body" style="padding:32px;text-align:center;">
         <div style="font-size:32px;margin-bottom:12px;">⚠️</div>
         <h3 style="font-size:18px;margin-bottom:10px;color:var(--dark-brown);">${message}</h3>
-        <p style="font-size:13px;color:var(--admin-muted);margin-bottom:24px;">This action cannot be undone.</p>
+        <p style="font-size:13px;color:var(--admin-muted);margin-bottom:24px;">
+          This action cannot be undone.
+        </p>
         <div style="display:flex;gap:12px;justify-content:center;">
-          <button class="btn-secondary" onclick="document.getElementById('confirmModal').remove()">Cancel</button>
-          <button class="btn-danger" onclick="(${onConfirm.toString()})();document.getElementById('confirmModal').remove()">Delete</button>
+          <button class="btn-secondary"
+            onclick="document.getElementById('confirmModal').remove()">Cancel</button>
+          <button class="btn-danger"
+            onclick="(${onConfirm.toString()})();document.getElementById('confirmModal').remove()">Delete</button>
         </div>
       </div>
     </div>`;
@@ -132,25 +183,25 @@ function adminConfirm(message, onConfirm) {
     requestAnimationFrame(() => el.classList.add('visible'));
 }
 
-// ── Image file → base64 ───────────────────────────────────────
+// ── File → base64 ────────────────────────────────────────────────
 function fileToBase64(file) {
     return new Promise((resolve, reject) => {
         const reader = new FileReader();
-        reader.onload = () => resolve(reader.result);
+        reader.onload  = () => resolve(reader.result);
         reader.onerror = reject;
         reader.readAsDataURL(file);
     });
 }
 
-// ── Sidebar HTML template (shared) ───────────────────────────
+// ── Sidebar HTML template (shared across all admin pages) ────────
 function renderAdminSidebar(activePage) {
     const pages = [
-        { href: 'dashboard.html', label: 'Overview', icon: '📊' },
-        { href: 'events.html', label: 'Events', icon: '🗓' },
-        { href: 'admin_gallery.html', label: 'Gallery', icon: '🖼' },
-        { href: 'admin_content.html', label: 'Website Content', icon: '✏️' },
-        { href: 'tickets.html', label: 'Tickets', icon: '🎟' },
-        { href: 'admin.html', label: 'Users', icon: '👥' },
+        { href: 'dashboard.html',    label: 'Overview',        icon: '📊' },
+        { href: 'events.html',       label: 'Events',          icon: '🗓' },
+        { href: 'admin_gallery.html',label: 'Gallery',         icon: '🖼' },
+        { href: 'admin_content.html',label: 'Website Content', icon: '✏️' },
+        { href: 'tickets.html',      label: 'Tickets',         icon: '🎟' },
+        { href: 'admin.html',        label: 'Users',           icon: '👥' },
     ];
     return `
     <aside class="admin-sidebar">
@@ -161,12 +212,20 @@ function renderAdminSidebar(activePage) {
       </div>
       <nav class="admin-nav">
         <div class="admin-nav-section-label">Management</div>
-        ${pages.map(p => `<a href="${p.href}" class="${p.href === activePage ? 'active' : ''}"><span>${p.icon}</span> ${p.label}</a>`).join('')}
+        ${pages.map(p => `
+          <a href="${p.href}" class="${p.href === activePage ? 'active' : ''}">
+            <span>${p.icon}</span> ${p.label}
+          </a>`).join('')}
       </nav>
       <div class="admin-sidebar-footer">
         <div class="admin-sidebar-user" id="sidebarUser"></div>
         <button class="btn-logout" onclick="adminLogout()">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2">
+            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+            <polyline points="16 17 21 12 16 7"/>
+            <line x1="21" y1="12" x2="9" y2="12"/>
+          </svg>
           Log Out
         </button>
       </div>

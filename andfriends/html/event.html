@@ -1,78 +1,88 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>&FRIENDS — Event</title>
-  <link rel="stylesheet" href="../css/styles.css" />
-  <link rel="stylesheet" href="../css/auth.css" />
-  <link rel="stylesheet" href="../css/event_detail.css" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>&FRIENDS — Event</title>
+    <link rel="stylesheet" href="../css/styles.css" />
+    <link rel="stylesheet" href="../css/auth.css" />
+    <link rel="stylesheet" href="../css/event_detail.css" />
 </head>
+
 <body>
 
-  <!-- MOBILE NAV -->
-  <div class="mobile-nav" role="dialog" aria-label="Mobile navigation">
-    <button class="mobile-nav-close" aria-label="Close menu">✕</button>
-    <a href="index.html">Home</a>
-    <a href="Services.html">Services</a>
-    <a href="play.html" class="active">Events</a>
-    <a href="Aboutus.html">About Us</a>
-    <a href="index.html#footer">Contact Us</a>
-  </div>
-
-  <!-- NAVIGATION -->
-  <nav aria-label="Main navigation">
-    <div class="nav-pill">
-      <a href="index.html">Home</a>
-      <a href="Services.html">Services</a>
-      <a href="play.html" class="active">Events</a>
-      <a href="Aboutus.html">About Us</a>
-      <a href="index.html#footer">Contact Us</a>
+    <!-- MOBILE NAV -->
+    <div class="mobile-nav" role="dialog" aria-label="Mobile navigation">
+        <button class="mobile-nav-close" aria-label="Close menu">✕</button>
+        <a href="index.html">Home</a>
+        <a href="Services.html">Services</a>
+        <a href="play.html" class="active">Events</a>
+        <a href="Aboutus.html">About Us</a>
+        <a href="index.html#footer">Contact Us</a>
     </div>
-    <div class="hamburger" role="button" aria-label="Open menu" tabindex="0">
-      <span></span><span></span><span></span>
-    </div>
-  </nav>
 
-  <div class="event-breadcrumb">
-    <a href="play.html" class="breadcrumb-link">← Back to Events</a>
-  </div>
-
-  <!-- Dynamic content injected by event-page.js -->
-  <div id="eventPageRoot"></div>
-
-  <!-- FOOTER -->
-  <footer>
-    <section id="footer">
-      <div class="footer-inner">
-        <div class="footer-brand">
-          <h4>&amp;Friends</h4>
-          <p id="footerPhone">Call Us: +27 ·········</p>
-          <p><a id="footerEmail" href="#">Email Us: friends@work.bc.za</a></p>
-        </div>
-        <img src="../Resources/images (1).jpeg" alt="Mamakashaka & friends badge" class="footer-logo" />
-        <div class="footer-links">
-          <h4>&amp;Friends</h4>
-          <nav aria-label="Footer navigation">
+    <!-- NAVIGATION -->
+    <nav aria-label="Main navigation">
+        <div class="nav-pill">
+            <a href="index.html">Home</a>
+            <a href="Services.html">Services</a>
+            <a href="play.html" class="active">Events</a>
             <a href="Aboutus.html">About Us</a>
             <a href="index.html#footer">Contact Us</a>
-            <a href="play.html">Events</a>
-            <a href="gallery.html">Gallery</a>
-            <a href="Services.html">Bookings</a>
-          </nav>
         </div>
-      </div>
-      <div class="footer-bottom">
-        <span>2026 &amp;Friends · All Rights Reserved.</span>
-        <span>2026 © Copyright</span>
-      </div>
-    </section>
-  </footer>
+        <div class="hamburger" role="button" aria-label="Open menu" tabindex="0">
+            <span></span><span></span><span></span>
+        </div>
+    </nav>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-  <script src="../js/store.js"></script>
-  <script src="../js/auth.js"></script>
-  <script src="../js/event-page.js"></script>
-  <script src="../js/main.js"></script>
+    <div class="event-breadcrumb">
+        <a href="play.html" class="breadcrumb-link">← Back to Events</a>
+    </div>
+
+    <!-- Dynamic content injected by event-page.js -->
+    <div id="eventPageRoot"></div>
+
+    <!-- FOOTER -->
+    <footer>
+        <section id="footer">
+            <div class="footer-inner">
+                <div class="footer-brand">
+                    <h4>&amp;Friends</h4>
+                    <p id="footerPhone">Call Us: +27 ·········</p>
+                    <p><a id="footerEmail" href="#">Email Us: friends@work.bc.za</a></p>
+                </div>
+                <img src="../Resources/images (1).jpeg" alt="Mamakashaka & friends badge" class="footer-logo" />
+                <div class="footer-links">
+                    <h4>&amp;Friends</h4>
+                    <nav aria-label="Footer navigation">
+                        <a href="Aboutus.html">About Us</a>
+                        <a href="index.html#footer">Contact Us</a>
+                        <a href="play.html">Events</a>
+                        <a href="gallery.html">Gallery</a>
+                        <a href="Services.html">Bookings</a>
+                    </nav>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <span>2026 &amp;Friends · All Rights Reserved.</span>
+                <span>2026 © Copyright</span>
+            </div>
+        </section>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-storage-compat.js"></script>
+
+    <script src="../js/firebase-config.js"></script>
+    <script src="../js/firebase-store.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/event-page.js"></script>
+    <script src="../js/main.js"></script>
 </body>
+
 </html>

@@ -1,204 +1,306 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>&FRIENDS Admin — Website Content</title>
-  <link rel="stylesheet" href="css/admin.css" />
-  <style>
-    .section-tab-bar { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:24px; }
-    .section-tab { padding:9px 18px; border:1.5px solid var(--admin-border); border-radius:8px; background:transparent; font-family:var(--font-body); font-size:13px; font-weight:500; cursor:pointer; transition:all .2s; }
-    .section-tab.active { background:var(--dark-brown); color:var(--warm-white); border-color:var(--dark-brown); }
-    .content-section { display:none; } .content-section.active { display:block; }
-    .content-preview-bar { background:var(--dark-brown); color:var(--warm-white); padding:12px 20px; border-radius:10px; margin-bottom:20px; display:flex; align-items:center; justify-content:space-between; font-size:13px; }
-  </style>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>&FRIENDS Admin — Website Content</title>
+    <link rel="stylesheet" href="css/admin.css" />
+    <style>
+        .section-tab-bar {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 24px;
+        }
+
+        .section-tab {
+            padding: 9px 18px;
+            border: 1.5px solid var(--admin-border);
+            border-radius: 8px;
+            background: transparent;
+            font-family: var(--font-body);
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all .2s;
+        }
+
+        .section-tab.active {
+            background: var(--dark-brown);
+            color: var(--warm-white);
+            border-color: var(--dark-brown);
+        }
+
+        .content-section {
+            display: none;
+        }
+
+        .content-section.active {
+            display: block;
+        }
+
+        .content-preview-bar {
+            background: var(--dark-brown);
+            color: var(--warm-white);
+            padding: 12px 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 13px;
+        }
+    </style>
 </head>
+
 <body>
 
-  <div id="sidebarMount"></div>
+    <div id="sidebarMount"></div>
 
-  <div class="admin-main">
-    <header class="admin-topbar">
-      <h1 class="admin-page-title">Website Content</h1>
-      <div class="admin-topbar-actions">
-        <a href="html/index.html" target="_blank" class="btn-secondary">↗ Preview Site</a>
-      </div>
-    </header>
-
-    <main class="admin-content">
-      <div class="content-preview-bar">
-        <span>✏️ Changes save instantly and reflect on the live website.</span>
-        <a href="html/index.html" target="_blank" style="color:var(--gold);text-decoration:none;font-weight:500;">View Live →</a>
-      </div>
-
-      <!-- Section tabs -->
-       <div class="section-tab-bar">
-        <button class="section-tab active" onclick="switchSection('hero',this)">Hero</button>
-        <button class="section-tab" onclick="switchSection('about',this)">About / Corner</button>
-        <button class="section-tab" onclick="switchSection('talk',this)">&amp;Talk</button>
-        <button class="section-tab" onclick="switchSection('food',this)">&amp;Food</button>
-        <button class="section-tab" onclick="switchSection('music',this)">&amp;Music</button>
-        <button class="section-tab" onclick="switchSection('community',this)">Community</button>
-        <button class="section-tab" onclick="switchSection('services',this)">Services</button>
-        <button class="section-tab" onclick="switchSection('contact',this)">Contact</button>
-      </div>
-
-      <!-- Hero -->
-     <div class="content-section active admin-card" id="section-hero">
-        <div class="admin-card-header"><span class="admin-card-title">Hero Section</span></div>
-        <div class="admin-card-body">
-          <div class="form-grid">
-            <div class="form-field"><label class="form-label">Headline</label>
-                <input type="text" id="hero-headline" class="form-input"  title="image"/>
+    <div class="admin-main">
+        <header class="admin-topbar">
+            <h1 class="admin-page-title">Website Content</h1>
+            <div class="admin-topbar-actions">
+                <a href="html/index.html" target="_blank" class="btn-secondary">↗ Preview Site</a>
             </div>
-            <div class="form-field">
-                <label class="form-label">Subtext</label>
-                <input type="text" id="hero-subtext" class="form-input" title="image"/>
+        </header>
+
+        <main class="admin-content">
+            <div class="content-preview-bar">
+                <span>✏️ Changes save instantly and reflect on the live website.</span>
+                <a href="html/index.html" target="_blank"
+                    style="color:var(--gold);text-decoration:none;font-weight:500;">View Live →</a>
             </div>
 
-            <div class="form-field" style="grid-column:span 2">
-              <label class="form-label">Hero Image</label>
-              <div class="upload-zone">
-                <input type="file" accept="image/*" onchange="uploadSectionImage('hero','image',this)" title="image"/>
-                <div class="upload-zone-icon">🖼</div>
-                <div class="upload-zone-text">
+            <!-- Section tabs -->
+            <div class="section-tab-bar">
+                <button class="section-tab active" onclick="switchSection('hero',this)">Hero</button>
+                <button class="section-tab" onclick="switchSection('about',this)">About / Corner</button>
+                <button class="section-tab" onclick="switchSection('talk',this)">&amp;Talk</button>
+                <button class="section-tab" onclick="switchSection('food',this)">&amp;Food</button>
+                <button class="section-tab" onclick="switchSection('music',this)">&amp;Music</button>
+                <button class="section-tab" onclick="switchSection('community',this)">Community</button>
+                <button class="section-tab" onclick="switchSection('services',this)">Services</button>
+                <button class="section-tab" onclick="switchSection('contact',this)">Contact</button>
+            </div>
 
-                    <strong>Click to upload</strong> hero image
+            <!-- Hero -->
+            <div class="content-section active admin-card" id="section-hero">
+                <div class="admin-card-header"><span class="admin-card-title">Hero Section</span></div>
+                <div class="admin-card-body">
+                    <div class="form-grid">
+                        <div class="form-field"><label class="form-label">Headline</label>
+                            <input type="text" id="hero-headline" class="form-input" title="image" />
+                        </div>
+                        <div class="form-field">
+                            <label class="form-label">Subtext</label>
+                            <input type="text" id="hero-subtext" class="form-input" title="image" />
+                        </div>
+
+                        <div class="form-field" style="grid-column:span 2">
+                            <label class="form-label">Hero Image</label>
+                            <div class="upload-zone">
+                                <input type="file" accept="image/*" onchange="uploadSectionImage('hero','image',this)"
+                                    title="image" />
+                                <div class="upload-zone-icon">🖼</div>
+                                <div class="upload-zone-text">
+
+                                    <strong>Click to upload</strong> hero image
+                                </div>
+                            </div>
+                            <div id="prev-hero-image" style="margin-top:8px;"></div>
+                        </div>
+                    </div>
+                    <div style="margin-top:20px;text-align:right;"><button class="btn-primary"
+                            onclick="saveSection('hero')">Save Hero Section</button></div>
                 </div>
             </div>
-              <div id="prev-hero-image" style="margin-top:8px;"></div>
+
+            <!-- About -->
+            <div class="content-section admin-card" id="section-about">
+                <div class="admin-card-header"><span class="admin-card-title">About / The Corner</span></div>
+                <div class="admin-card-body">
+                    <div class="form-grid">
+                        <div class="form-field"><label class="form-label">Heading</label><input type="text"
+                                id="about-heading" class="form-input" /></div>
+                        <div class="form-field" style="grid-column:span 2"><label class="form-label">Body
+                                Text</label><textarea id="about-body" class="form-textarea" rows="5"></textarea></div>
+                        <div class="form-field">
+                            <label class="form-label">Section Image</label>
+                            <div class="upload-zone"><input type="file" accept="image/*"
+                                    onchange="uploadSectionImage('about','image',this)" />
+                                <div class="upload-zone-icon">🖼</div>
+                                <div class="upload-zone-text"><strong>Click to upload</strong></div>
+                            </div>
+                            <div id="prev-about-image" style="margin-top:8px;"></div>
+                        </div>
+                    </div>
+                    <div style="margin-top:20px;text-align:right;"><button class="btn-primary"
+                            onclick="saveSection('about')">Save Section</button></div>
+                </div>
             </div>
-          </div>
-          <div style="margin-top:20px;text-align:right;"><button class="btn-primary" onclick="saveSection('hero')">Save Hero Section</button></div>
-        </div>
-      </div>
 
-      <!-- About -->
-       <div class="content-section admin-card" id="section-about">
-        <div class="admin-card-header"><span class="admin-card-title">About / The Corner</span></div>
-        <div class="admin-card-body">
-          <div class="form-grid">
-            <div class="form-field"><label class="form-label">Heading</label><input type="text" id="about-heading" class="form-input" /></div>
-            <div class="form-field" style="grid-column:span 2"><label class="form-label">Body Text</label><textarea id="about-body" class="form-textarea" rows="5"></textarea></div>
-            <div class="form-field">
-              <label class="form-label">Section Image</label>
-              <div class="upload-zone"><input type="file" accept="image/*" onchange="uploadSectionImage('about','image',this)" /><div class="upload-zone-icon">🖼</div><div class="upload-zone-text"><strong>Click to upload</strong></div></div>
-              <div id="prev-about-image" style="margin-top:8px;"></div>
+
+            <!-- Talk -->
+            <div class="content-section admin-card" id="section-talk">
+                <div class="admin-card-header"><span class="admin-card-title">&amp;Talk Section</span></div>
+                <div class="admin-card-body">
+                    <div class="form-grid">
+                        <div class="form-field" style="grid-column:span 2"><label class="form-label">Body
+                                Text</label><textarea id="talk-body" class="form-textarea" rows="4"></textarea></div>
+                        <div class="form-field">
+                            <label class="form-label">Section Image</label>
+                            <div class="upload-zone"><input type="file" accept="image/*"
+                                    onchange="uploadSectionImage('talk','image',this)" />
+                                <div class="upload-zone-icon">🖼</div>
+                                <div class="upload-zone-text"><strong>Click to upload</strong></div>
+                            </div>
+                            <div id="prev-talk-image" style="margin-top:8px;"></div>
+                        </div>
+                    </div>
+                    <div style="margin-top:20px;text-align:right;"><button class="btn-primary"
+                            onclick="saveSection('talk')">Save Section</button></div>
+                </div>
             </div>
-          </div>
-          <div style="margin-top:20px;text-align:right;"><button class="btn-primary" onclick="saveSection('about')">Save Section</button></div>
-        </div>
-      </div>
 
-
-      <!-- Talk -->
-     <div class="content-section admin-card" id="section-talk">
-        <div class="admin-card-header"><span class="admin-card-title">&amp;Talk Section</span></div>
-        <div class="admin-card-body">
-          <div class="form-grid">
-            <div class="form-field" style="grid-column:span 2"><label class="form-label">Body Text</label><textarea id="talk-body" class="form-textarea" rows="4"></textarea></div>
-            <div class="form-field">
-              <label class="form-label">Section Image</label>
-              <div class="upload-zone"><input type="file" accept="image/*" onchange="uploadSectionImage('talk','image',this)" /><div class="upload-zone-icon">🖼</div><div class="upload-zone-text"><strong>Click to upload</strong></div></div>
-              <div id="prev-talk-image" style="margin-top:8px;"></div>
+            <!-- Food -->
+            <div class="content-section admin-card" id="section-food">
+                <div class="admin-card-header"><span class="admin-card-title">&amp;Food Section</span></div>
+                <div class="admin-card-body">
+                    <div class="form-grid">
+                        <div class="form-field" style="grid-column:span 2"><label class="form-label">Body
+                                Text</label><textarea id="food-body" class="form-textarea" rows="3"></textarea></div>
+                        <div class="form-field"><label class="form-label">Pull Quote</label><textarea id="food-quote"
+                                class="form-textarea" rows="3"></textarea></div>
+                        <div class="form-field"><label class="form-label">Chef / Speaker Name</label><input type="text"
+                                id="food-chef" class="form-input" /></div>
+                        <div class="form-field">
+                            <label class="form-label">Food Image</label>
+                            <div class="upload-zone"><input type="file" accept="image/*"
+                                    onchange="uploadSectionImage('food','image',this)" />
+                                <div class="upload-zone-icon">🖼</div>
+                                <div class="upload-zone-text"><strong>Click to upload</strong></div>
+                            </div>
+                            <div id="prev-food-image" style="margin-top:8px;"></div>
+                        </div>
+                    </div>
+                    <div style="margin-top:20px;text-align:right;"><button class="btn-primary"
+                            onclick="saveSection('food')">Save Section</button></div>
+                </div>
             </div>
-          </div>
-          <div style="margin-top:20px;text-align:right;"><button class="btn-primary" onclick="saveSection('talk')">Save Section</button></div>
-        </div>
-      </div>
 
-      <!-- Food -->
-    <div class="content-section admin-card" id="section-food">
-        <div class="admin-card-header"><span class="admin-card-title">&amp;Food Section</span></div>
-        <div class="admin-card-body">
-          <div class="form-grid">
-            <div class="form-field" style="grid-column:span 2"><label class="form-label">Body Text</label><textarea id="food-body" class="form-textarea" rows="3"></textarea></div>
-            <div class="form-field"><label class="form-label">Pull Quote</label><textarea id="food-quote" class="form-textarea" rows="3"></textarea></div>
-            <div class="form-field"><label class="form-label">Chef / Speaker Name</label><input type="text" id="food-chef" class="form-input" /></div>
-            <div class="form-field">
-              <label class="form-label">Food Image</label>
-              <div class="upload-zone"><input type="file" accept="image/*" onchange="uploadSectionImage('food','image',this)" /><div class="upload-zone-icon">🖼</div><div class="upload-zone-text"><strong>Click to upload</strong></div></div>
-              <div id="prev-food-image" style="margin-top:8px;"></div>
+
+            <!-- Music -->
+            <div class="content-section admin-card" id="section-music">
+                <div class="admin-card-header"><span class="admin-card-title">&amp;Music Section</span></div>
+                <div class="admin-card-body">
+                    <div class="form-grid">
+                        <div class="form-field" style="grid-column:span 2"><label class="form-label">Body
+                                Text</label><textarea id="music-body" class="form-textarea" rows="4"></textarea></div>
+                        <div class="form-field">
+                            <label class="form-label">Music Image</label>
+                            <div class="upload-zone"><input type="file" accept="image/*"
+                                    onchange="uploadSectionImage('music','image',this)" />
+                                <div class="upload-zone-icon">🖼</div>
+                                <div class="upload-zone-text"><strong>Click to upload</strong></div>
+                            </div>
+                            <div id="prev-music-image" style="margin-top:8px;"></div>
+                        </div>
+                    </div>
+                    <div style="margin-top:20px;text-align:right;"><button class="btn-primary"
+                            onclick="saveSection('music')">Save Section</button></div>
+                </div>
             </div>
-          </div>
-          <div style="margin-top:20px;text-align:right;"><button class="btn-primary" onclick="saveSection('food')">Save Section</button></div>
-        </div>
-      </div>
 
-
-      <!-- Music -->
-       <div class="content-section admin-card" id="section-music">
-        <div class="admin-card-header"><span class="admin-card-title">&amp;Music Section</span></div>
-        <div class="admin-card-body">
-          <div class="form-grid">
-            <div class="form-field" style="grid-column:span 2"><label class="form-label">Body Text</label><textarea id="music-body" class="form-textarea" rows="4"></textarea></div>
-            <div class="form-field">
-              <label class="form-label">Music Image</label>
-              <div class="upload-zone"><input type="file" accept="image/*" onchange="uploadSectionImage('music','image',this)" /><div class="upload-zone-icon">🖼</div><div class="upload-zone-text"><strong>Click to upload</strong></div></div>
-              <div id="prev-music-image" style="margin-top:8px;"></div>
+            <!-- Community -->
+            <div class="content-section admin-card" id="section-community">
+                <div class="admin-card-header"><span class="admin-card-title">Community Section</span></div>
+                <div class="admin-card-body">
+                    <div class="form-grid">
+                        <div class="form-field" style="grid-column:span 2"><label class="form-label">Body
+                                Text</label><textarea id="community-body" class="form-textarea" rows="4"></textarea>
+                        </div>
+                        <div class="form-field">
+                            <label class="form-label">Community Image</label>
+                            <div class="upload-zone"><input type="file" accept="image/*"
+                                    onchange="uploadSectionImage('community','image',this)" />
+                                <div class="upload-zone-icon">🖼</div>
+                                <div class="upload-zone-text"><strong>Click to upload</strong></div>
+                            </div>
+                            <div id="prev-community-image" style="margin-top:8px;"></div>
+                        </div>
+                    </div>
+                    <div style="margin-top:20px;text-align:right;"><button class="btn-primary"
+                            onclick="saveSection('community')">Save Section</button></div>
+                </div>
             </div>
-          </div>
-          <div style="margin-top:20px;text-align:right;"><button class="btn-primary" onclick="saveSection('music')">Save Section</button></div>
-        </div>
-      </div>
 
-      <!-- Community -->
-     <div class="content-section admin-card" id="section-community">
-        <div class="admin-card-header"><span class="admin-card-title">Community Section</span></div>
-        <div class="admin-card-body">
-          <div class="form-grid">
-            <div class="form-field" style="grid-column:span 2"><label class="form-label">Body Text</label><textarea id="community-body" class="form-textarea" rows="4"></textarea></div>
-            <div class="form-field">
-              <label class="form-label">Community Image</label>
-              <div class="upload-zone"><input type="file" accept="image/*" onchange="uploadSectionImage('community','image',this)" /><div class="upload-zone-icon">🖼</div><div class="upload-zone-text"><strong>Click to upload</strong></div></div>
-              <div id="prev-community-image" style="margin-top:8px;"></div>
+            <!-- Services -->
+            <div class="content-section admin-card" id="section-services">
+                <div class="admin-card-header"><span class="admin-card-title">Services Section</span></div>
+                <div class="admin-card-body">
+                    <div class="form-grid">
+                        <div class="form-field"><label class="form-label">Heading</label><input type="text"
+                                id="services-heading" class="form-input" /></div>
+                        <div class="form-field" style="grid-column:span 2"><label class="form-label">Body
+                                Text</label><textarea id="services-body" class="form-textarea" rows="4"></textarea>
+                        </div>
+                        <div class="form-field">
+                            <label class="form-label">Image 1</label>
+                            <div class="upload-zone"><input type="file" accept="image/*"
+                                    onchange="uploadSectionImage('services','image1',this)" />
+                                <div class="upload-zone-icon">🖼</div>
+                                <div class="upload-zone-text"><strong>Click to upload</strong></div>
+                            </div>
+                            <div id="prev-services-image1" style="margin-top:8px;"></div>
+                        </div>
+                        <div class="form-field">
+                            <label class="form-label">Image 2</label>
+                            <div class="upload-zone"><input type="file" accept="image/*"
+                                    onchange="uploadSectionImage('services','image2',this)" />
+                                <div class="upload-zone-icon">🖼</div>
+                                <div class="upload-zone-text"><strong>Click to upload</strong></div>
+                            </div>
+                            <div id="prev-services-image2" style="margin-top:8px;"></div>
+                        </div>
+                    </div>
+                    <div style="margin-top:20px;text-align:right;"><button class="btn-primary"
+                            onclick="saveSection('services')">Save Section</button></div>
+                </div>
             </div>
-          </div>
-          <div style="margin-top:20px;text-align:right;"><button class="btn-primary" onclick="saveSection('community')">Save Section</button></div>
-        </div>
-      </div>
 
-      <!-- Services -->
-      <div class="content-section admin-card" id="section-services">
-        <div class="admin-card-header"><span class="admin-card-title">Services Section</span></div>
-        <div class="admin-card-body">
-          <div class="form-grid">
-            <div class="form-field"><label class="form-label">Heading</label><input type="text" id="services-heading" class="form-input" /></div>
-            <div class="form-field" style="grid-column:span 2"><label class="form-label">Body Text</label><textarea id="services-body" class="form-textarea" rows="4"></textarea></div>
-            <div class="form-field">
-              <label class="form-label">Image 1</label>
-              <div class="upload-zone"><input type="file" accept="image/*" onchange="uploadSectionImage('services','image1',this)" /><div class="upload-zone-icon">🖼</div><div class="upload-zone-text"><strong>Click to upload</strong></div></div>
-              <div id="prev-services-image1" style="margin-top:8px;"></div>
+
+            <!-- Contact -->
+            <div class="content-section admin-card" id="section-contact">
+                <div class="admin-card-header"><span class="admin-card-title">Contact Details</span></div>
+                <div class="admin-card-body">
+                    <div class="form-grid form-grid-2">
+                        <div class="form-field"><label class="form-label">Phone Number</label><input type="text"
+                                id="contact-phone" class="form-input" /></div>
+                        <div class="form-field"><label class="form-label">Email Address</label><input type="email"
+                                id="contact-email" class="form-input" /></div>
+                        <div class="form-field span-2"><label class="form-label">Physical Address</label><input
+                                type="text" id="contact-address" class="form-input" /></div>
+                    </div>
+                    <div style="margin-top:20px;text-align:right;"><button class="btn-primary"
+                            onclick="saveSection('contact')">Save Contact Details</button></div>
+                </div>
             </div>
-            <div class="form-field">
-              <label class="form-label">Image 2</label>
-              <div class="upload-zone"><input type="file" accept="image/*" onchange="uploadSectionImage('services','image2',this)" /><div class="upload-zone-icon">🖼</div><div class="upload-zone-text"><strong>Click to upload</strong></div></div>
-              <div id="prev-services-image2" style="margin-top:8px;"></div>
-            </div>
-          </div>
-          <div style="margin-top:20px;text-align:right;"><button class="btn-primary" onclick="saveSection('services')">Save Section</button></div>
-        </div>
-      </div>
 
+        </main>
+    </div>
 
-      <!-- Contact -->
-       <div class="content-section admin-card" id="section-contact">
-        <div class="admin-card-header"><span class="admin-card-title">Contact Details</span></div>
-        <div class="admin-card-body">
-          <div class="form-grid form-grid-2">
-            <div class="form-field"><label class="form-label">Phone Number</label><input type="text" id="contact-phone" class="form-input" /></div>
-            <div class="form-field"><label class="form-label">Email Address</label><input type="email" id="contact-email" class="form-input" /></div>
-            <div class="form-field span-2"><label class="form-label">Physical Address</label><input type="text" id="contact-address" class="form-input" /></div>
-          </div>
-          <div style="margin-top:20px;text-align:right;"><button class="btn-primary" onclick="saveSection('contact')">Save Contact Details</button></div>
-        </div>
-      </div>
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-storage-compat.js"></script>
 
-    </main>
-  </div>
-
- <script src="js/store.js"></script>
-  <script src="js/admin-core.js"></script>
-  <script src="js/content-admin.js"></script>
+    <script src="js/firebase-config.js"></script>
+    <script src="js/firebase-store.js"></script>
+    <script src="js/admin-core.js"></script>
+    <script src="js/content-admin.js"></script>
 </body>
+
 </html>

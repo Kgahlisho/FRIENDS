@@ -1,0 +1,30 @@
+{
+    "folders": [
+        {
+            "path": ".."
+        }
+    ],
+    "settings": {
+        "liveServer.settings.multiRootWorkspaceName": "andfriends",
+        "workbench.colorCustomizations": {
+            "activityBar.activeBackground": "#e19c82",
+            "activityBar.background": "#e19c82",
+            "activityBar.foreground": "#15202b",
+            "activityBar.inactiveForeground": "#15202b99",
+            "activityBarBadge.background": "#e5f9eb",
+            "activityBarBadge.foreground": "#15202b",
+            "commandCenter.border": "#15202b99",
+            "sash.hoverBorder": "#e19c82",
+            "statusBar.background": "#d77b59",
+            "statusBar.foreground": "#15202b",
+            "statusBarItem.hoverBackground": "#cc5b31",
+            "statusBarItem.remoteBackground": "#d77b59",
+            "statusBarItem.remoteForeground": "#15202b",
+            "titleBar.activeBackground": "#d77b59",
+            "titleBar.activeForeground": "#15202b",
+            "titleBar.inactiveBackground": "#d77b5999",
+            "titleBar.inactiveForeground": "#15202b99"
+        },
+        "peacock.color": "#d77b59"
+    }
+}
