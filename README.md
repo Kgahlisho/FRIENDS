@@ -1,4 +1,4 @@
-# -FRIENDS
+# FRIENDS
 Website dev and Mobile application for &amp;FRIENDS organisation.
 
 ## Overview
