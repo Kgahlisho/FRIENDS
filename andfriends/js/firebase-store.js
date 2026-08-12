@@ -858,9 +858,9 @@ const Events = {
             if (!ticket) return { ok: false, error: 'Ticket not found.' };
             if (ticket.validated) return { ok: false, error: 'Ticket already used.' };
             const now = ts();
-            await _db.collection('tickets').doc(ticketId).update({ validated: true, validatedAt: now });
+            await _db.collection('tickets').doc(ticketId).update({ validated: true, validatedAt: now ,status: 'confirmed' });
             const idx = _cache.tickets.findIndex(t => t.id === ticketId);
-            if (idx !== -1) { _cache.tickets[idx].validated = true; _cache.tickets[idx].validatedAt = now; }
+            if (idx !== -1) { _cache.tickets[idx].validated = true; _cache.tickets[idx].validatedAt = now; _cache.tickets[idx].status = 'confirmed'; }
             emit('af:tickets', _cache.tickets);
             return { ok: true, ticket: _cache.tickets[idx] };
         },

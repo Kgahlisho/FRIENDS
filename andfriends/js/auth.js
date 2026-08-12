@@ -141,7 +141,7 @@ async function handleLogin(e) {
     e.preventDefault();
     clearAuthErrors();
 
-    const email    = document.getElementById('loginEmail').value.trim();
+    const email = document.getElementById('loginEmail').value.trim();
     const password = document.getElementById('loginPassword').value;
 
     if (!email || !password) {
@@ -172,14 +172,14 @@ async function handleRegister(e) {
     e.preventDefault();
     clearAuthErrors();
 
-    const name       = document.getElementById('regName').value.trim();
-    const email      = document.getElementById('regEmail').value.trim();
-    const password   = document.getElementById('regPassword').value;
-    const password2  = document.getElementById('regPassword2').value;
-    const phone      = document.getElementById('regPhone').value.trim();
-    const dob        = document.getElementById('regDob').value;
-    const role       = document.getElementById('regRole').value;
-    const adminCode  = document.getElementById('regAdminCode')?.value.trim() || '';
+    const name = document.getElementById('regName').value.trim();
+    const email = document.getElementById('regEmail').value.trim();
+    const password = document.getElementById('regPassword').value;
+    const password2 = document.getElementById('regPassword2').value;
+    const phone = document.getElementById('regPhone').value.trim();
+    const dob = document.getElementById('regDob').value;
+    const role = document.getElementById('regRole').value;
+    const adminCode = document.getElementById('regAdminCode')?.value.trim() || '';
 
     if (!name || !email || !password || !password2) {
         showAuthError('registerPanel', 'Please fill in all required fields.');
