@@ -1,9 +1,9 @@
 {
-    "redirects": [
-        {
-            "source": "/",
-            "destination": "/html/index.html",
-            "permanent": false
-        }
-    ]
+  "redirects": [
+    {
+      "source": "/",
+      "destination": "/andfriends/html/index.html",
+      "permanent": false
+    }
+  ]
 }
