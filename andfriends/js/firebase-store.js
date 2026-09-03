@@ -45,14 +45,14 @@ const Store = (() => {
     }
 
     // Add this helper function to ensure auth before any Firestore operation
-async function _waitForAuthAndInit() {
-    if (!_authReady) {
-        console.log('[&FRIENDS] Waiting for auth to initialize...');
-        await _authReadyPromise;
-        console.log('[&FRIENDS] Auth initialized, session:', _cache.session ? 'present' : 'none');
+    async function _waitForAuthAndInit() {
+        if (!_authReady) {
+            console.log('[&FRIENDS] Waiting for auth to initialize...');
+            await _authReadyPromise;
+            console.log('[&FRIENDS] Auth initialized, session:', _cache.session ? 'present' : 'none');
+        }
+        return _cache.session;
     }
-    return _cache.session;
-}
 
     const docToObj = d => d.exists ? { id: d.id, ...d.data() } : null;
     const snapArr = s => s.docs.map(d => ({ id: d.id, ...d.data() }));
@@ -533,144 +533,144 @@ async function _waitForAuthAndInit() {
     }
       */
 
-   // ================================================================
-//  EVENTS
-// ================================================================
-// ================================================================
-//  EVENTS
-// ================================================================
-const Events = {
+    // ================================================================
+    //  EVENTS
+    // ================================================================
+    // ================================================================
+    //  EVENTS
+    // ================================================================
+    const Events = {
 
-    getAll() { return _cache.events; },
-    getPublished() { return _cache.events.filter(e => e.status === 'published'); },
-    getFeatured() { return _cache.events.filter(e => e.status === 'published' && e.featured); },
-    getById(id) { return _cache.events.find(e => e.id === id) || null; },
+        getAll() { return _cache.events; },
+        getPublished() { return _cache.events.filter(e => e.status === 'published'); },
+        getFeatured() { return _cache.events.filter(e => e.status === 'published' && e.featured); },
+        getById(id) { return _cache.events.find(e => e.id === id) || null; },
 
-    async fetchAll() {
-        let snap;
-        try {
-            snap = await _fsGet(_db.collection('events').orderBy('createdAt', 'desc'));
-        } catch (err) {
-            console.warn('[&FRIENDS] events fetchAll (ordered) failed:', err.message);
+        async fetchAll() {
+            let snap;
             try {
-                snap = await _fsGet(_db.collection('events'));
-            } catch (err2) {
-                console.error('[&FRIENDS] events fetchAll failed completely:', err2.message);
-                emit('af:events', _cache.events);
-                return _cache.events;
-            }
-        }
-        _cache.events = snapArr(snap);
-        emit('af:events', _cache.events);
-        return _cache.events;
-    },
-
-    async fetchPublished() {
-        let snap;
-        try {
-            snap = await _fsGet(_db.collection('events').where('status', '==', 'published'));
-        } catch (err) {
-            console.warn('[&FRIENDS] fetchPublished failed, falling back:', err.message);
-            try {
-                snap = await _fsGet(_db.collection('events'));
-            } catch (err2) {
-                console.error('[&FRIENDS] fetchPublished failed completely:', err2.message);
-                emit('af:events', _cache.events);
-                return _cache.events;
-            }
-        }
-        _cache.events = snapArr(snap)
-            .filter(e => e.status === 'published')
-            .sort((a, b) => (b.createdAt || '').localeCompare(a.createdAt || ''));
-        emit('af:events', _cache.events);
-        return _cache.events;
-    },
-
-    async create(data) {
-        // Create a slug from the title (like your original code)
-        let slug = data.title.toLowerCase().replace(/[^a-z0-9]+/g, '-');
-        // Remove leading/trailing hyphens
-        slug = slug.replace(/^-+|-+$/g, '');
-        // Add timestamp to ensure uniqueness
-        const eventId = `${slug}-${Date.now()}`;
-        
-        // Ensure image is a string
-        const imageUrl = data.image && typeof data.image === 'string' ? data.image : '';
-        
-        const event = { 
-            ...data, 
-            image: imageUrl,
-            status: data.status || 'draft', 
-            createdAt: ts(), 
-            updatedAt: ts() 
-        };
-        
-        await _db.collection('events').doc(eventId).set(event);
-        event.id = eventId;
-        _cache.events.unshift(event);
-        emit('af:events', _cache.events);
-        return event;
-    },
-
-    async update(id, data) {
-        // Get the existing event to preserve fields
-        const existingEvent = this.getById(id);
-        
-        // Create patch object - only update fields that are provided
-        const patch = { updatedAt: ts() };
-        
-        // List of fields that can be updated
-        const updatableFields = ['title', 'tag', 'date', 'time', 'location', 'description', 
-                                  'lineup', 'tickets', 'status', 'featured', 'image'];
-        
-        for (const field of updatableFields) {
-            if (data[field] !== undefined) {
-                // Special handling for image: only update if it's a valid string and not empty
-                if (field === 'image') {
-                    if (data.image && typeof data.image === 'string' && data.image !== '') {
-                        patch.image = data.image;
-                    }
-                    // If image is not provided or empty, don't include it in patch
-                    // This preserves the existing image
-                } else {
-                    patch[field] = data[field];
+                snap = await _fsGet(_db.collection('events').orderBy('createdAt', 'desc'));
+            } catch (err) {
+                console.warn('[&FRIENDS] events fetchAll (ordered) failed:', err.message);
+                try {
+                    snap = await _fsGet(_db.collection('events'));
+                } catch (err2) {
+                    console.error('[&FRIENDS] events fetchAll failed completely:', err2.message);
+                    emit('af:events', _cache.events);
+                    return _cache.events;
                 }
             }
-        }
-        
-        // If image wasn't updated but we have an existing image, preserve it
-        if (patch.image === undefined && existingEvent && existingEvent.image) {
-            // Don't include image in patch - this preserves the existing one
-            // We need to ensure we don't overwrite it with undefined
-        }
-        
-        console.log('[&FRIENDS] Updating event:', id, patch);
-        
-        await _db.collection('events').doc(id).update(patch);
-        
-        const idx = _cache.events.findIndex(e => e.id === id);
-        if (idx !== -1) {
-            _cache.events[idx] = { ..._cache.events[idx], ...patch };
-        }
-        
-        emit('af:events', _cache.events);
-        return _cache.events[idx] || null;
-    },
+            _cache.events = snapArr(snap);
+            emit('af:events', _cache.events);
+            return _cache.events;
+        },
 
-    async delete(id) {
-        await _db.collection('events').doc(id).delete();
-        _cache.events = _cache.events.filter(e => e.id !== id);
-        emit('af:events', _cache.events);
-    },
+        async fetchPublished() {
+            let snap;
+            try {
+                snap = await _fsGet(_db.collection('events').where('status', '==', 'published'));
+            } catch (err) {
+                console.warn('[&FRIENDS] fetchPublished failed, falling back:', err.message);
+                try {
+                    snap = await _fsGet(_db.collection('events'));
+                } catch (err2) {
+                    console.error('[&FRIENDS] fetchPublished failed completely:', err2.message);
+                    emit('af:events', _cache.events);
+                    return _cache.events;
+                }
+            }
+            _cache.events = snapArr(snap)
+                .filter(e => e.status === 'published')
+                .sort((a, b) => (b.createdAt || '').localeCompare(a.createdAt || ''));
+            emit('af:events', _cache.events);
+            return _cache.events;
+        },
 
-    /**
-     * Upload an event image.
-     * Returns a plain string URL (Firebase or base64)
-     */
-    async uploadImage(file, eventId) {
-        return _uploadWithFallback(file, 'events/' + (eventId || uid()));
-    },
-};
+        async create(data) {
+            // Create a slug from the title (like your original code)
+            let slug = data.title.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+            // Remove leading/trailing hyphens
+            slug = slug.replace(/^-+|-+$/g, '');
+            // Add timestamp to ensure uniqueness
+            const eventId = `${slug}-${Date.now()}`;
+
+            // Ensure image is a string
+            const imageUrl = data.image && typeof data.image === 'string' ? data.image : '';
+
+            const event = {
+                ...data,
+                image: imageUrl,
+                status: data.status || 'draft',
+                createdAt: ts(),
+                updatedAt: ts()
+            };
+
+            await _db.collection('events').doc(eventId).set(event);
+            event.id = eventId;
+            _cache.events.unshift(event);
+            emit('af:events', _cache.events);
+            return event;
+        },
+
+        async update(id, data) {
+            // Get the existing event to preserve fields
+            const existingEvent = this.getById(id);
+
+            // Create patch object - only update fields that are provided
+            const patch = { updatedAt: ts() };
+
+            // List of fields that can be updated
+            const updatableFields = ['title', 'tag', 'date', 'time', 'location', 'description',
+                'lineup', 'tickets', 'status', 'featured', 'image'];
+
+            for (const field of updatableFields) {
+                if (data[field] !== undefined) {
+                    // Special handling for image: only update if it's a valid string and not empty
+                    if (field === 'image') {
+                        if (data.image && typeof data.image === 'string' && data.image !== '') {
+                            patch.image = data.image;
+                        }
+                        // If image is not provided or empty, don't include it in patch
+                        // This preserves the existing image
+                    } else {
+                        patch[field] = data[field];
+                    }
+                }
+            }
+
+            // If image wasn't updated but we have an existing image, preserve it
+            if (patch.image === undefined && existingEvent && existingEvent.image) {
+                // Don't include image in patch - this preserves the existing one
+                // We need to ensure we don't overwrite it with undefined
+            }
+
+            console.log('[&FRIENDS] Updating event:', id, patch);
+
+            await _db.collection('events').doc(id).update(patch);
+
+            const idx = _cache.events.findIndex(e => e.id === id);
+            if (idx !== -1) {
+                _cache.events[idx] = { ..._cache.events[idx], ...patch };
+            }
+
+            emit('af:events', _cache.events);
+            return _cache.events[idx] || null;
+        },
+
+        async delete(id) {
+            await _db.collection('events').doc(id).delete();
+            _cache.events = _cache.events.filter(e => e.id !== id);
+            emit('af:events', _cache.events);
+        },
+
+        /**
+         * Upload an event image.
+         * Returns a plain string URL (Firebase or base64)
+         */
+        async uploadImage(file, eventId) {
+            return _uploadWithFallback(file, 'events/' + (eventId || uid()));
+        },
+    };
 
     // ================================================================
     //  GALLERY
@@ -858,7 +858,7 @@ const Events = {
             if (!ticket) return { ok: false, error: 'Ticket not found.' };
             if (ticket.validated) return { ok: false, error: 'Ticket already used.' };
             const now = ts();
-            await _db.collection('tickets').doc(ticketId).update({ validated: true, validatedAt: now ,status: 'confirmed' });
+            await _db.collection('tickets').doc(ticketId).update({ validated: true, validatedAt: now, status: 'confirmed' });
             const idx = _cache.tickets.findIndex(t => t.id === ticketId);
             if (idx !== -1) { _cache.tickets[idx].validated = true; _cache.tickets[idx].validatedAt = now; _cache.tickets[idx].status = 'confirmed'; }
             emit('af:tickets', _cache.tickets);
