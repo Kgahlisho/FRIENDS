@@ -1,4 +1,3 @@
-/* &FRIENDS — styles.css */
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500&family=Bebas+Neue&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
 
 /* CSS Variables  */
@@ -304,6 +303,7 @@ nav {
     0% {
         transform: translateX(0);
     }
+
     100% {
         transform: translateX(-50%);
     }
@@ -1108,8 +1108,17 @@ nav {
 }
 
 @keyframes pulse {
-    0%, 100% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.5; transform: scale(0.8); }
+
+    0%,
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: 0.5;
+        transform: scale(0.8);
+    }
 }
 
 #events_index .header-badge span {
@@ -1388,7 +1397,7 @@ nav {
         grid-template-columns: 1fr;
         gap: 30px;
     }
-    
+
     #events_index .featured-event-inner {
         height: 450px;
     }
@@ -1398,41 +1407,41 @@ nav {
     #events_index {
         padding: 60px 24px;
     }
-    
+
     #events_index .featured-event-inner {
         height: 400px;
     }
-    
+
     #events_index .featured-event-overlay {
         padding: 25px;
     }
-    
+
     #events_index .featured-title {
         font-size: 28px;
     }
-    
+
     #events_index .featured-desc {
         max-width: 100%;
     }
-    
+
     #events_index .event-card-modern {
         flex-direction: column;
     }
-    
+
     #events_index .event-card-image {
         width: 100%;
         height: 160px;
     }
-    
+
     #events_index .events-headline {
         font-size: 36px;
     }
-    
+
     #events_index .header-decoration {
         flex-direction: column;
         gap: 10px;
     }
-    
+
     #events_index .decoration-line {
         width: 40px;
     }
@@ -1740,7 +1749,7 @@ nav {
         grid-template-columns: 1fr;
         gap: 30px;
     }
-    
+
     #eventsSection .featured-event-inner {
         height: 450px;
     }
@@ -1750,32 +1759,32 @@ nav {
     #eventsSection {
         padding: 60px 24px;
     }
-    
+
     #eventsSection .featured-event-inner {
         height: 400px;
     }
-    
+
     #eventsSection .featured-event-overlay {
         padding: 25px;
     }
-    
+
     #eventsSection .featured-title {
         font-size: 28px;
     }
-    
+
     #eventsSection .event-card-modern {
         flex-direction: column;
     }
-    
+
     #eventsSection .event-card-image {
         width: 100%;
         height: 160px;
     }
-    
+
     #eventsSection .events-headline {
         font-size: 36px;
     }
-    
+
     #eventsSection .header-decoration {
         flex-direction: column;
         gap: 10px;
@@ -1941,22 +1950,23 @@ nav {
 
 /* Services Page Responsive */
 @media (max-width: 900px) {
+
     #services .services-grid,
     #the-space .about-inner {
         grid-template-columns: 1fr;
         gap: 40px;
     }
-    
+
     #services .who-img {
         width: 100%;
         max-width: 300px;
         margin: 0 auto;
     }
-    
+
     #event-types {
         padding: 40px 24px;
     }
-    
+
     #amenities,
     #booking,
     #pricing {
@@ -2087,23 +2097,47 @@ footer {
 
 /* ANIMATIONS */
 @keyframes fadeDown {
-    from { opacity: 0; transform: translateY(-20px); }
-    to { opacity: 0.5; transform: translateY(0); }
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+
+    to {
+        opacity: 0.5;
+        transform: translateY(0);
+    }
 }
 
 @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(30px); }
-    to { opacity: 1; transform: translateY(0); }
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 @keyframes rotateSlow {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
 }
 
 @keyframes ticker {
-    from { transform: translateX(0); }
-    to { transform: translateX(-50%); }
+    from {
+        transform: translateX(0);
+    }
+
+    to {
+        transform: translateX(-50%);
+    }
 }
 
 /* GLOBAL RESPONSIVE */
@@ -2113,12 +2147,12 @@ footer {
         gap: 40px;
         padding: 0 20px;
     }
-    
+
     .about-img_home {
         max-width: 80%;
         margin: 0 auto;
     }
-    
+
     .vision-grid {
         grid-template-columns: 1fr;
         gap: 16px;
@@ -2130,16 +2164,16 @@ footer {
         grid-template-columns: 1fr;
         gap: 40px;
     }
-    
+
     .community-grid_home {
         grid-template-columns: 1fr;
         gap: 32px;
     }
-    
+
     .community-img_home {
         margin: 0 auto;
     }
-    
+
     /* About Us responsive */
     #about-us .about-inner,
     #our-vision .about-inner,
@@ -2149,16 +2183,16 @@ footer {
         grid-template-columns: 1fr;
         gap: 40px;
     }
-    
+
     #the-people .who-grid {
         grid-template-columns: 1fr;
     }
-    
+
     #the-people .who-img {
         max-width: 280px;
         margin: 0 auto;
     }
-    
+
     #philosophy .talk-quote {
         font-size: 1.2rem;
     }
@@ -2260,20 +2294,20 @@ footer {
     .about-img_home {
         max-width: 100%;
     }
-    
+
     .vision-statement {
         font-size: 28px;
     }
-    
+
     .vision-quote p {
         font-size: 15px;
     }
-    
+
     .about-text_home .btn-event {
         width: 100%;
         text-align: center;
     }
-    
+
     /* About Us mobile */
     #about-us,
     #our-vision,
@@ -2282,15 +2316,17 @@ footer {
     #community {
         padding: 60px 24px;
     }
-    
+
     #the-people .who-text h3 {
         font-size: 28px;
     }
-    
+
     #philosophy .talk-quote {
         font-size: 1.1rem;
     }
-}/* &FRIENDS — styles.css */
+}
+
+/* &FRIENDS — styles.css */
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500&family=Bebas+Neue&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
 
 /* CSS Variables  */
@@ -3324,9 +3360,7 @@ nav {
     box-shadow: 0px 15px 20px rgba(255, 255, 255, 0.25);
 }
 
-/* ===========================
-   WHAT'S COMING - Professional Events Section (Homepage)
-   =========================== */
+/*    WHAT'S COMING - Professional Events Section (Homepage) */
 #events_index {
     padding: 80px 48px;
     background: linear-gradient(135deg, #0a0a0a 0%, #121212 100%);
@@ -3388,8 +3422,17 @@ nav {
 }
 
 @keyframes pulse {
-    0%, 100% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.5; transform: scale(0.8); }
+
+    0%,
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: 0.5;
+        transform: scale(0.8);
+    }
 }
 
 #events_index .header-badge span {
@@ -3668,7 +3711,7 @@ nav {
         grid-template-columns: 1fr;
         gap: 30px;
     }
-    
+
     #events_index .featured-event-inner {
         height: 450px;
     }
@@ -3678,49 +3721,47 @@ nav {
     #events_index {
         padding: 60px 24px;
     }
-    
+
     #events_index .featured-event-inner {
         height: 400px;
     }
-    
+
     #events_index .featured-event-overlay {
         padding: 25px;
     }
-    
+
     #events_index .featured-title {
         font-size: 28px;
     }
-    
+
     #events_index .featured-desc {
         max-width: 100%;
     }
-    
+
     #events_index .event-card-modern {
         flex-direction: column;
     }
-    
+
     #events_index .event-card-image {
         width: 100%;
         height: 160px;
     }
-    
+
     #events_index .events-headline {
         font-size: 36px;
     }
-    
+
     #events_index .header-decoration {
         flex-direction: column;
         gap: 10px;
     }
-    
+
     #events_index .decoration-line {
         width: 40px;
     }
 }
 
-/* ===========================
-   PLAY PAGE - Professional Layout
-   =========================== */
+/*    PLAY PAGE - Professional Layout */
 #eventsSection {
     padding: 80px 48px;
     background: linear-gradient(135deg, #0a0a0a 0%, #121212 100%);
@@ -4020,7 +4061,7 @@ nav {
         grid-template-columns: 1fr;
         gap: 30px;
     }
-    
+
     #eventsSection .featured-event-inner {
         height: 450px;
     }
@@ -4030,43 +4071,40 @@ nav {
     #eventsSection {
         padding: 60px 24px;
     }
-    
+
     #eventsSection .featured-event-inner {
         height: 400px;
     }
-    
+
     #eventsSection .featured-event-overlay {
         padding: 25px;
     }
-    
+
     #eventsSection .featured-title {
         font-size: 28px;
     }
-    
+
     #eventsSection .event-card-modern {
         flex-direction: column;
     }
-    
+
     #eventsSection .event-card-image {
         width: 100%;
         height: 160px;
     }
-    
+
     #eventsSection .events-headline {
         font-size: 36px;
     }
-    
+
     #eventsSection .header-decoration {
         flex-direction: column;
         gap: 10px;
     }
 }
 
-/* ===========================
-   SERVICES PAGE FIXES
-   =========================== */
+/* Services page */
 
-/* Override any conflicting styles for the services section */
 #services {
     background: transparent !important;
     color: var(--text-body) !important;
@@ -4093,7 +4131,6 @@ nav {
     color: var(--text-body);
 }
 
-/* Fix the-space section */
 #the-space {
     padding: 40px 40px 80px;
     background: var(--warm-white);
@@ -4149,7 +4186,7 @@ nav {
     border-color: var(--dark-brown);
 }
 
-/* Fix event-types section */
+/* event-types section */
 #event-types {
     background: var(--pink-light);
     padding: 60px 40px;
@@ -4168,7 +4205,7 @@ nav {
     margin-bottom: 40px;
 }
 
-/* Fix amenities section */
+/* amenities section */
 #amenities {
     padding: 60px 40px;
     background: var(--warm-white);
@@ -4181,19 +4218,19 @@ nav {
     opacity: 0.35;
 }
 
-/* Fix booking section */
+/* booking section */
 #booking {
     background: var(--pink-light);
     padding: 60px 40px;
 }
 
-/* Fix pricing section */
+/* pricing section */
 #pricing {
     padding: 60px 40px;
     background: var(--warm-white);
 }
 
-/* Fix CTA section */
+/* CTA section */
 #cta {
     background: linear-gradient(135deg, var(--dark-brown), #1a0f08);
     color: var(--warm-white);
@@ -4221,32 +4258,33 @@ nav {
 
 /* Services Page Responsive */
 @media (max-width: 900px) {
+
     #services .services-grid,
     #the-space .about-inner {
         grid-template-columns: 1fr;
         gap: 40px;
     }
-    
+
     #services .who-img {
         width: 100%;
         max-width: 300px;
         margin: 0 auto;
     }
-    
+
     #event-types {
         padding: 40px 24px;
     }
-    
+
     #amenities,
     #booking,
     #pricing {
         padding: 40px 24px;
     }
-}/* ===========================
-   MUSIC PAGE FIXES
-   =========================== */
+}
 
-/* Fix what-is-music section */
+/* MUSIC PAGE FIXES */
+
+/* what-is-music section */
 #what-is-music {
     padding: 80px 40px;
     background: #fefefe;
@@ -4254,7 +4292,7 @@ nav {
 
 #what-is-music .who-grid {
     display: grid;
-    grid-template-columns:  1fr;
+    grid-template-columns: 1fr;
     gap: 60px;
     align-items: center;
 }
@@ -4303,10 +4341,11 @@ nav {
     box-shadow: 0 6px 20px rgba(232, 93, 4, 0.3);
 }
 
-/* Fix the-experience section */
+/*  the-experience section */
 #the-experience {
     padding: 80px 40px;
-    background: #fefefe;  /* Fixed: added proper background */
+    background: #fefefe;
+
 }
 
 #the-experience .about-inner {
@@ -4352,9 +4391,7 @@ nav {
 }
 
 
-/* ===========================
-   FEATURED ARTISTS - PROFESSIONAL GALLERY
-   =========================== */
+/* FEATURED ARTISTS - PROFESSIONAL GALLERY */
 
 /* Section styling */
 #artists {
@@ -4408,7 +4445,7 @@ nav {
 }
 
 /* Card styling */
-#artists .artists-grid > div {
+#artists .artists-grid>div {
     background: white;
     border-radius: 16px;
     overflow: hidden;
@@ -4417,12 +4454,11 @@ nav {
     position: relative;
 }
 
-#artists .artists-grid > div:hover {
+#artists .artists-grid>div:hover {
     transform: translateY(-8px);
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
 }
 
-/* Fix: Remove padding from image container */
 #artists .reveal-left {
     overflow: hidden;
     position: relative;
@@ -4430,7 +4466,6 @@ nav {
     padding: 0;
 }
 
-/* Fix: Ensure image fills entire container */
 #artists .artist-imgs {
     width: 100%;
     height: 300px;
@@ -4440,11 +4475,11 @@ nav {
 }
 
 /* All cards same height for consistency */
-#artists .artists-grid > div .reveal-left {
+#artists .artists-grid>div .reveal-left {
     height: 300px;
 }
 
-#artists .artists-grid > div:hover .artist-imgs {
+#artists .artists-grid>div:hover .artist-imgs {
     transform: scale(1.06);
 }
 
@@ -4456,13 +4491,13 @@ nav {
     left: 0;
     right: 0;
     bottom: 0;
-    background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
     opacity: 0;
     transition: opacity 0.3s ease;
     pointer-events: none;
 }
 
-#artists .artists-grid > div:hover .reveal-left::after {
+#artists .artists-grid>div:hover .reveal-left::after {
     opacity: 1;
 }
 
@@ -4489,7 +4524,7 @@ nav {
     pointer-events: none;
 }
 
-#artists .artists-grid > div:hover .reveal-left::before {
+#artists .artists-grid>div:hover .reveal-left::before {
     opacity: 1;
 }
 
@@ -4515,22 +4550,44 @@ nav {
 }
 
 /* Different roles for variety */
-#artists .artists-grid > div:nth-child(1) h3::after { content: 'Soul / Afro-Folk'; }
-#artists .artists-grid > div:nth-child(2) h3::after { content: 'Afro Jazz'; }
-#artists .artists-grid > div:nth-child(3) h3::after { content: 'R&B / Soul'; }
-#artists .artists-grid > div:nth-child(4) h3::after { content: 'Hip Hop'; }
-#artists .artists-grid > div:nth-child(5) h3::after { content: 'Hip Hop'; }
-#artists .artists-grid > div:nth-child(6) h3::after { content: 'Neo Soul'; }
-#artists .artists-grid > div:nth-child(7) h3::after { content: 'Jazz'; }
-#artists .artists-grid > div:nth-child(8) h3::after { content: 'Afro Pop'; }
+#artists .artists-grid>div:nth-child(1) h3::after {
+    content: 'Soul / Afro-Folk';
+}
 
-/* Remove the after element that was adding extra text */
-#artists .talk-inner > div:first-child::after {
+#artists .artists-grid>div:nth-child(2) h3::after {
+    content: 'Afro Jazz';
+}
+
+#artists .artists-grid>div:nth-child(3) h3::after {
+    content: 'R&B / Soul';
+}
+
+#artists .artists-grid>div:nth-child(4) h3::after {
+    content: 'Hip Hop';
+}
+
+#artists .artists-grid>div:nth-child(5) h3::after {
+    content: 'Hip Hop';
+}
+
+#artists .artists-grid>div:nth-child(6) h3::after {
+    content: 'Neo Soul';
+}
+
+#artists .artists-grid>div:nth-child(7) h3::after {
+    content: 'Jazz';
+}
+
+#artists .artists-grid>div:nth-child(8) h3::after {
+    content: 'Afro Pop';
+}
+
+#artists .talk-inner>div:first-child::after {
     display: none;
 }
 
 /* CTA section */
-#artists .talk-inner > div:last-child {
+#artists .talk-inner>div:last-child {
     background: linear-gradient(135deg, #f8f6f4, #fff);
     border-radius: 20px;
     padding: 50px;
@@ -4539,14 +4596,14 @@ nav {
     margin-top: 20px;
 }
 
-#artists .talk-inner > div:last-child h3 {
+#artists .talk-inner>div:last-child h3 {
     font-family: var(--font-display);
     font-size: 36px;
     color: var(--dark-brown);
     margin-bottom: 15px !important;
 }
 
-#artists .talk-inner > div:last-child p {
+#artists .talk-inner>div:last-child p {
     font-size: 16px;
     line-height: 1.8;
     color: var(--text-body);
@@ -4566,37 +4623,36 @@ nav {
     #artists {
         padding: 60px 20px;
     }
-    
+
     #artists .section-big-title {
         font-size: 36px;
     }
-    
+
     #artists .artists-grid {
         grid-template-columns: 1fr;
         gap: 20px;
     }
-    
-    #artists .artists-grid > div .reveal-left,
-    #artists .artists-grid > div .reveal-left {
+
+    #artists .artists-grid>div .reveal-left,
+    #artists .artists-grid>div .reveal-left {
         height: 280px;
     }
-    
+
     #artists h3 {
         font-size: 16px;
         margin: 15px 15px 5px 15px !important;
     }
-    
-    #artists .talk-inner > div:last-child {
+
+    #artists .talk-inner>div:last-child {
         padding: 30px 20px;
     }
-    
-    #artists .talk-inner > div:last-child h3 {
+
+    #artists .talk-inner>div:last-child h3 {
         font-size: 26px;
     }
 }
 
 
-/* Fix artists section on music page */
 #music #artists,
 body:not(#about-us) #artists {
     background: var(--warm-white);
@@ -4612,7 +4668,6 @@ body:not(#about-us) #artists .section-big-title {
     margin-bottom: 40px;
 }
 
-/* Fix book-music section */
 #book-music {
     padding: 80px 40px;
     background: var(--pink-light);
@@ -4625,21 +4680,21 @@ body:not(#about-us) #artists .section-big-title {
         gap: 40px;
         text-align: center;
     }
-    
+
     #the-experience .reveal-left {
         order: 2;
     }
-    
+
     #the-experience .about-text {
         order: 1;
     }
-    
+
     #the-experience .about-img {
         height: 300px;
         border-radius: 30px;
         margin: 0 auto;
     }
-    
+
     .btn-music {
         margin: 8px auto 0;
     }
@@ -4653,11 +4708,8 @@ body:not(#about-us) #artists .section-big-title {
 }
 
 
-/* ===========================
-   TALK PAGE FIXES
-   =========================== */
+/* TALK PAGE  */
 
-/* Fix what-is-talk section */
 #what-is-talk {
     padding: 80px 40px;
     background: #fefefe;
@@ -4684,7 +4736,6 @@ body:not(#about-us) #artists .section-big-title {
     color: var(--text-body);
 }
 
-/* Fix the-vibe section */
 #the-vibe {
     padding: 80px 40px;
     background: #fefefe;
@@ -4694,7 +4745,7 @@ body:not(#about-us) #artists .section-big-title {
     max-width: 1100px;
     margin: 0 auto;
     display: flex !important;
-    flex-direction: row ;
+    flex-direction: row;
     gap: 60px;
     justify-content: space-between;
     align-items: center;
@@ -4710,7 +4761,7 @@ body:not(#about-us) #artists .section-big-title {
 
 
 #the-vibe .about-img {
-   width: 100%;
+    width: 100%;
     height: 600px;
     object-fit: cover;
     display: block;
@@ -4771,18 +4822,18 @@ body:not(#about-us) #artists .section-big-title {
 
 /* Responsive */
 @media (max-width: 900px) {
-      #the-vibe .about-inner {
+    #the-vibe .about-inner {
         flex-direction: column;
         gap: 40px;
         text-align: center;
     }
 
-       
+
     #the-vibe .about-text {
         text-align: center;
     }
-    
-    
+
+
     #the-vibe .about-img {
         max-width: 450px;
         height: 350px;
@@ -4793,36 +4844,28 @@ body:not(#about-us) #artists .section-big-title {
     #the-vibe {
         padding: 60px 24px;
     }
-    
+
     #the-vibe .about-img {
         height: 280px;
     }
 }
 
 
-/* Fix past-talks section */
 #past-talks {
     padding: 80px 40px;
     background: var(--warm-white);
 }
 
-/* Fix upcoming section */
 #upcoming {
     padding: 80px 40px;
     background: var(--pink-light);
 }
 
-/* Fix talk page CTA */
 body:not(#about-us) #cta {
     background: linear-gradient(135deg, var(--dark-brown), #1a0f08);
     color: var(--warm-white);
 }
 
-/* ===========================
-   BLOOM PAGE FIXES
-   =========================== */
-
-/* Fix what-is-bloom section */
 #what-is-bloom {
     padding: 80px 40px;
     background: var(--warm-white);
@@ -4848,7 +4891,6 @@ body:not(#about-us) #cta {
     color: var(--text-body);
 }
 
-/* Fix gallery-experience section */
 #gallery-experience {
     padding: 80px 40px;
     width: 100%;
@@ -4944,20 +4986,20 @@ body:not(#about-us) #cta {
         gap: 40px;
         text-align: center;
     }
-    
+
     #gallery-experience .about-text {
         text-align: center;
     }
 
-    
+
     #gallery-experience .reveal-left {
         order: 2;
     }
-    
+
     #gallery-experience .about-text {
         order: 1;
     }
-    
+
     #gallery-experience .about-img {
         height: 350px;
         max-width: 450px;
@@ -4969,36 +5011,30 @@ body:not(#about-us) #cta {
     #gallery-experience {
         padding: 60px 24px;
     }
-    
+
     #gallery-experience .about-img {
         height: 280px;
     }
 }
 
-/* Fix bloom artists section */
 #bloom #artists,
 body:not(#about-us) #artists {
     background: var(--warm-white);
     padding: 80px 40px;
 }
 
-/* Fix exhibitions section */
 #exhibitions {
     padding: 80px 40px;
     background: var(--pink-light);
 }
 
-/* Fix submit section */
 #submit {
     padding: 80px 40px;
     background: var(--warm-white);
 }
 
-/* ===========================
-   FUN PAGE FIXES
-   =========================== */
+/*  FUN PAGE FIXES */
 
-/* Fix what-is-fun section */
 #what-is-fun {
     padding: 80px 40px;
     background: var(--warm-white);
@@ -5024,7 +5060,6 @@ body:not(#about-us) #artists {
     color: var(--text-body);
 }
 
-/* Fix the-energy section */
 #the-energy {
     padding: 80px 40px;
     background: var(--pink-light);
@@ -5045,13 +5080,13 @@ body:not(#about-us) #artists {
     object-fit: cover;
     border-radius: 20px;
     display: block;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 #the-energy .about-img:hover {
     transform: scale(1.02);
-    box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
 }
 
 #the-energy .about-img {
@@ -5072,29 +5107,23 @@ body:not(#about-us) #artists {
     margin-bottom: 20px;
 }
 
-/* Fix types-of-fun section */
 #types-of-fun {
     padding: 80px 40px;
     background: var(--warm-white);
 }
 
-/* Fix upcoming-fun section */
 #upcoming-fun {
     padding: 80px 40px;
     background: var(--pink-light);
 }
 
-/* Fix host-fun section */
 #host-fun {
     padding: 80px 40px;
     background: var(--warm-white);
 }
 
-/* ===========================
-   GENERAL PAGE FIXES (Prevent About Us styles from bleeding)
-   =========================== */
+/*    GENERAL PAGE FIXES (Prevent About Us styles from bleeding) */
 
-/* Ensure about-img only affects About Us page */
 #about-us .about-img,
 #our-vision .about-img,
 #community .about-img {
@@ -5104,19 +5133,18 @@ body:not(#about-us) #artists {
     object-fit: cover;
 }
 
-/* NOTE: Removed the body:not(#about-us) .about-inner override — it was killing
-   flex/grid layouts on bloom, fun, music, talk, services pages. Each section
+/* i had to Remove the body:not(#about-us) .about-inner override — because it was killing
+   flex/grid layouts on bloom, fun, music, talk, services pages. Where  Each section
    now manages its own about-inner layout via its ID scope. */
 
-/* Ensure who-grid works properly on all pages */
 .who-grid {
     display: grid;
     gap: 48px;
     align-items: start;
 }
 
-/* Responsive fixes for these pages */
 @media (max-width: 900px) {
+
     #what-is-music .who-grid,
     #what-is-talk .who-grid,
     #what-is-bloom .who-grid,
@@ -5128,7 +5156,7 @@ body:not(#about-us) #artists {
         grid-template-columns: 1fr;
         gap: 40px;
     }
-    
+
     #what-is-music .who-img,
     #what-is-talk .who-img,
     #what-is-bloom .who-img,
@@ -5261,23 +5289,47 @@ footer {
 
 /* ANIMATIONS */
 @keyframes fadeDown {
-    from { opacity: 0; transform: translateY(-20px); }
-    to { opacity: 0.5; transform: translateY(0); }
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+
+    to {
+        opacity: 0.5;
+        transform: translateY(0);
+    }
 }
 
 @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(30px); }
-    to { opacity: 1; transform: translateY(0); }
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 @keyframes rotateSlow {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
 }
 
 @keyframes ticker {
-    from { transform: translateX(0); }
-    to { transform: translateX(-50%); }
+    from {
+        transform: translateX(0);
+    }
+
+    to {
+        transform: translateX(-50%);
+    }
 }
 
 /* GLOBAL RESPONSIVE */
@@ -5287,12 +5339,12 @@ footer {
         gap: 40px;
         padding: 0 20px;
     }
-    
+
     .about-img_home {
         max-width: 80%;
         margin: 0 auto;
     }
-    
+
     .vision-grid {
         grid-template-columns: 1fr;
         gap: 16px;
@@ -5304,16 +5356,16 @@ footer {
         grid-template-columns: 1fr;
         gap: 40px;
     }
-    
+
     .community-grid_home {
         grid-template-columns: 1fr;
         gap: 32px;
     }
-    
+
     .community-img_home {
         margin: 0 auto;
     }
-    
+
     /* About Us responsive */
     #about-us .about-inner,
     #our-vision .about-inner,
@@ -5323,16 +5375,16 @@ footer {
         grid-template-columns: 1fr;
         gap: 40px;
     }
-    
+
     #the-people .who-grid {
         grid-template-columns: 1fr;
     }
-    
+
     #the-people .who-img {
         max-width: 280px;
         margin: 0 auto;
     }
-    
+
     #philosophy .talk-quote {
         font-size: 1.2rem;
     }
@@ -5434,21 +5486,21 @@ footer {
     .about-img_home {
         max-width: 100%;
     }
-    
+
     .vision-statement {
         font-size: 28px;
     }
-    
+
     .vision-quote p {
         font-size: 15px;
     }
-    
+
     .about-text_home .btn-event {
         width: 100%;
         text-align: center;
     }
 
-    
+
     /* About Us mobile */
     #about-us,
     #our-vision,
@@ -5457,16 +5509,17 @@ footer {
     #community {
         padding: 60px 24px;
     }
-    
+
     #the-people .who-text h3 {
         font-size: 28px;
     }
-    
+
     #philosophy .talk-quote {
         font-size: 1.1rem;
     }
 }
-/* ── moments-btn: "View Gallery →" button on homepage ─────────── */
+
+/* moments-btn: "View Gallery →" button on homepage  */
 .moments-btn {
     display: inline-block;
     padding: 13px 30px;
@@ -5484,15 +5537,14 @@ footer {
     background: transparent;
     margin-top: 8px;
 }
+
 .moments-btn:hover {
     background: var(--dark-brown, #1c0e04);
     color: var(--warm-white, #fdf6f2);
     transform: translateY(-2px);
 }
 
-/* ══════════════════════════════════════════════════════════════
-   TYPING EFFECT — #about-us_home vision statement
-══════════════════════════════════════════════════════════════ */
+/* TYPING EFFECT — #about-us_home vision statement */
 
 /* Blinking cursor */
 .type-cursor {
@@ -5508,8 +5560,15 @@ footer {
 }
 
 @keyframes cursor-blink {
-    0%, 100% { opacity: 1; }
-    50%       { opacity: 0; }
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0;
+    }
 }
 
 /* Plain segment (white) */
@@ -5530,4 +5589,118 @@ footer {
     min-height: 12em;
     display: block;
     white-space: pre-wrap;
+}
+
+img,
+video,
+svg {
+    max-width: 100%;
+}
+
+.who-grid>*,
+.talk-grid>*,
+.about-inner>*,
+.community-grid>* {
+    min-width: 0;
+}
+
+h1,
+h2,
+h3,
+p {
+    overflow-wrap: break-word;
+}
+
+@media (max-width: 900px) {
+
+    /* Slide-in reveals start 40px sideways, pushing the page wider than the screen */
+    .reveal-left,
+    .reveal-right {
+        transform: translateY(28px);
+    }
+
+    .reveal-left.visible,
+    .reveal-right.visible {
+        transform: translate(0, 0);
+    }
+
+    /* Inline-padded sections*/
+    #who-we-are>div {
+        padding: 60px 24px !important;
+    }
+
+    .mamakashaka-badge {
+        margin: 24px auto 0;
+        display: block;
+    }
+}
+
+@media (max-width: 768px) {
+    .hero-content {
+        box-sizing: border-box;
+        max-width: 100%;
+    }
+
+    .hero-text-block {
+        min-width: 0;
+        max-width: 100%;
+    }
+
+    .hero-title {
+        font-size: clamp(2.6rem, 15vw, 5rem);
+        overflow-wrap: anywhere;
+    }
+
+    .hero-img-placeholder {
+        max-width: 100%;
+    }
+
+    #hero::before {
+        right: 0;
+        font-size: 70vw;
+    }
+
+    #hero {
+        overflow: hidden;
+    }
+}
+
+@media (max-width: 480px) {
+
+    .moments-title,
+    .section-big-title {
+        font-size: clamp(2.2rem, 12vw, 3.5rem);
+    }
+
+    #about-us,
+    #our-vision,
+    #philosophy,
+    #the-people,
+    #community {
+        padding: 48px 20px;
+    }
+}
+
+@media (max-width: 900px) {
+    .moments-layout {
+        grid-template-columns: 1fr;
+        gap: 32px;
+        padding: 0 4px;
+    }
+
+    .moments-layout>* {
+        min-width: 0;
+    }
+
+    #moments {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+}
+
+@media (max-width: 600px) {
+    section>div[style*="max-width"] {
+        padding-left: 4px !important;
+        padding-right: 4px !important;
+    }
 }

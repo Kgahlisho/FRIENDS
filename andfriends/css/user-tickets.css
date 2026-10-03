@@ -1,5 +1,3 @@
-/* &FRIENDS — User Tickets Styles */
-
 :root {
     --admin-sidebar-w: 220px;
 }
@@ -170,6 +168,7 @@
         opacity: 0;
         transform: scale(0.95) translateY(-20px);
     }
+
     to {
         opacity: 1;
         transform: scale(1) translateY(0);
@@ -471,26 +470,27 @@
     .ticket-grid {
         grid-template-columns: 1fr;
     }
-    
+
     .ticket-modal-title {
         font-size: 28px;
     }
-    
+
     #modalLargeQR canvas {
         width: 200px !important;
         height: 200px !important;
     }
-    
+
     .ticket-modal-body {
         padding: 20px;
     }
-    
+
     .browse-events-grid {
         grid-template-columns: 1fr;
     }
 }
 
 @media print {
+
     .admin-sidebar,
     .admin-topbar,
     .stats-grid,
@@ -499,14 +499,24 @@
     .rf-ticket {
         display: none !important;
     }
-    
+
     .ticket-view-modal {
         position: relative;
         background: white;
         backdrop-filter: none;
     }
-    
+
     .ticket-modal-container {
         max-width: 100%;
     }
+}
+
+/* RESPONSIVE ) */
+.ticket-grid {
+    grid-template-columns: repeat(auto-fill, minmax(min(280px, 100%), 1fr));
+}
+
+.ticket-grid>*,
+.stats-grid>* {
+    min-width: 0;
 }
