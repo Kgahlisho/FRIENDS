@@ -1,0 +1,317 @@
+html[data-bloom="petals"] body[data-page="bloom"] .hero-content {
+    position: relative;
+}
+
+html[data-bloom="petals"] body[data-page="bloom"] #hero {
+    overflow-x: clip;
+}
+
+/* keep the title / tagline above the decorative layer */
+html[data-bloom="petals"] body[data-page="bloom"] .hero-text-block {
+    position: relative;
+    z-index: 3;
+}
+
+.bloom-fx {
+    position: absolute;
+    z-index: 1;
+    pointer-events: none;
+    display: none;
+}
+
+html[data-bloom="petals"] .bloom-fx {
+    display: block;
+}
+
+.bloom-fx>* {
+    position: absolute;
+}
+
+.bloom-fx .petal,
+.bloom-fx .pistil {
+    position: absolute;
+    display: block;
+}
+
+.bloom-fx .fx-petals {
+    display: none;
+    inset: 0;
+}
+
+html[data-bloom="petals"] .bloom-fx .fx-petals {
+    display: block;
+}
+
+/* ═════════ Petals and photo ═════════
+   A two-ring flower spins open behind the photo. The photo irises open from
+   its centre, swells past its frame, then the petals fold away and it settles. */
+html[data-bloom="petals"] body[data-page="bloom"] .hero-img-placeholder {
+    animation: petalsImg 2.8s cubic-bezier(.22, .9, .3, 1) .1s both;
+}
+
+html[data-bloom="petals"] body[data-page="bloom"] .hero-img {
+    animation: petalsZoom 2.8s cubic-bezier(.2, .8, .2, 1) .1s both;
+}
+
+@keyframes petalsImg {
+    0% {
+        clip-path: circle(0% at 50% 50%);
+        transform: scale(.55) rotate(-24deg);
+        box-shadow: 0 0 0 0 rgba(232, 93, 4, 0);
+    }
+
+    30% {
+        clip-path: circle(0% at 50% 50%);
+        transform: scale(.7) rotate(-14deg);
+    }
+
+    62% {
+        clip-path: circle(78% at 50% 50%);
+        transform: scale(1.14) rotate(3deg);
+        box-shadow: 0 0 0 16px rgba(233, 120, 140, .22), 0 0 80px 18px rgba(233, 120, 140, .28), 0 26px 64px rgba(0, 0, 0, .3);
+    }
+
+    80% {
+        clip-path: circle(100% at 50% 50%);
+        transform: scale(1.04) rotate(-1deg);
+    }
+
+    100% {
+        clip-path: circle(100% at 50% 50%);
+        transform: none;
+        box-shadow: 0 12px 40px rgba(0, 0, 0, .18);
+    }
+}
+
+@keyframes petalsZoom {
+    0% {
+        transform: scale(1.7) rotate(8deg);
+        filter: saturate(.3) blur(6px);
+    }
+
+    70% {
+        filter: saturate(1.15) blur(0);
+    }
+
+    100% {
+        transform: none;
+        filter: none;
+    }
+}
+
+.bloom-fx .petal {
+    left: 50%;
+    top: 50%;
+    width: 17%;
+    height: 46%;
+    margin-left: -8.5%;
+    margin-top: -46%;
+    /* base of the petal sits on the centre */
+    transform-origin: 50% 100%;
+    border-radius: 50% 50% 46% 46% / 85% 85% 15% 15%;
+    background: linear-gradient(to top, #e85d04 0%, #f08a8a 45%, #f9cfd0 100%);
+    opacity: 0;
+    transform: rotate(calc(var(--a) - 70deg)) scale(0);
+}
+
+.bloom-fx .petal.inner {
+    width: 12%;
+    height: 32%;
+    margin-left: -6%;
+    margin-top: -32%;
+    background: linear-gradient(to top, #c2185b 0%, #ec6f9c 55%, #fbd0de 100%);
+}
+
+.bloom-fx.play .petal {
+    animation: petalOpen 2.8s cubic-bezier(.2, .9, .25, 1.05) calc(var(--d) + .1s) both;
+}
+
+@keyframes petalOpen {
+    0% {
+        opacity: 0;
+        transform: rotate(calc(var(--a) - 70deg)) scale(0);
+    }
+
+    22% {
+        opacity: 1;
+    }
+
+    52% {
+        opacity: 1;
+        transform: rotate(calc(var(--a) + 8deg)) scale(1.08);
+    }
+
+    66% {
+        opacity: 1;
+        transform: rotate(var(--a)) scale(1);
+    }
+
+    100% {
+        opacity: 0;
+        transform: rotate(calc(var(--a) + 30deg)) scale(.35);
+    }
+}
+
+.bloom-fx .pistil {
+    left: 50%;
+    top: 50%;
+    width: 14%;
+    aspect-ratio: 1;
+    margin: -7% 0 0 -7%;
+    border-radius: 50%;
+    background: radial-gradient(circle, #ffd27a, #e85d04);
+    opacity: 0;
+    transform: scale(0);
+}
+
+.bloom-fx.play .pistil {
+    animation: pistil 2.8s ease-out .1s both;
+}
+
+@keyframes pistil {
+    0% {
+        opacity: 0;
+        transform: scale(0)
+    }
+
+    20% {
+        opacity: 1;
+        transform: scale(1.2)
+    }
+
+    50% {
+        opacity: 1;
+        transform: scale(1)
+    }
+
+    100% {
+        opacity: 0;
+        transform: scale(2.4)
+    }
+}
+
+
+/* ═════════ Text flies out of the flower ═════════ */
+/* main.js wipes the title in with an inline clip-path; hand that over to the letters. */
+html[data-bloom="petals"] body[data-page="bloom"] .hero-title {
+    clip-path: none !important;
+    transition: none !important;
+    white-space: nowrap;
+}
+
+html[data-bloom="petals"] body[data-page="bloom"] .hero-location {
+    animation: none !important;
+    opacity: .55;
+}
+
+.hero-title .bloom-ch {
+    display: inline-block;
+    will-change: transform, opacity;
+    transform-origin: 50% 60%;
+}
+
+.hero-title .bloom-ch:not(.amp) {
+    font-family: var(--font-display);
+    font-style: normal;
+}
+
+.hero-location .bloom-line {
+    display: block;
+    will-change: transform, opacity;
+    transform-origin: 0 50%;
+}
+
+/* before the launch (and with no JS timing yet) keep the text hidden so it never flashes in place */
+html[data-bloom="petals"] body[data-page="bloom"] .hero-text-block:not(.bloom-text-play) .bloom-ch,
+html[data-bloom="petals"] body[data-page="bloom"] .hero-text-block:not(.bloom-text-play) .bloom-line {
+    opacity: 0;
+}
+
+.bloom-text-play .bloom-ch {
+    animation: chFly 1.7s cubic-bezier(.2, .85, .25, 1) var(--cd, .6s) backwards;
+}
+
+.bloom-text-play .bloom-line {
+    animation: lineFly 1.3s cubic-bezier(.2, .85, .25, 1) var(--cd, 1.4s) backwards;
+}
+
+/* 100% is left out on purpose: each piece ends in its normal, untouched style */
+@keyframes chFly {
+    0% {
+        opacity: 0;
+        transform: translate(var(--dx), var(--dy)) scale(.04) rotate(var(--rot, 160deg));
+        color: #e85d04;
+        text-shadow: 0 0 26px rgba(240, 138, 138, .95);
+        filter: blur(6px);
+    }
+
+    16% {
+        opacity: 1;
+    }
+
+    52% {
+        transform: translate(calc(var(--dx) * .16), calc(var(--dy) * .16 - 54px)) scale(1.4) rotate(calc(var(--rot, 160deg) * -.12));
+        color: #e8517a;
+        text-shadow: 0 0 18px rgba(240, 138, 138, .65);
+        filter: blur(0);
+    }
+
+    76% {
+        transform: translate(0, 7px) scale(.95) rotate(2deg);
+        text-shadow: 0 0 6px rgba(240, 138, 138, .25);
+    }
+}
+
+@keyframes lineFly {
+    0% {
+        opacity: 0;
+        transform: translate(var(--dx), var(--dy)) scale(.1);
+        letter-spacing: .5em;
+        filter: blur(5px);
+    }
+
+    30% {
+        opacity: 1;
+    }
+
+    70% {
+        transform: translate(0, -5px) scale(1.04);
+        letter-spacing: .2em;
+        filter: blur(0);
+    }
+}
+
+@media (max-width: 768px) {
+
+    /* a long trip from the photo to the text below: keep it a little snappier */
+    .bloom-text-play .bloom-ch {
+        animation-duration: 1.4s;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    .bloom-text-play .bloom-ch,
+    .bloom-text-play .bloom-line {
+        animation: none !important;
+    }
+
+    html[data-bloom="petals"] body[data-page="bloom"] .hero-text-block .bloom-ch,
+    html[data-bloom="petals"] body[data-page="bloom"] .hero-text-block .bloom-line {
+        opacity: 1 !important;
+    }
+}
+
+/* ═════════ shared ═════════ */
+@media (max-width: 768px) {
+    .bloom-fx {
+        transform: scale(.78);
+        transform-origin: 50% 50%;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .bloom-fx {
+        display: none !important;
+    }
+}

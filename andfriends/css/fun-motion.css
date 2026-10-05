@@ -1,0 +1,75 @@
+/* ══════════════════════════════════════════════════════════════
+   &FUN hero — "Cinematic"
+   The photo pulls back out of the dark, a light sweep crosses it, then
+   the photo tilts and throws the title letters out. Timeline lives in
+   js/fun-motion.js; this file holds layout helpers, the pre-script
+   hidden state and failsafes.
+══════════════════════════════════════════════════════════════ */
+
+body[data-page="fun"] #hero .hero-content { animation: none; }
+body[data-page="fun"] #hero .hero-text-block { position: relative; z-index: 3; }   /* letters fly over the photo */
+
+/* the old CSS-only hero animations must not fight the script */
+body[data-page="fun"] #hero .hero-img-placeholder,
+body[data-page="fun"] #hero .hero-img,
+body[data-page="fun"] #hero .hero-location {
+    animation: none;
+}
+
+/* ── hidden until the script starts (no flash) ─────────────── */
+body[data-page="fun"]:not(.fm-ready):not(.fm-off) #hero .hero-img-placeholder,
+body[data-page="fun"]:not(.fm-ready):not(.fm-off) #hero .hero-title,
+body[data-page="fun"]:not(.fm-ready):not(.fm-off) #hero .hero-location {
+    opacity: 0;
+    animation: fmFailsafe .01s linear 4s forwards !important;   /* if the script never runs */
+}
+@keyframes fmFailsafe { to { opacity: 1; } }
+
+/* ── photo ─────────────────────────────────────────────────── */
+body[data-page="fun"] #hero .hero-img-placeholder {
+    position: relative;
+    cursor: pointer;
+    transform-origin: 50% 88%;            /* pivots near its base when it tilts */
+    -webkit-tap-highlight-color: transparent;
+}
+body[data-page="fun"] #hero .hero-img { transform-origin: 50% 50%; }
+
+/* ── title ─────────────────────────────────────────────────── */
+/* main.js wipes the title with an inline clip-path; switch it off here */
+body[data-page="fun"] #hero .hero-title {
+    position: relative;
+    clip-path: none !important;
+    transition: none !important;
+    overflow: visible;
+    white-space: nowrap;
+}
+.fm-ch { display: inline-block; will-change: transform, filter, opacity; }
+/* `.hero-title span` (serif & style in styles.css) must only hit the original & */
+body[data-page="fun"] .hero-title span.fm-gen {
+    font-family: var(--font-display);
+    font-style: normal;
+}
+
+/* ── light sweep across the photo ──────────────────────────── */
+.fm-sweep {
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    overflow: hidden;
+    pointer-events: none;
+}
+.fm-band {
+    position: absolute;
+    top: -10%;
+    bottom: -10%;
+    left: 0;
+    transform: translateX(-200%) skewX(-18deg);
+    background: linear-gradient(90deg, rgba(255,205,140,0), rgba(255,205,140,.6) 50%, rgba(255,205,140,0));
+    will-change: transform;
+}
+
+/* ── script off / reduced motion: plain page ───────────────── */
+body[data-page="fun"].fm-off #hero .hero-img-placeholder,
+body[data-page="fun"].fm-off #hero .hero-title,
+body[data-page="fun"].fm-off #hero .hero-location { animation: none; }
+@media (prefers-reduced-motion: reduce) { .fm-sweep { display: none; } }
