@@ -12,7 +12,7 @@ The platform consists up of a mobile application and a responsive website with a
 | **Ivant Wambo**       | Mobile Application / Requirements  | Requirement analysis, mobile application planning, mobile wireframes and mobile functionality                                   |
 | **Kgahlisho Mokoala** | UI/UX / Web Development            | Website design, website wireframes, sitemap development, UI/UX and website implementation                                       |
 
-The project is done cooperatively, with members assessing and encouraging each other's performance, even though individual members are given distinct tasks.
+The project is done cooperatively, with members assessing and encouraging each other's performance, though individual members are assigned different tasks.
 
 # Client Problem
 The client requires a consolidated digital platform that can increase user access to its services, events, and creative efforts. Users may find it challenging to locate pertinent events, obtain information, make reservations, and keep track of their interactions with the organization in the absence of an integrated platform.
@@ -21,19 +21,19 @@ Additionally, the system must facilitate administrative tasks and offer a struct
 
 # Proposed Solution
 
-The creation of a &FRIENDS website and mobile application that gives users a central location to access events and services is the suggested remedy.
+The creation of a &FRIENDS website and mobile application gives users a hub location to be able to access different events and many other services which are offered by &Friends and their team.
 
 Users of the platform will be able to:
 
-- Look through and look for events.
-- View comprehensive details on the event.
+- Look through and browse for events and services which are offered by the brand.
+- View comprehensive details on events and functions.
 - Utilise the services that are offered.
-- Make reservations for events and buy tickets.
+- Make prior reservations for events and will be able to buy tickets.
 - Provide payment details as needed.
 - Get QR codes and digital tickets.
-- Examine their reservations and transactions.
-- Look around the gallery.
-- Send queries.
+- Go through their reservations and any other history they might have made through the website as well.
+- Look around the brand gallery , seeing their moral and their experience in the buisness that they are presenting.
+- Will be able to send out queries and be in contact with both customers and management .
 - Control their profile.
 
 Additionally, the system will include administrative features for managing users and platform data.
@@ -73,6 +73,7 @@ friends-platform/
 
 │   └── index.html 
 
+|   └── Vercel.json
 │ 
 
 ├── mobile/ 
@@ -86,6 +87,7 @@ friends-platform/
 │   ├── values/ 
 
 │   └── assets/ 
+
 │ 
 
 ├── firebase/ 
@@ -121,7 +123,7 @@ The website is designed to provide users with access to event and service inform
 Mobile Application
 The mobile application extends the &FRIENDS platform to mobile users.
 
-The planned application functionality includes:
+The planned application functionalities include:
 
 - User registration and login
 - Home dashboard
