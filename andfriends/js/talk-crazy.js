@@ -34,7 +34,7 @@
         function r(a, b) { return a + Math.random() * (b - a); }
         function add(cls, text) { var e = document.createElement('span'); e.className = cls; if (text) e.textContent = text; fx.appendChild(e); return e; }
 
-        var WORDS = ['Real talk', 'Panels', 'Healing', 'Ideas', 'Truth', 'Voices', 'Stories'];
+        var WORDS = ['Real talk', 'Panels', 'Community', 'Ideas', 'Truth', 'Laughter', 'Stories'];
         var COLS = ['#f9cfd0', '#ffe3a3', '#cfe8d5', '#cdd9f5', '#e4d0f0', '#fbd0b0', '#f6c1d4'];
 
         function build() {
@@ -62,8 +62,8 @@
         function play() {
             body.classList.remove('tc-play'); void body.offsetWidth;
             build();
-            letters.forEach(function (el, i) { el.style.setProperty('--cd', (1.35 + i * 0.15).toFixed(2) + 's'); el.style.setProperty('--rot', (i % 2 ? 22 : -22) + 'deg'); });
-            var t0 = 1.35 + letters.length * 0.15 + 0.35;
+            letters.forEach(function (el, i) { el.style.setProperty('--cd', (2 + i * 0.15).toFixed(2) + 's'); el.style.setProperty('--rot', (i % 2 ? 22 : -22) + 'deg'); });
+            var t0 = 2 + letters.length * 0.15 + 0.35;
             chars.forEach(function (el, i) { el.style.setProperty('--cd', (t0 + i * 0.045).toFixed(3) + 's'); });
             body.classList.add('tc-ready'); body.classList.add('tc-play');
         }

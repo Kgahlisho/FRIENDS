@@ -1,0 +1,203 @@
+/* ═══ &FRIENDS — music-player.css · TAPE DECK · horizontal ═══ */
+:root {
+    --mp-shell:      #efe3d2;
+    --mp-shell-2:    #d9c8b1;
+    --mp-ink:        #2c1a0e;
+    --mp-label:      #f3c98b;
+    --mp-label-line: #8a6a3c;
+    --mp-accent:     #c1440e;
+    --mp-reel:       #1a1310;
+    --mp-radius:     14px;
+}
+
+/* ── play button on artist cards ───────────────────────── */
+#artists .reveal-left::before { display: none; }
+#artists .reveal-left { cursor: pointer; }
+
+.mp-btn {
+    position: absolute;
+    left: 50%; top: 50%;
+    width: 60px; height: 60px;
+    margin: -30px 0 0 -30px;
+    padding: 0 0 0 2px;
+    border: 2px solid var(--mp-ink);
+    border-radius: 50%;
+    background: var(--mp-label);
+    color: var(--mp-ink);
+    font-size: 15px;
+    line-height: 1;
+    cursor: pointer;
+    z-index: 3;
+    display: flex;
+    align-items: center; justify-content: center;
+    opacity: 0;
+    transform: scale(.85);
+    transition: opacity .25s, transform .3s cubic-bezier(.2,.9,.3,1.4), background .2s;
+    box-shadow: 3px 3px 0 var(--mp-ink);
+}
+.mp-btn:hover { transform: scale(1.06) rotate(-4deg); box-shadow: 4px 4px 0 var(--mp-ink); }
+.mp-btn.is-on { background: var(--mp-accent); color: #fff; }
+
+#artists .artists-grid > div:hover .mp-btn,
+.mp-btn:focus-visible, .mp-btn.is-on { opacity: 1; transform: scale(1); }
+
+@media (hover: none) { .mp-btn { opacity: 1; transform: none; width: 52px; height: 52px; margin: -26px 0 0 -26px; } }
+
+/* ── floating widget: horizontal tape deck ─────────────── */
+.mp-bar {
+    position: fixed;
+    right: 22px; bottom: 22px;
+    width: 460px;
+    max-width: calc(100vw - 24px);
+    z-index: 9000;
+    padding: 14px;
+    border-radius: var(--mp-radius);
+    background: linear-gradient(180deg, var(--mp-shell), var(--mp-shell-2));
+    color: var(--mp-ink);
+    border: 2px solid var(--mp-ink);
+    box-shadow: 6px 6px 0 var(--mp-ink), 0 18px 40px rgba(0,0,0,.25);
+    opacity: 0;
+    transform: translateY(26px) rotate(-1deg);
+    pointer-events: none;
+    transition: opacity .3s, transform .45s cubic-bezier(.2,.9,.3,1.05);
+    font-family: var(--font-body, 'DM Sans', sans-serif);
+    isolation: isolate;
+}
+.mp-bar.open { opacity: 1; transform: rotate(-1deg); pointer-events: auto; }
+
+/* ── main row: single horizontal band ──────────────────── */
+.mp-inner {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+/* tape window — its own fixed-size block at the left */
+.mp-bar::before {
+    content: '';
+    flex: none;
+    width: 132px;
+    height: 66px;
+    border-radius: 8px;
+    background:
+        radial-gradient(circle at 26% 50%, var(--mp-reel) 0 12px, transparent 13px),
+        radial-gradient(circle at 26% 50%, var(--mp-reel) 0 3px, var(--mp-label) 4px 5px, transparent 6px),
+        radial-gradient(circle at 74% 50%, var(--mp-reel) 0 12px, transparent 13px),
+        radial-gradient(circle at 74% 50%, var(--mp-reel) 0 3px, var(--mp-label) 4px 5px, transparent 6px),
+        linear-gradient(180deg, #1a1310, #2a1f18);
+    box-shadow: inset 0 0 0 2px var(--mp-ink), inset 0 8px 16px rgba(0,0,0,.6);
+    position: relative;
+    order: -1;
+}
+.mp-bar:not(.paused)::before { animation: mpReel 4s linear infinite; }
+@keyframes mpReel { 50% { filter: hue-rotate(2deg) brightness(1.03); } }
+.mp-bar.paused::before { filter: saturate(.55) brightness(.85); }
+
+/* kill the ::after label strip — it's what was overlaying the name */
+.mp-bar::after { display: none; }
+
+/* artwork still hidden — reels replace it */
+.mp-art { display: none; }
+
+/* ── meta: fills the middle ─────────────────────────────── */
+.mp-meta {
+    min-width: 0;
+    flex: 1 1 auto;
+}
+.mp-name {
+    font-family: var(--font-serif, 'Lato', serif);
+    font-weight: 700;
+    font-size: 16px;
+    letter-spacing: .01em;
+    color: var(--mp-ink);
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.mp-sub {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 9.5px;
+    letter-spacing: .28em;
+    text-transform: uppercase;
+    color: var(--mp-label-line);
+    margin-top: 4px;
+    font-weight: 600;
+}
+
+/* VU meter */
+.mp-eq { display: inline-flex; align-items: flex-end; gap: 2px; height: 10px; }
+.mp-eq i {
+    width: 3px; height: 100%;
+    background: var(--mp-accent);
+    border-radius: 1px;
+    transform-origin: bottom;
+    animation: mpVU .7s steps(4) infinite alternate;
+}
+.mp-eq i:nth-child(2) { animation-delay: -.2s; }
+.mp-eq i:nth-child(3) { animation-delay: -.4s; }
+.mp-eq i:nth-child(4) { animation-delay: -.1s; }
+@keyframes mpVU { from { transform: scaleY(.3); } to { transform: scaleY(1); } }
+
+/* ── controls: pinned to the right ──────────────────────── */
+.mp-ctl {
+    flex: none;
+    height: 38px; min-width: 44px;
+    padding: 0 14px;
+    border: 2px solid var(--mp-ink);
+    border-radius: 8px;
+    background: var(--mp-label);
+    color: var(--mp-ink);
+    font: 700 12px/1 var(--font-body, 'DM Sans', sans-serif);
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    cursor: pointer;
+    box-shadow: 2px 2px 0 var(--mp-ink);
+    transition: transform .12s, box-shadow .12s, background .2s;
+    display: inline-flex; align-items: center; justify-content: center;
+}
+.mp-ctl:hover { background: #ffd89c; }
+.mp-ctl:active { transform: translate(2px, 2px); box-shadow: 0 0 0 var(--mp-ink); }
+.mp-close { background: var(--mp-accent); color: #fff; }
+
+.mp-min span { display: inline-block; transition: transform .3s; }
+.mp-bar.min .mp-min span { transform: rotate(180deg); }
+
+/* ── stage: full-width strip underneath, like an open lid ─ */
+.mp-stage {
+    overflow: hidden;
+    max-height: 170px;
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 2px dashed rgba(44, 26, 14, .35);
+    transition: max-height .3s, margin .3s, padding .3s, opacity .3s;
+}
+.mp-bar.min .mp-stage {
+    max-height: 0;
+    margin: 0;
+    padding: 0;
+    opacity: 0;
+    pointer-events: none;
+    border-top-color: transparent;
+}
+.mp-stage iframe { width: 100%; height: 80px; border: 0; border-radius: 6px; background: #000; display: block; }
+.mp-stage audio  { width: 100%; height: 42px; }
+
+.mp-note { font-size: 13px; line-height: 1.5; color: var(--mp-label-line); padding: 6px 2px; }
+.mp-note a {
+    display: inline-block; margin-top: 8px; padding: 8px 16px;
+    background: var(--mp-accent); color: #fff;
+    border: 2px solid var(--mp-ink); border-radius: 6px;
+    font-weight: 700; text-decoration: none;
+    box-shadow: 2px 2px 0 var(--mp-ink);
+}
+
+/* ── responsive ─────────────────────────────────────────── */
+@media (max-width: 560px) {
+    .mp-bar { right: 12px; left: 12px; bottom: 12px; width: auto; }
+    .mp-bar::before { width: 96px; height: 52px; }
+    .mp-name { font-size: 14px; }
+    .mp-close b { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .mp-bar, .mp-btn, .mp-stage { transition: none; }
+    .mp-eq i, .mp-bar:not(.paused)::before { animation: none; }
+}
