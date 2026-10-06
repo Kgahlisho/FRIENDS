@@ -5,7 +5,7 @@
  */
 
 let _lightboxImages = [];
-let _lightboxIndex  = 0;
+let _lightboxIndex = 0;
 let _revealObserver = null;
 
 /* ─── Init ───────────────────────────────────────────────────────── */
@@ -60,9 +60,9 @@ const _norm = t => (t || '').replace(/&/g, '').trim().toLowerCase();
 const _TAG_CLASS = {
     bloom: 'tag-bloom',
     music: 'tag-music',
-    fun:   'tag-fun',
-    talk:  'tag-talk',
-    food:  'tag-food',
+    fun: 'tag-fun',
+    talk: 'tag-talk',
+    food: 'tag-food',
 };
 function _tagClass(tag) { return _TAG_CLASS[_norm(tag)] || 'tag-other'; }
 
@@ -154,9 +154,9 @@ function _renderStory(c, index) {
     const isSpotlight = index === 0 && images.length > 0;
     const flip = index % 2 === 1; // alternate side of the mosaic
 
-    const tagCls   = _tagClass(c.tag);
+    const tagCls = _tagClass(c.tag);
     const tagLabel = c.tag ? ('&' + c.tag) : '';
-    const num      = String(index + 1).padStart(2, '0');
+    const num = String(index + 1).padStart(2, '0');
 
     const total = images.length;
     const shown = images.slice(0, MAX_TILES);
@@ -169,8 +169,8 @@ function _renderStory(c, index) {
             <img src="${imgSrc(img.src)}" alt="${_esc(img.caption || '')}" loading="lazy" />
             ${img.caption ? `<span class="tile-cap">${_esc(img.caption)}</span>` : ''}
             ${(k === shown.length - 1 && overflow > 0)
-                ? `<span class="tile-more">+${overflow}</span>`
-                : ''}
+            ? `<span class="tile-more">+${overflow}</span>`
+            : ''}
         </button>
     `).join('');
 
@@ -230,7 +230,7 @@ function _showLightboxImage() {
     const img = _lightboxImages[_lightboxIndex];
     if (!img) return;
 
-    const el  = document.getElementById('lightboxImg');
+    const el = document.getElementById('lightboxImg');
     const cap = document.getElementById('lightboxCaption');
 
     if (el) {
@@ -270,7 +270,53 @@ function closeLightbox(e) {
 document.addEventListener('keydown', e => {
     const lb = document.getElementById('lightbox');
     if (!lb || lb.style.display === 'none') return;
-    if (e.key === 'Escape')     closeLightbox({ target: lb });
-    if (e.key === 'ArrowLeft')  lightboxNav(-1);
+    if (e.key === 'Escape') closeLightbox({ target: lb });
+    if (e.key === 'ArrowLeft') lightboxNav(-1);
     if (e.key === 'ArrowRight') lightboxNav(1);
+});
+
+//loader 
+
+document.addEventListener('DOMContentLoaded', async () => {
+
+    // Enable reveal animations only if JS is running
+    document.documentElement.classList.add('js-reveal');
+
+    // Safety net: never leave the loader up longer than 6s
+    const loader = document.getElementById('galLoader');
+    const hideLoader = () => {
+        if (!loader || loader.classList.contains('is-hidden')) return;
+        loader.classList.add('is-hidden');
+        // remove from DOM after the fade so it can't trap focus/pointer
+        setTimeout(() => loader.remove(), 700);
+    };
+    const loaderKillswitch = setTimeout(hideLoader, 6000);
+
+    try {
+        await Promise.all([
+            Store.Gallery.fetchAll().catch(e => console.error('[gallery] fetch failed:', e)),
+            Store.Content.fetch().catch(e => console.error('[gallery] content fetch failed:', e)),
+        ]);
+    } catch (e) {
+        console.error('[gallery] init error:', e);
+    }
+
+    _buildFilterCounts();
+    _setupReveal();
+
+    filterGallery('all', document.querySelector('.gallery-filter-btn[data-tag="all"]'));
+    _loadFooter();
+
+    // Hide loader after the first paint of real content
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+        clearTimeout(loaderKillswitch);
+        hideLoader();
+    }));
+
+    document.addEventListener('af:gallery', () => {
+        _buildFilterCounts();
+        const active = document.querySelector('.gallery-filter-btn.active');
+        filterGallery(active ? active.dataset.tag : 'all', active);
+    });
+    document.addEventListener('af:content', _loadFooter);
 });
