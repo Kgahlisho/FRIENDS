@@ -1,0 +1,116 @@
+/* ══════════════════════════════════════════════════════════════
+   &TALK hero — "Mic Drop"
+   An ON AIR light flickers, the photo CRASHES down from above (squash, chromatic
+   glitch, shockwave, confetti, camera shake), speech bubbles with words burst out of
+   it and pop, the title letters slam in as captions, and the tagline types itself
+   out like live subtitles. Everything settles into the normal layout.
+   Scoped to html[data-talk="crazy"]. Timeline built by js/talk-crazy.js.
+══════════════════════════════════════════════════════════════ */
+html[data-talk="crazy"] #hero { overflow-x: clip; }
+html[data-talk="crazy"] #hero .hero-content { position: relative; animation: none; }
+html[data-talk="crazy"] #hero .hero-text-block { position: relative; z-index: 3; }
+html[data-talk="crazy"] #hero .hero-location { animation: none !important; opacity: .55; }
+html[data-talk="crazy"] #hero .hero-title { clip-path: none !important; transition: none !important; white-space: nowrap; }
+
+/* hidden until the script starts (no flash); failsafe reveals everything if JS never runs */
+html[data-talk="crazy"] body:not(.tc-ready) #hero .hero-img-placeholder,
+html[data-talk="crazy"] body:not(.tc-ready) #hero .hero-title,
+html[data-talk="crazy"] body:not(.tc-ready) #hero .hero-location { opacity: 0; animation: tcFailsafe .01s linear 4s forwards !important; }
+@keyframes tcFailsafe { to { opacity: 1; } }
+
+/* ── camera shake: one burst at the crash, a smaller one when the title lands ── */
+html[data-talk="crazy"] body.tc-play #hero .hero-content { animation: tcShake 3.4s linear both !important; }
+@keyframes tcShake {
+    0%, 24%, 100% { transform: none; }
+    26% { transform: translate(-9px, 6px) rotate(-.4deg); } 28% { transform: translate(8px, -7px) rotate(.35deg); }
+    30% { transform: translate(-6px, 5px); } 32% { transform: translate(5px, -4px); }
+    34% { transform: translate(-3px, 2px); } 36% { transform: none; }
+    62%  { transform: none; } 63% { transform: translate(3px, 3px); } 65% { transform: translate(-3px, -2px); } 67% { transform: none; }
+}
+
+/* ── the photo: falls, slams, squashes, glitches ─────────── */
+html[data-talk="crazy"] #hero .hero-img-placeholder { position: relative; z-index: 2; cursor: pointer; transform-origin: 50% 100%; animation: none; will-change: transform, filter; -webkit-tap-highlight-color: transparent; }
+html[data-talk="crazy"] #hero .hero-img { animation: none; }
+html[data-talk="crazy"] body.tc-play #hero .hero-img-placeholder { animation: tcDrop 3.4s linear .05s both !important; }
+@keyframes tcDrop {
+    0%   { transform: translateY(-85vh) rotate(-9deg) scale(.92); opacity: 1; animation-timing-function: cubic-bezier(.55,0,.9,.45); }
+    25%  { transform: translateY(0) rotate(0) scale(1); animation-timing-function: ease-out; }
+    28%  { transform: scale(1.14, .8);  filter: drop-shadow(10px 0 0 rgba(255,0,80,.75)) drop-shadow(-10px 0 0 rgba(0,210,255,.75)); }
+    33%  { transform: scale(.95, 1.1) translateY(-18px);  filter: drop-shadow(-7px 2px 0 rgba(255,0,80,.6)) drop-shadow(7px -2px 0 rgba(0,210,255,.6)); }
+    38%  { transform: scale(1.04, .97); filter: drop-shadow(4px 0 0 rgba(255,0,80,.45)) drop-shadow(-4px 0 0 rgba(0,210,255,.45)); }
+    45%  { transform: none; filter: none; }
+    100% { transform: none; filter: none; opacity: 1; }
+}
+
+/* ── effects layer ───────────────────────────────────────── */
+.tc-fx { position: absolute; left: 0; top: 0; width: 0; height: 0; z-index: 4; pointer-events: none; }
+.tc-fx > * { position: absolute; }
+
+/* shockwave rings along the ground under the photo */
+.tc-ring { height: 0; border: 3px solid rgba(232,93,4,.55); border-radius: 50%; opacity: 0; aspect-ratio: 4 / 1; transform: translate(-50%, -50%) scale(.2); }
+html[data-talk="crazy"] body.tc-play .tc-ring { animation: tcRing .9s cubic-bezier(.1,.7,.3,1) calc(var(--d) + .85s) both; }
+@keyframes tcRing { 0% { opacity: .9; transform: translate(-50%,-50%) scale(.2); } 100% { opacity: 0; transform: translate(-50%,-50%) scale(2.4); } }
+
+/* confetti thrown by the crash */
+.tc-conf { width: 9px; height: 14px; border-radius: 2px; opacity: 0; background: var(--c); }
+html[data-talk="crazy"] body.tc-play .tc-conf { animation: tcConf 1.5s cubic-bezier(.1,.7,.3,1) calc(.85s + var(--d)) both; }
+@keyframes tcConf {
+    0%   { opacity: 1; transform: translate(0,0) rotate(0); }
+    55%  { opacity: 1; transform: translate(var(--x), var(--y)) rotate(calc(var(--r) * .6)); }
+    100% { opacity: 0; transform: translate(calc(var(--x) * 1.15), calc(var(--y) + 140px)) rotate(var(--r)); }
+}
+
+/* speech bubbles burst out of the photo, float, then POP */
+.tc-bubble { padding: 9px 16px; border-radius: 20px 20px 20px 4px; background: var(--c); color: #2c1a0e; font: 800 15px/1 var(--font-body, sans-serif); letter-spacing: .04em; text-transform: uppercase; white-space: nowrap;
+    opacity: 0; box-shadow: 0 8px 20px rgba(0,0,0,.18); transform: translate(-50%, -50%) scale(0); }
+.tc-bubble::after { content: ''; position: absolute; left: 12px; bottom: -9px; border: 9px solid transparent; border-top-color: var(--c); border-bottom: 0; border-right-width: 3px; }
+html[data-talk="crazy"] body.tc-play .tc-bubble { animation: tcBubble 2.5s cubic-bezier(.2,1.2,.3,1) calc(1s + var(--d)) both; }
+@keyframes tcBubble {
+    0%   { opacity: 0; transform: translate(-50%,-50%) scale(0) rotate(0); }
+    14%  { opacity: 1; transform: translate(calc(-50% + var(--x)), calc(-50% + var(--y))) scale(1.25) rotate(var(--r)); }
+    24%  { transform: translate(calc(-50% + var(--x)), calc(-50% + var(--y))) scale(1) rotate(var(--r)); }
+    72%  { opacity: 1; transform: translate(calc(-50% + var(--x) * 1.05), calc(-50% + var(--y) - 16px)) scale(1) rotate(calc(var(--r) * -.5)); }
+    86%  { opacity: 1; transform: translate(calc(-50% + var(--x) * 1.05), calc(-50% + var(--y) - 16px)) scale(1.18) rotate(0); }
+    100% { opacity: 0; transform: translate(calc(-50% + var(--x) * 1.05), calc(-50% + var(--y) - 16px)) scale(1.7) rotate(0); }
+}
+
+/* ON AIR light on the photo's corner */
+.tc-air { padding: 6px 12px 6px 10px; border-radius: 6px; background: #d4153b; color: #fff; font: 800 12px/1 var(--font-body, sans-serif); letter-spacing: .18em; opacity: 0; display: flex; align-items: center; gap: 7px; box-shadow: 0 0 18px rgba(212,21,59,.7); }
+.tc-air::before { content: ''; width: 9px; height: 9px; border-radius: 50%; background: #fff; }
+html[data-talk="crazy"] body.tc-play .tc-air { animation: tcAir 3.4s steps(1, end) both; }
+@keyframes tcAir {
+    0% { opacity: 0; } 2% { opacity: 1; } 5% { opacity: 0; } 8% { opacity: 1; } 11% { opacity: 0; } 14% { opacity: 1; } 19% { opacity: 0; } 22% { opacity: 1; }
+    24% { opacity: 0; } 70% { opacity: 0; } 72% { opacity: 1; } 78% { opacity: 1; } 80% { opacity: 0; } 100% { opacity: 0; }
+}
+
+/* ── title letters slam in like captions ─────────────────── */
+.hero-title .tc-ch { display: inline-block; transform-origin: 50% 100%; will-change: transform, opacity; }
+.hero-title .tc-ch:not(.amp) { font-family: var(--font-display); font-style: normal; }
+.hero-location .tc-chr { display: inline-block; white-space: pre; position: relative; }
+html[data-talk="crazy"] body:not(.tc-play) #hero .tc-ch, html[data-talk="crazy"] body:not(.tc-play) #hero .tc-chr { opacity: 0; }
+html[data-talk="crazy"] body.tc-play .tc-ch { animation: tcSlam .75s cubic-bezier(.3,0,.8,.6) var(--cd, 1.4s) backwards; }
+@keyframes tcSlam {                      /* 100% omitted: ends in its normal style */
+    0%   { opacity: 0; transform: translateY(-320px) rotate(var(--rot, -25deg)) scale(1.5); filter: blur(5px); }
+    14%  { opacity: 1; }
+    55%  { transform: translateY(0) rotate(0) scale(1.35, .7); filter: blur(0); animation-timing-function: ease-out; }
+    78%  { transform: translateY(-16px) scale(.94, 1.1); }
+}
+/* tagline: each character blinks on in turn, a caret rides along */
+html[data-talk="crazy"] body.tc-play .tc-chr { animation: tcType .01s steps(1, end) var(--cd, 2.4s) backwards; }
+@keyframes tcType { from { opacity: 0; } to { opacity: 1; } }
+.tc-chr::after { content: ''; position: absolute; right: -2px; top: 8%; height: 84%; width: 2px; background: #e85d04; opacity: 0; }
+html[data-talk="crazy"] body.tc-play .tc-chr::after { animation: tcCaret .16s steps(1, end) var(--cd, 2.4s) both; }
+@keyframes tcCaret { from { opacity: 1; } to { opacity: 0; } }
+
+@media (max-width: 768px) {
+    .tc-bubble { font-size: 12px; padding: 7px 12px; }
+    html[data-talk="crazy"] body.tc-play #hero .hero-img-placeholder { animation-name: tcDropSm !important; }
+}
+@keyframes tcDropSm { 0% { transform: translateY(-60vh) rotate(-6deg) scale(.95); opacity: 1; animation-timing-function: cubic-bezier(.55,0,.9,.45); }
+    25% { transform: none; animation-timing-function: ease-out; } 28% { transform: scale(1.1,.85); } 34% { transform: scale(.97,1.06) translateY(-10px); } 45%,100% { transform: none; filter: none; opacity: 1; } }
+@media (prefers-reduced-motion: reduce) {
+    html[data-talk="crazy"] #hero * { animation: none !important; }
+    .tc-fx { display: none; }
+    html[data-talk="crazy"] #hero .hero-img-placeholder, html[data-talk="crazy"] #hero .hero-title, html[data-talk="crazy"] #hero .hero-location,
+    html[data-talk="crazy"] #hero .tc-ch, html[data-talk="crazy"] #hero .tc-chr { opacity: 1 !important; }
+}
