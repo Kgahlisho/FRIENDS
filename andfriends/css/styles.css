@@ -5704,3 +5704,23 @@ p {
         padding-right: 4px !important;
     }
 }
+
+/* ── Mobile nav: smaller & grouped sub-links (&Music, &Bloom, &Fun, &Talk) ── */
+@media (max-width: 768px) {
+
+    .mobile-nav a[href="music.html"],
+    .mobile-nav a[href="bloom.html"],
+    .mobile-nav a[href="fun.html"],
+    .mobile-nav a[href="talk.html"] {
+        font-size: 1.5rem;
+        opacity: 0.72;
+        letter-spacing: 0.04em;
+    }
+
+    .mobile-nav a[href="music.html"]:hover,
+    .mobile-nav a[href="bloom.html"]:hover,
+    .mobile-nav a[href="fun.html"]:hover,
+    .mobile-nav a[href="talk.html"]:hover {
+        opacity: 1;
+    }
+}
