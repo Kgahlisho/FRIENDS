@@ -3,7 +3,7 @@
 document.addEventListener('DOMContentLoaded', () => {
 
     // Mobile Navigation Toggle
-       const hamburger = document.querySelector('.hamburger');
+    const hamburger = document.querySelector('.hamburger');
     const mobileNav = document.querySelector('.mobile-nav');
     const mobileClose = document.querySelector('.mobile-nav-close');
 
@@ -143,7 +143,9 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
- // Gallery button
+    //ool
+
+    // Gallery button
     const galleryBtn = document.querySelector('.gallery-btn-wrap');
     if (galleryBtn) {
         galleryBtn.addEventListener('click', () => { window.location.href = 'gallery.html'; });
