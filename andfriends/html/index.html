@@ -9,6 +9,7 @@
         content="Mamakashaka &amp; Friends. A creative community at 5 De Beer St, Braamfontein, Joburg." />
     <link rel="stylesheet" href="../css/styles.css" />
     <link rel="stylesheet" href="../css/auth.css" />
+    <link rel="stylesheet" href="../css/section-live.css" />
     <style>
         .typewriter-cursor {
             display: inline-block;
@@ -302,40 +303,54 @@
         </div>
     </section>
 
-    <section id="services_home">
-        <div class="services-inner_home">
-            <div class="section-label" style="color: var(--dark-brown);">Host Your Vision :</div>
-            <div class="services-grid_home">
-                <div class="reveal-left_home">
-                    <img src="../Resources/rl5mq3ehahgcufivmlwk.webp" alt="Services at &FRIENDS" />
-                </div>
-                <div class="services-text_home reveal">
-                    <p>Looking for a venue? We're looking for your vision. Think of us as your creative partner, not
-                        just a rental. We host exhibitions, performances, masterclasses, panels, celebrations—anything
-                        that brings people together with purpose.</p>
-                    <p>Flexible layouts. Full-service support. A space that adapts to your creative needs.</p>
-                    <a href="Services.html" class="btn">Book With Us</a>
-                </div>
-                <div class="reveal-right_home">
-                    <img src="../Resources/oxrq7axkuxdshtymdkrx.webp" alt="Services at &FRIENDS" />
-                </div>
+    <section id="services_home" class="hs-services">
+        <div class="hs-wrap">
+            <div class="hs-copy">
+                <div class="section-label" style="color: var(--dark-brown);">Host Your Vision :</div>
+                <h2 class="hs-title">Your idea.<br><span>Our corner.</span></h2>
+                <p>Looking for a venue? We're looking for your vision. Think of us as your creative partner, not
+                    just a rental. We host exhibitions, performances, masterclasses, panels, celebrations&mdash;anything
+                    that brings people together with purpose.</p>
+                <ul class="hs-pills" aria-label="What we host">
+                    <li style="--i:0">Exhibitions</li>
+                    <li style="--i:1">Performances</li>
+                    <li style="--i:2">Masterclasses</li>
+                    <li style="--i:3">Panels</li>
+                    <li style="--i:4">Celebrations</li>
+                </ul>
+                <p>Flexible layouts. Full-service support. A space that adapts to your creative needs.</p>
+                <a href="Services.html" class="btn hs-book">Book With Us</a>
+            </div>
+            <div class="hs-stage" aria-hidden="true">
+                <div class="hs-frame hs-f1" data-slides="rl5mq3ehahgcufivmlwk.webp|Creative space.jpg|wvpw8vannd2pwexpidcz.webp"><img src="../Resources/rl5mq3ehahgcufivmlwk.webp" alt="" /></div>
+                <div class="hs-frame hs-f2" data-slides="oxrq7axkuxdshtymdkrx.webp|316132.jpg|ylzsubmgvfyd6facu8xy.webp"><img src="../Resources/oxrq7axkuxdshtymdkrx.webp" alt="" /></div>
+                <div class="hs-frame hs-f3" data-slides="galley.jpg|udtd6048cfaq6tjozwvh.webp|316133.jpg"><img src="../Resources/galley.jpg" alt="" /></div>
+                <a class="hs-badge" href="Services.html" tabindex="-1" aria-hidden="true">
+                    <svg viewBox="0 0 120 120"><defs><path id="hsCirc" d="M60,60 m-44,0 a44,44 0 1,1 88,0 a44,44 0 1,1 -88,0"/></defs>
+                        <text><textPath href="#hsCirc">BOOK THE SPACE · BOOK THE SPACE · </textPath></text></svg>
+                    <b>&rarr;</b>
+                </a>
             </div>
         </div>
     </section>
 
-    <section id="community_home" class="striped-bg">
-        <div class="community-container_home">
-            <h2 class="community-title reveal_home"><span>&</span>FRIENDS COMMUNITY</h2>
-            <div class="community-grid_home">
-                <div class="community-text reveal-left_home">
+    <section id="community_home" class="striped-bg hs-community">
+        <div class="hs-cwrap">
+            <h2 class="hs-ctitle"><span>&amp;</span>FRIENDS COMMUNITY</h2>
+            <div class="hs-cgrid">
+                <div class="hs-ctext hs-cl">
                     <p>Workshops where you discover skills you didn't know lived inside you. Game nights where strangers
                         become friends. Dance parties where everyone belongs.</p>
                     <p>Laughter is the soundtrack. Connection is the currency.</p>
                 </div>
-                <div class="community-img-wrap_home reveal">
-                    <img src="../Resources/galley.jpg" alt="Community space" class="community-img_home" />
+                <div class="hs-cphotos">
+                    <div class="hs-arch"><img src="../Resources/galley.jpg" alt="Community space" /></div>
+                    <figure class="hs-pol hs-p1"><img loading="lazy" src="../Resources/fun.jpg" alt="Friends playing chess" /><figcaption>Game nights</figcaption></figure>
+                    <figure class="hs-pol hs-p2"><img loading="lazy" src="../Resources/SaveClip.App_628036653_18407257912122938_8409960298707074470_n.jpg" alt="A guest with flowers" /><figcaption>Workshops</figcaption></figure>
+                    <figure class="hs-pol hs-p3"><img loading="lazy" src="../Resources/yomzansi_4352.jpg" alt="Friends laughing together" /><figcaption>Laughter</figcaption></figure>
+                    <figure class="hs-pol hs-p4"><img loading="lazy" src="../Resources/yomzansi_4458.jpg" alt="A dance floor full of people" /><figcaption>Dance parties</figcaption></figure>
                 </div>
-                <div class="community-text_home reveal-right">
+                <div class="hs-ctext hs-cr">
                     <p>This is a community where creative friends meet and friendships forge in real-time. A motto
                         tested, tried, and proven successful.</p>
                     <p>With all the moments, food, music, and talks that happen here, nothing can make you forget this
@@ -343,6 +358,7 @@
                 </div>
             </div>
         </div>
+        <div class="hs-ribbon" aria-hidden="true"><div class="hs-ribbon-track"><span>Laughter is the soundtrack</span><i>&amp;</i><span>Connection is the currency</span><i>&amp;</i><span>Laughter is the soundtrack</span><i>&amp;</i><span>Connection is the currency</span><i>&amp;</i><span>Laughter is the soundtrack</span><i>&amp;</i><span>Connection is the currency</span><i>&amp;</i></div></div>
     </section>
 
     <footer>
@@ -384,6 +400,8 @@
     <script src="../js/auth.js"></script>
     <script src="../js/index-page.js"></script>
     <script src="../js/main.js"></script>
+    <script src="../js/nav-dropdown.js"></script>
+    <script src="../js/section-live.js"></script>
 
     <!--  CREATIVE TYPING SCRIPT (no underline, pure orange text) -->
     <script>

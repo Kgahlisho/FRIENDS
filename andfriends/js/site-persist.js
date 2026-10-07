@@ -79,7 +79,7 @@
             var doc = c.doc;
             /* 3. undo the previous page's global listeners, drop its inline styles / stale stylesheets */
             tracked.forEach(function (t) { t[0].removeEventListener(t[1], t[2], t[3]); }); tracked = [];
-            Array.prototype.forEach.call(document.head.querySelectorAll('style'), function (s) { s.remove(); });
+            Array.prototype.forEach.call(document.head.querySelectorAll('style'), function (s) { if (!s.hasAttribute('data-keep')) s.remove(); });
             Object.keys(c.have).forEach(function (h) { if (c.wanted.indexOf(h) < 0 && !KEEP_CSS.test(h)) c.have[h].remove(); });
             Array.prototype.forEach.call(doc.querySelectorAll('head style'), function (s) { document.head.appendChild(document.importNode(s, true)); });
             document.title = doc.title || document.title;

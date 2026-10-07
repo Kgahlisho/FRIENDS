@@ -51,6 +51,171 @@
             justify-content: space-between;
             font-size: 13px;
         }
+
+        /* ── Home page photo manager ── */
+        .hm-block {
+            border: 1.5px solid var(--admin-border);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 16px;
+            background: #fff;
+        }
+
+        .hm-head {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            margin-bottom: 12px;
+        }
+
+        .hm-head strong {
+            font-size: 14px;
+        }
+
+        .hm-head span {
+            font-size: 12px;
+            opacity: .6;
+        }
+
+        .hm-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+        }
+
+        .hm-slide {
+            position: relative;
+            width: 168px;
+            border: 1.5px solid var(--admin-border);
+            border-radius: 10px;
+            overflow: hidden;
+            background: #faf6f3;
+        }
+
+        .hm-slide img {
+            display: block;
+            width: 100%;
+            height: 128px;
+            object-fit: cover;
+        }
+
+        .hm-num {
+            position: absolute;
+            top: 6px;
+            left: 6px;
+            background: var(--dark-brown);
+            color: var(--warm-white);
+            font-size: 11px;
+            font-weight: 600;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+        }
+
+        .hm-actions {
+            display: flex;
+            gap: 4px;
+            padding: 6px;
+            justify-content: space-between;
+        }
+
+        .hm-btn {
+            border: 1.5px solid var(--admin-border);
+            background: #fff;
+            border-radius: 6px;
+            padding: 5px 8px;
+            font-family: var(--font-body);
+            font-size: 11px;
+            font-weight: 500;
+            cursor: pointer;
+            line-height: 1.2;
+            transition: all .2s;
+        }
+
+        .hm-btn:hover:not(:disabled) {
+            background: var(--dark-brown);
+            color: var(--warm-white);
+            border-color: var(--dark-brown);
+        }
+
+        .hm-btn:disabled {
+            opacity: .35;
+            cursor: not-allowed;
+        }
+
+        .hm-del:hover:not(:disabled) {
+            background: #c0392b;
+            border-color: #c0392b;
+        }
+
+        .hm-add {
+            width: 168px;
+            min-height: 168px;
+            border: 2px dashed var(--admin-border);
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: all .2s;
+        }
+
+        .hm-add b {
+            font-size: 26px;
+            font-weight: 400;
+        }
+
+        .hm-add:hover {
+            border-color: var(--dark-brown);
+            background: #faf6f3;
+        }
+
+        .hm-single {
+            display: flex;
+            gap: 16px;
+            align-items: flex-start;
+            flex-wrap: wrap;
+        }
+
+        .hm-single img {
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 10px;
+            border: 1.5px solid var(--admin-border);
+        }
+
+        .hm-fields {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            flex: 1;
+            min-width: 220px;
+            align-items: flex-start;
+        }
+
+        .hm-fields .form-input {
+            width: 100%;
+        }
+
+        .hm-foot {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 14px;
+            margin-top: 20px;
+        }
+
+        .hm-dirty {
+            font-size: 12px;
+            color: #b9570a;
+            font-weight: 500;
+        }
     </style>
 </head>
 
@@ -83,6 +248,9 @@
                 <button class="section-tab" onclick="switchSection('community',this)">Community</button>
                 <button class="section-tab" onclick="switchSection('services',this)">Services</button>
                 <button class="section-tab" onclick="switchSection('contact',this)">Contact</button>
+                <button class="section-tab" onclick="switchSection('hosthome',this)">Home: Host Your Vision</button>
+                <button class="section-tab" onclick="switchSection('communityhome',this)">Home: Community
+                    Photos</button>
             </div>
 
             <!-- Hero -->
@@ -285,6 +453,36 @@
                     </div>
                     <div style="margin-top:20px;text-align:right;"><button class="btn-primary"
                             onclick="saveSection('contact')">Save Contact Details</button></div>
+                </div>
+            </div>
+
+
+            <!-- Home page: Host Your Vision photos -->
+            <div class="content-section admin-card" id="section-hosthome">
+                <div class="admin-card-header"><span class="admin-card-title">Home Page — Host Your Vision Photos</span>
+                </div>
+                <div class="admin-card-body">
+                    <div id="hostHomeMount"></div>
+                    <div class="hm-foot">
+                        <span class="hm-dirty" id="hm-dirty-host"></span>
+                        <button class="btn-secondary" type="button" onclick="resetHostHome()">Reset to original</button>
+                        <button class="btn-primary" type="button" onclick="saveHostHome()">Save Photos</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Home page: &Friends Community photos -->
+            <div class="content-section admin-card" id="section-communityhome">
+                <div class="admin-card-header"><span class="admin-card-title">Home Page — &amp;Friends Community
+                        Photos</span></div>
+                <div class="admin-card-body">
+                    <div id="communityHomeMount"></div>
+                    <div class="hm-foot">
+                        <span class="hm-dirty" id="hm-dirty-community"></span>
+                        <button class="btn-secondary" type="button" onclick="resetCommunityHome()">Reset to
+                            original</button>
+                        <button class="btn-primary" type="button" onclick="saveCommunityHome()">Save Photos</button>
+                    </div>
                 </div>
             </div>
 

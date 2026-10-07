@@ -90,7 +90,7 @@ function openEventModal(eventId) {
             <span>${event.date}</span>
         </div>
         <div class="meta-item">
-            <span class="meta-icon">&#128339;</span>
+            <span class="meta-icon">&#9716;</span>
             <span>${event.time}</span>
         </div>
         <div class="meta-item">

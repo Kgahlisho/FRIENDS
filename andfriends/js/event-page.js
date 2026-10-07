@@ -200,9 +200,9 @@ function renderPage() {
               <div class="confirmation-event-card">
                 <div class="confirmation-event-name" id="confEventName"></div>
                 <div class="confirmation-event-meta">
-                  <span> &#128198; <span id="confEventDate"></span></span>
-                  <span> &#128336; <span id="confEventTime"></span></span>
-                  <span> &#128205; <span id="confEventLocation"></span></span>
+                  <span><span id="confEventDate"></span></span>
+                  <span>&#9716; <span id="confEventTime"></span></span>
+                  <span><span id="confEventLocation"></span></span>
                 </div>
               </div>
             </div>
