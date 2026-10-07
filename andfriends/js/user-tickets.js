@@ -77,16 +77,16 @@ async function _bootTickets() {
 
 function renderStats() {
     const tickets = Store.Tickets.getByUser(session.id);
-    const spent   = tickets.reduce((sum, t) => sum + (t.total || 0), 0);
-    const active  = tickets.filter(t => !t.validated).length;
+    const spent = tickets.reduce((sum, t) => sum + (t.total || 0), 0);
+    const active = tickets.filter(t => !t.validated).length;
 
     const container = document.getElementById('ticketStats');
     if (!container) return;
 
     container.innerHTML = [
-        { icon: '&#127915;', value: tickets.length,              label: 'Total Tickets' },
-        { icon: '&#9989;', value: active,                       label: 'Active Tickets' },
-        { icon: '&#128179;', value: 'R' + spent.toLocaleString(), label: 'Total Spent', accent: true },
+        { icon: '&#127915;', value: tickets.length, label: 'Total Tickets' },
+        { icon: '&#9989;', value: active, label: 'Active Tickets' },
+        { value: 'R' + spent.toLocaleString(), label: 'Total Spent', accent: true },
     ].map(s => `
     <div class="stat-card ${s.accent ? 'accent' : ''}">
       <div class="stat-icon">${s.icon}</div>
@@ -97,11 +97,11 @@ function renderStats() {
 
 //produce the tickets 
 function renderTickets() {
-    const filter  = document.getElementById('filterStatus')?.value || 'all';
-    let tickets   = Store.Tickets.getByUser(session.id);
+    const filter = document.getElementById('filterStatus')?.value || 'all';
+    let tickets = Store.Tickets.getByUser(session.id);
 
     if (filter === 'active') tickets = tickets.filter(t => !t.validated);
-    if (filter === 'used')   tickets = tickets.filter(t =>  t.validated);
+    if (filter === 'used') tickets = tickets.filter(t => t.validated);
 
     const grid = document.getElementById('ticketGrid');
     if (!grid) return;
@@ -110,7 +110,6 @@ function renderTickets() {
         grid.innerHTML = `
       <div style="grid-column:1/-1;">
         <div class="admin-empty">
-          <div class="admin-empty-icon">🎟</div>
           <h3>No ${filter === 'all' ? '' : filter + ' '}tickets found</h3>
           <p>Browse events and secure your tickets.</p>
           <button class="btn-primary" onclick="showEventsSection()">Browse Events →</button>
@@ -137,10 +136,10 @@ function renderTickets() {
         <div class="rf-ticket-details">
           ${[
             ['Holder', t.userName],
-            ['Tier',   t.tier],
-            ['Qty',    t.quantity],
-            ['Total',  'R' + (t.total || 0).toLocaleString()],
-          ].map(([label, value]) => `
+            ['Tier', t.tier],
+            ['Qty', t.quantity],
+            ['Total', 'R' + (t.total || 0).toLocaleString()],
+        ].map(([label, value]) => `
             <div class="rf-detail-row">
               <span>${label}</span>
               <strong style="font-size:11px;">${escapeHtml(String(value))}</strong>
@@ -184,17 +183,17 @@ let currentTicket = null;
 function openTicketModal(ticketId) {
     const ticket = Store.Tickets.getById(ticketId);
     if (!ticket) return;
-    
+
     currentTicket = ticket;
-    
+
     document.getElementById('modalTicketTag').textContent = ticket.tag || 'LIVE EVENT';
     document.getElementById('modalTicketTitle').textContent = ticket.eventTitle;
     document.getElementById('modalTicketMeta').innerHTML = `
-        <span> &#128197; ${escapeHtml(ticket.eventDate)}</span>
-        <span> &#128339; ${escapeHtml(ticket.eventTime || 'Time TBA')}</span>
-        <span> &#128205; ${escapeHtml(ticket.eventLocation || '5 De Beer St, Braamfontein')}</span>
+        <span> ${escapeHtml(ticket.eventDate)}</span>
+        <span> &#9716; ${escapeHtml(ticket.eventTime || 'Time TBA')}</span>
+        <span> ${escapeHtml(ticket.eventLocation || '5 De Beer St, Braamfontein')}</span>
     `;
-    
+
     document.getElementById('modalTicketDetails').innerHTML = `
         <div class="modal-detail-row">
             <span class="modal-detail-label">Ticket Holder</span>
@@ -227,24 +226,24 @@ function openTicketModal(ticketId) {
             </span>
         </div>
     `;
-    
+
     const qrContainer = document.getElementById('modalLargeQR');
     qrContainer.innerHTML = '';
-    
+
     new QRCode(qrContainer, {
-        text: JSON.stringify({ 
-            id: ticket.id, 
-            event: ticket.eventId, 
+        text: JSON.stringify({
+            id: ticket.id,
+            event: ticket.eventId,
             user: ticket.userId,
             timestamp: Date.now()
         }),
-        width: 280, 
+        width: 280,
         height: 280,
-        colorDark: '#2c1a0e', 
+        colorDark: '#2c1a0e',
         colorLight: '#ffffff',
         correctLevel: QRCode.CorrectLevel.H
     });
-    
+
     document.getElementById('ticketViewModal').style.display = 'flex';
     document.body.style.overflow = 'hidden';
 }
@@ -256,10 +255,10 @@ function closeTicketModal() {
 
 function downloadTicketAsImage() {
     if (!currentTicket) return;
-    
+
     const modalContent = document.querySelector('.ticket-modal-content');
     if (!modalContent) return;
-    
+
     if (typeof html2canvas !== 'undefined') {
         html2canvas(modalContent, {
             scale: 2,
@@ -298,7 +297,7 @@ function showTicketsView() {
 
 function filterBrowseEvents(category) {
     currentBrowseFilter = category;
-    
+
     document.querySelectorAll('#filterBar .filter-chip').forEach(chip => {
         if (chip.getAttribute('data-filter') === category) {
             chip.classList.add('active');
@@ -306,26 +305,26 @@ function filterBrowseEvents(category) {
             chip.classList.remove('active');
         }
     });
-    
+
     renderBrowseEvents();
 }
 
 function renderBrowseEvents() {
     const container = document.getElementById('browseEventsGrid');
     if (!container) return;
-    
+
     let events = browseEvents;
-    
+
     if (currentBrowseFilter !== 'all') {
         events = events.filter(e => e.tag === currentBrowseFilter);
     }
-    
+
     events = [...events].sort((a, b) => {
         const dateA = a.createdAt || '';
         const dateB = b.createdAt || '';
         return dateB.localeCompare(dateA);
     });
-    
+
     if (!events.length) {
         container.innerHTML = `
             <div class="no-events">
@@ -335,12 +334,12 @@ function renderBrowseEvents() {
             </div>`;
         return;
     }
-    
+
     container.innerHTML = events.map(e => {
         const imgSrc = e.image && (e.image.startsWith('http') || e.image.startsWith('data:'))
             ? e.image : (e.image ? '../' + e.image : '../Resources/placeholder.jpg');
         const firstPrice = e.tickets?.[0]?.price || 0;
-        
+
         return `
             <div class="browse-event-card" onclick="openEventFromTickets('${e.id}')">
                 <img src="${imgSrc}" alt="${escapeHtml(e.title)}" class="browse-event-img" onerror="this.src='../Resources/placeholder.jpg'" />
@@ -348,9 +347,9 @@ function renderBrowseEvents() {
                     <span class="browse-event-tag">${escapeHtml(e.tag)}</span>
                     <h3 class="browse-event-title">${escapeHtml(e.title)}</h3>
                     <div class="browse-event-meta">
-                        📅 ${e.date}<br>
-                        ⏰ ${e.time}<br>
-                        📍 ${escapeHtml(e.location || '5 De Beer St, Braamfontein')}
+                        ${e.date}<br>
+                       &#9716; ${e.time}<br>
+                        ${escapeHtml(e.location || '5 De Beer St, Braamfontein')}
                     </div>
                     <div class="browse-event-footer">
                         <span class="browse-event-price">From R${firstPrice.toLocaleString()}</span>
@@ -366,40 +365,37 @@ function renderBrowseEvents() {
 function openEventFromTickets(eventId) {
     const event = Store.Events.getById(eventId);
     if (!event) return;
-    
+
     modalCurrentEvent = event;
     modalSelectedTier = event.tickets?.[0] || null;
     modalQty = 1;
-    
+
     document.getElementById('modalEventTitle').textContent = event.title;
     document.getElementById('modalEventName').textContent = event.title;
     document.getElementById('modalEventTag').textContent = event.tag || 'EVENT';
-    
+
     const imgSrc = event.image && (event.image.startsWith('http') || event.image.startsWith('data:'))
         ? event.image : (event.image ? '../' + event.image : '../Resources/placeholder.jpg');
     document.getElementById('modalEventImage').src = imgSrc;
-    
+
     document.getElementById('modalEventMeta').innerHTML = `
         <div class="meta-item">
-            <span class="meta-icon">&#128197;</span>
             <span>${event.date}</span>
         </div>
         <div class="meta-item">
-            <span class="meta-icon">&#128339;</span>
+            <span class="meta-icon">&#9716;</span>
             <span>${event.time}</span>
         </div>
         <div class="meta-item">
-            <span class="meta-icon">&#128205;</span>
             <span>${escapeHtml(event.location || '5 De Beer St, Braamfontein')}</span>
         </div>
         <div class="meta-item">
-            <span class="meta-icon">🏷</span>
             <span>${escapeHtml(event.tag)}</span>
         </div>
     `;
-    
+
     document.getElementById('modalEventDescription').innerHTML = event.description || 'No description available for this event.';
-    
+
     const tiersContainer = document.getElementById('modalTicketTiers');
     if (event.tickets && event.tickets.length) {
         tiersContainer.innerHTML = event.tickets.map((t, i) => `
@@ -412,10 +408,10 @@ function openEventFromTickets(eventId) {
     } else {
         tiersContainer.innerHTML = '<p style="text-align:center; padding:20px;">No tickets available</p>';
     }
-    
+
     document.getElementById('modalQtyValue').textContent = '1';
     updateModalTotal();
-    
+
     document.getElementById('dashboardEventModal').style.display = 'flex';
     document.body.style.overflow = 'hidden';
 }
@@ -431,9 +427,9 @@ function closeEventModal() {
 function selectModalTier(index) {
     if (!modalCurrentEvent || !modalCurrentEvent.tickets) return;
     if (!modalCurrentEvent.tickets[index].available) return;
-    
+
     modalSelectedTier = modalCurrentEvent.tickets[index];
-    
+
     document.querySelectorAll('.dashboard-ticket-tier').forEach((tier, i) => {
         if (i === index) {
             tier.classList.add('selected');
@@ -441,7 +437,7 @@ function selectModalTier(index) {
             tier.classList.remove('selected');
         }
     });
-    
+
     updateModalTotal();
 }
 
@@ -467,19 +463,19 @@ function purchaseFromModal() {
         alert('Please log in to purchase tickets.');
         return;
     }
-    
+
     if (!modalSelectedTier || !modalSelectedTier.available) {
         alert('Please select an available ticket tier.');
         return;
     }
-    
+
     showConfirmationModal();
 }
 
 function showConfirmationModal() {
     const total = modalSelectedTier.price * modalQty;
     const sessionUser = Store.Auth.getSession();
-    
+
     document.getElementById('confirmEventName').textContent = modalCurrentEvent.title;
     document.getElementById('confirmEventDate').textContent = modalCurrentEvent.date;
     document.getElementById('confirmEventTime').textContent = modalCurrentEvent.time;
@@ -490,16 +486,16 @@ function showConfirmationModal() {
     document.getElementById('confirmTotalAmount').textContent = `R${total.toLocaleString()}`;
     document.getElementById('confirmAttendeeName').textContent = sessionUser?.name || 'Guest';
     document.getElementById('confirmAttendeeEmail').textContent = sessionUser?.email || 'No email';
-    
+
     const termsCheckbox = document.getElementById('confirmTermsCheckbox');
     if (termsCheckbox) termsCheckbox.checked = false;
-    
+
     const confirmBtn = document.getElementById('finalConfirmBtn');
     if (confirmBtn) confirmBtn.disabled = true;
-    
+
     document.getElementById('confirmationModal').style.display = 'flex';
     document.body.style.overflow = 'hidden';
-    
+
     setupTermsListener();
 }
 
@@ -507,7 +503,7 @@ function setupTermsListener() {
     const termsCheckbox = document.getElementById('confirmTermsCheckbox');
     const confirmBtn = document.getElementById('finalConfirmBtn');
     if (termsCheckbox && confirmBtn) {
-        termsCheckbox.onchange = function() {
+        termsCheckbox.onchange = function () {
             confirmBtn.disabled = !this.checked;
         };
     }
@@ -525,22 +521,22 @@ async function finalizePurchase() {
         alert('Please log in to purchase tickets.');
         return;
     }
-    
+
     const confirmBtn = document.getElementById('finalConfirmBtn');
     if (confirmBtn) {
         confirmBtn.disabled = true;
         confirmBtn.textContent = 'Processing...';
     }
-    
+
     const result = await Store.Tickets.purchase(
         modalCurrentEvent.id, modalSelectedTier.tier, modalQty, session
     );
-    
+
     if (result.ok) {
         closeConfirmationModal();
         closeEventModal();
         alert(`Success! ${modalQty} ticket(s) purchased for ${modalCurrentEvent.title}`);
-        
+
         await Store.Tickets.fetchByUser(session.id);
         renderStats();
         renderTickets();

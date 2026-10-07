@@ -86,7 +86,7 @@ function renderPage() {
 
     document.getElementById('eventPageRoot').innerHTML = `
 
-      <!-- ═══ TWO-COLUMN SPLIT ═══════════════════════════════ -->
+      <!-- TWO-COLUMN SPLIT -->
       <div class="ev-split">
 
         <!-- LEFT: Event image -->
@@ -349,7 +349,7 @@ function closeConfirmationModal() {
     document.getElementById('confirmationModal').style.display = 'none';
 }
 
-/* ── Tier / qty / purchase ────────────────────────────────────────── */
+/* Tier / qty / purchase  */
 function selectTier(el, idx) {
     if (el.classList.contains('sold-out')) return;
     document.querySelectorAll('.ticket-tier').forEach(t => t.classList.remove('selected'));

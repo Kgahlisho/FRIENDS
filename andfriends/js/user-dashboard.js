@@ -87,7 +87,6 @@ function openEventModal(eventId) {
     // Create meta grid with icons
     document.getElementById('modalEventMeta').innerHTML = `
         <div class="meta-item">
-            <span class="meta-icon">&#128197;</span>
             <span>${event.date}</span>
         </div>
         <div class="meta-item">
@@ -95,11 +94,9 @@ function openEventModal(eventId) {
             <span>${event.time}</span>
         </div>
         <div class="meta-item">
-            <span class="meta-icon">&#128205;</span>
             <span>${escapeHtml(event.location || '5 De Beer St, Braamfontein')}</span>
         </div>
         <div class="meta-item">
-            <span class="meta-icon">🏷</span>
             <span>${escapeHtml(event.tag)}</span>
         </div>
     `;
@@ -312,9 +309,9 @@ function renderAllEvents() {
                     <span class="event-grid-tag">${escapeHtml(e.tag)}</span>
                     <h3 class="event-grid-title">${escapeHtml(e.title)}</h3>
                     <div class="event-grid-meta">
-                        &#128197; ${e.date}<br>
-                        &#128339; ${e.time}<br>
-                        &#128205; ${escapeHtml(e.location || '5 De Beer St, Braamfontein')}
+                        ${e.date}<br>
+                        &#9716; ${e.time}<br>
+                        ${escapeHtml(e.location || '5 De Beer St, Braamfontein')}
                     </div>
                     <div class="event-grid-footer">
                         <span class="event-grid-price">From R${firstPrice.toLocaleString()}</span>
@@ -412,12 +409,12 @@ function renderStats(session) {
     if (!container) return;
 
     container.innerHTML = [
-        { icon: '🎟', value: tickets.length, label: 'Tickets Purchased' },
-        { icon: '📅', value: uniqueEvents, label: 'Events Attended' },
-        { icon: '💳', value: 'R' + spent.toLocaleString(), label: 'Total Spent', accent: true },
+        { icon: '&#127915;', value: tickets.length, label: 'Tickets Purchased' },
+        { value: uniqueEvents, label: 'Events Attended' },
+        { value: 'R' + spent.toLocaleString(), label: 'Total Spent', accent: true },
     ].map(s => `
         <div class="stat-card ${s.accent ? 'accent' : ''}">
-            <div class="stat-icon">${s.icon}</div>
+            
             <div class="stat-value">${s.value}</div>
             <div class="stat-label">${s.label}</div>
         </div>`).join('');
@@ -431,7 +428,6 @@ function renderRecentTickets(session) {
     if (!tickets.length) {
         el.innerHTML = `
             <div class="admin-empty">
-                <div class="admin-empty-icon">🎟</div>
                 <h3>No tickets yet</h3>
                 <p>Purchase tickets to upcoming events.</p>
                 <button class="btn-primary" onclick="showEventsSection()">Browse Events</button>

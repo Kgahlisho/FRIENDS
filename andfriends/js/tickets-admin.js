@@ -30,10 +30,10 @@ function renderStats() {
   const pending = tickets.length - validated;
 
   document.getElementById('ticketStats').innerHTML = [
-    { icon: '🎟', value: tickets.length, label: 'Total Sold' },
-    { icon: '✅', value: validated, label: 'Validated' },
-    { icon: '⏳', value: pending, label: 'Pending' },
-    { icon: '💰', value: 'R' + revenue.toLocaleString(), label: 'Revenue', accent: true },
+    { icon: '#127915;', value: tickets.length, label: 'Total Sold' },
+    { icon: '&#10003;', value: validated, label: 'Validated' },
+    { icon: '&#9675;', value: pending, label: 'Pending' },
+    { value: 'R' + revenue.toLocaleString(), label: 'Revenue', accent: true },
   ].map(s => `
     <div class="stat-card ${s.accent ? 'accent' : ''}">
       <div class="stat-icon">${s.icon}</div>
@@ -84,7 +84,7 @@ function renderTickets() {
   if (!tickets.length) {
     wrap.innerHTML = `
       <div class="admin-empty">
-        <div class="admin-empty-icon">🎟</div>
+        <div class="admin-empty-icon">&#127380;</div>
         <h3>No tickets found</h3>
       </div>`;
     return;

@@ -1,83 +1,83 @@
 
 document.addEventListener('DOMContentLoaded', async () => {
 
-  console.log('PLAY PAGE INITIALIZING...');
+    console.log('PLAY PAGE INITIALIZING...');
 
-  try {
-    if (Store.Auth && Store.Auth.waitForAuth) {
-      await Store.Auth.waitForAuth();
+    try {
+        if (Store.Auth && Store.Auth.waitForAuth) {
+            await Store.Auth.waitForAuth();
+        }
+    } catch (err) {
+        console.warn('Auth wait skipped:', err);
     }
-  } catch (err) {
-    console.warn('Auth wait skipped:', err);
-  }
 
-  try {
-    await Promise.all([
-      Store.Events.fetchPublished(),
-      Store.Content.fetch()
-    ]);
-    console.log('Published Events:', Store.Events.getPublished());
-  } catch (err) {
-    console.error('Firebase fetch failed:', err);
-  }
+    try {
+        await Promise.all([
+            Store.Events.fetchPublished(),
+            Store.Content.fetch()
+        ]);
+        console.log('Published Events:', Store.Events.getPublished());
+    } catch (err) {
+        console.error('Firebase fetch failed:', err);
+    }
 
-  renderEventsPage();
-  loadFooter();
-
-  document.addEventListener('af:events', () => {
     renderEventsPage();
-  });
-
-  document.addEventListener('af:content', () => {
     loadFooter();
-  });
+
+    document.addEventListener('af:events', () => {
+        renderEventsPage();
+    });
+
+    document.addEventListener('af:content', () => {
+        loadFooter();
+    });
 });
 
 function loadFooter() {
-  const c = Store.Content.getSection('contact');
-  if (!c) return;
-  const ph = document.getElementById('footerPhone');
-  const em = document.getElementById('footerEmail');
-  if (ph) ph.textContent = 'Call Us: ' + (c.phone || '');
-  if (em) {
-    em.textContent = 'Email Us: ' + (c.email || '');
-    em.href = 'mailto:' + (c.email || '');
-  }
+    const c = Store.Content.getSection('contact');
+    if (!c) return;
+    const ph = document.getElementById('footerPhone');
+    const em = document.getElementById('footerEmail');
+    if (ph) ph.textContent = 'Call Us: ' + (c.phone || '');
+    if (em) {
+        em.textContent = 'Email Us: ' + (c.email || '');
+        em.href = 'mailto:' + (c.email || '');
+    }
 }
 
 function imgSrc(src) {
-  if (!src) return '';
-  if (src.startsWith('http') || src.startsWith('data:')) return src;
-  return '../' + src.replace(/^(\.\.\/)+/, '');
+    if (!src) return '';
+    if (src.startsWith('http') || src.startsWith('data:')) return src;
+    return '../' + src.replace(/^(\.\.\/)+/, '');
 }
 
 function renderEventsPage() {
-  const section = document.getElementById('eventsSection');
-  if (!section) {
-    console.error('eventsSection not found');
-    return;
-  }
+    const section = document.getElementById('eventsSection');
+    if (!section) {
+        console.error('eventsSection not found');
+        return;
+    }
 
-  const featured = Store.Events.getFeatured();
-  const displayEvents = featured.length ? featured : Store.Events.getPublished();
+    const featured = Store.Events.getFeatured();
+    const displayEvents = featured.length ? featured : Store.Events.getPublished();
 
-  console.log('Rendering events:', displayEvents);
+    console.log('Rendering events:', displayEvents);
 
-  if (!displayEvents.length) {
-    section.innerHTML = `
+    if (!displayEvents.length) {
+        section.innerHTML = `
       <div class="events-container" style="text-align:center;padding:60px 40px;">
         <p style="font-size:18px;color:rgba(255,255,255,0.5);">
           No events scheduled yet — check back soon.
         </p>
       </div>
     `;
-    return;
-  }
+        return;
+    }
 
-  const [hero, ...rest] = displayEvents;
-  const stackEvents = rest.slice(0, 3);
+    const [hero, ...rest] = displayEvents;
+    const stackEvents = rest.slice(0, 3);
 
-  let html = `
+    let html = `
     <div class="events-container">
       <!-- Header -->
       <div class="events-header-modern">
@@ -116,24 +116,24 @@ function renderEventsPage() {
         <div class="events-grid-modern">
   `;
 
-  stackEvents.forEach(event => {
-    html += `
+    stackEvents.forEach(event => {
+        html += `
       <div class="event-card-modern" onclick="window.location.href='event.html?id=${event.id}'">
         <img src="${imgSrc(event.image)}" alt="${escapeHtml(event.title)}" class="event-card-image" onerror="this.src='../Resources/placeholder.jpg'">
         <div class="event-card-content">
           <span class="event-card-tag">${escapeHtml(event.tag || 'EVENT')}</span>
           <h4 class="event-card-title">${escapeHtml(event.title)}</h4>
           <div class="event-card-date">
-            <span> &#128197; ${event.date || ''}</span>
-            <span> &#128337; ${event.time || ''}</span>
+            <span>  ${event.date || ''}</span>
+            <span> &#9716; ${event.time || ''}</span>
           </div>
           <a href="event.html?id=${event.id}" class="event-card-link">Get Tickets →</a>
         </div>
       </div>
     `;
-  });
+    });
 
-  html += `
+    html += `
         </div>
       </div>
       
@@ -150,27 +150,27 @@ function renderEventsPage() {
     </div>
   `;
 
-  section.innerHTML = html;
+    section.innerHTML = html;
 
-  // Make cards clickable
-  section.querySelectorAll('.featured-event, .event-card-modern').forEach(card => {
-    const id = card.dataset.eventId;
-    if (id) {
-      card.addEventListener('click', (e) => {
-        if (!e.target.classList.contains('featured-link') && !e.target.classList.contains('event-card-link')) {
-          window.location.href = 'event.html?id=' + id;
+    // Make cards clickable
+    section.querySelectorAll('.featured-event, .event-card-modern').forEach(card => {
+        const id = card.dataset.eventId;
+        if (id) {
+            card.addEventListener('click', (e) => {
+                if (!e.target.classList.contains('featured-link') && !e.target.classList.contains('event-card-link')) {
+                    window.location.href = 'event.html?id=' + id;
+                }
+            });
         }
-      });
-    }
-  });
+    });
 }
 
 function escapeHtml(str) {
-  if (!str) return '';
-  return String(str)
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#39;');
+    if (!str) return '';
+    return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
 }
