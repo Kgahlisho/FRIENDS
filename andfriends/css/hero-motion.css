@@ -1,9 +1,4 @@
-/* On load the header image reacts (swells / pops / blooms), then
-   settles back into its normal place. Each page has its own feel.
-   Click or tap the image to replay it.
-   Pure CSS; the tiny js/hero-motion.js only handles the replay.*/
 
-/* One timeline: image first, text follows. Replaces the old plain fade. */
 body[data-page] .hero-content {
     animation: none;
 }

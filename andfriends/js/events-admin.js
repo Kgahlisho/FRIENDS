@@ -1,17 +1,15 @@
-/**
- * &FRIENDS — js/events-admin.js
- */
+
 
 document.getElementById('sidebarMount').outerHTML = renderAdminSidebar('events.html');
 
-// ── State ─────────────────────────────────────────────────────────
+// State 
 let editingEventId = null;
-let evImageURL     = null;   // ALWAYS a plain string URL (Firebase or base64)
-let evPendingFile  = null;   // File waiting to upload on Save
+let evImageURL     = null;   
+let evPendingFile  = null;   
 let currentFilter  = 'all';
 let isLoadingRetry = false;
 
-// ── Helper: Escape HTML and sanitize data ─────────────────────────
+
 function escapeHtml(str) {
     if (!str) return '';
     // Convert to string in case it's not a string
@@ -44,7 +42,7 @@ function sanitizeEventData(event) {
     return event;
 }
 
-// ── Init ──────────────────────────────────────────────────────────
+ 
 document.addEventListener('DOMContentLoaded', async () => {
     // Dispatch loading event
     document.dispatchEvent(new CustomEvent('af:eventsLoadStart'));
@@ -53,8 +51,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     const wrap = document.getElementById('eventsTableWrap');
     if (wrap) wrap.innerHTML = '<div style="padding:40px;text-align:center;opacity:.5;">Loading events…</div>';
 
-    // Wait for Firebase Auth to resolve before hitting Firestore
-    // (Firestore reads may be denied if no auth token is present yet)
     try {
         await Store.Auth.waitForAuth();
     } catch (err) {
@@ -74,7 +70,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         
         await Promise.race([fetchPromise, timeoutPromise]);
         
-        // Sanitize all events after loading
         const events = Store.Events.getAll();
         events.forEach(event => sanitizeEventData(event));
         
@@ -104,10 +99,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 });
 
-// Re-render whenever Firestore data updates (e.g. after a save or external change)
 document.addEventListener('af:events', () => renderTable());
 
-// ── Retry function ────────────────────────────────────────────────
+// Retry  
 window.retryLoadEvents = async function() {
     isLoadingRetry = true;
     const wrap = document.getElementById('eventsTableWrap');
@@ -130,7 +124,7 @@ window.retryLoadEvents = async function() {
         
         await Promise.race([fetchPromise, timeoutPromise]);
         
-        // Sanitize events after loading
+
         const events = Store.Events.getAll();
         events.forEach(event => sanitizeEventData(event));
         
@@ -158,7 +152,7 @@ window.retryLoadEvents = async function() {
     }
 };
 
-// ── Table ─────────────────────────────────────────────────────────
+// Table 
 function renderTable() {
     let events = Store.Events.getAll();
     if (currentFilter !== 'all') events = events.filter(e => e.status === currentFilter);
@@ -243,7 +237,7 @@ function filterEvents(f, btn) {
     renderTable();
 }
 
-// ── Open modal ────────────────────────────────────────────────────
+// Open modal
 function openEventModal(id = null) {
     editingEventId = id;
     evImageURL = null;
@@ -299,21 +293,19 @@ function clearEventForm() {
     document.getElementById('ticketRows').innerHTML   = '';
 }
 
-// ── Image input wiring ────────────────────────────────────────────
-// The file input sits on TOP of the zone div (position:absolute, inset:0).
-// All drag events hit the INPUT, not the zone — so we listen on the INPUT.
+// Image input wiring
 function _wireEventImageInput() {
     const zone  = document.getElementById('evImgZone');
     const input = zone ? zone.querySelector('input[type="file"]') : null;
     if (!input || input._wired) return;
     input._wired = true;
 
-    // Drag visual feedback on the ZONE via events that bubble from INPUT
+    // Drag visual feedback 
     input.addEventListener('dragenter', e => { e.preventDefault(); zone.classList.add('drag-over'); });
     input.addEventListener('dragover',  e => { e.preventDefault(); zone.classList.add('drag-over'); });
     input.addEventListener('dragleave', e => { e.preventDefault(); zone.classList.remove('drag-over'); });
 
-    // DROP on the input — manually read files from dataTransfer
+    // DROP on the input 
     input.addEventListener('drop', e => {
         e.preventDefault();
         zone.classList.remove('drag-over');
@@ -322,7 +314,7 @@ function _wireEventImageInput() {
     });
 }
 
-// ── File input onchange (click to browse) ─────────────────────────
+// File input onchange 
 function handleEventImageUpload(input) {
     const file = input.files[0];
     if (!file) return;
@@ -330,7 +322,7 @@ function handleEventImageUpload(input) {
     input.value = '';   // allow re-selecting same file
 }
 
-// ── Handle chosen file: show preview, stage for upload ───────────
+// Handle chosen file: show preview, stage for upload 
 function _handleEventFile(file) {
     // Validate file size (5MB limit)
     if (file.size > 5 * 1024 * 1024) {
@@ -341,7 +333,7 @@ function _handleEventFile(file) {
     // Show instant local preview using object URL
     const localURL = URL.createObjectURL(file);
     evPendingFile  = file;
-    evImageURL     = null;   // will be set to real URL after Firebase upload on Save
+    evImageURL     = null;
     _showImgPreview(localURL);
     showToast('Image selected — click "Save Event" to upload and save.', 'info');
 }
@@ -352,7 +344,7 @@ function _showImgPreview(src) {
     el.innerHTML = `<img src="${src}" style="height:80px;border-radius:8px;object-fit:cover;max-width:160px;" onerror="this.style.opacity=0.3" /><p style="font-size:11px;color:var(--admin-muted);margin-top:4px;">Preview</p>`;
 }
 
-// ── Lineup rows ───────────────────────────────────────────────────
+// Lineup rows 
 function addLineupRow(name = '', role = '') {
     const row = document.createElement('div');
     row.style.cssText = 'display:flex;gap:10px;margin-bottom:8px;';
@@ -363,7 +355,7 @@ function addLineupRow(name = '', role = '') {
     document.getElementById('lineupRows').appendChild(row);
 }
 
-// ── Ticket tier rows ──────────────────────────────────────────────
+// Ticket tier rows 
 function addTicketRow(tier = '', price = 0, available = true) {
     const row = document.createElement('div');
     row.style.cssText = 'display:flex;gap:10px;margin-bottom:8px;align-items:center;';
@@ -377,10 +369,7 @@ function addTicketRow(tier = '', price = 0, available = true) {
     document.getElementById('ticketRows').appendChild(row);
 }
 
-// ── Save event ────────────────────────────────────────────────────
-// ── Save event ────────────────────────────────────────────────────
-// ── Save event ────────────────────────────────────────────────────
-// ── Save event ────────────────────────────────────────────────────
+// Save event 
 async function saveEvent() {
     const title = document.getElementById('evTitle').value.trim();
     const dateRaw = document.getElementById('evDate').value;
@@ -442,8 +431,7 @@ async function saveEvent() {
             status: document.getElementById('evStatus').value,
             featured: document.getElementById('evFeatured').checked,
         };
-        
-        // Only add image to data if we have a new one
+
         if (finalImageURL) {
             data.image = finalImageURL;
         }
@@ -452,12 +440,9 @@ async function saveEvent() {
 
         let result;
         if (editingEventId) {
-            // For updates, only pass fields that have changed
-            // The image will be preserved automatically by the update method
             result = await Store.Events.update(editingEventId, data);
             showToast('Event updated successfully.', 'success');
         } else {
-            // For new events, ensure image is included (even if empty)
             data.image = finalImageURL || '';
             result = await Store.Events.create(data);
             showToast('Event created successfully.', 'success');
@@ -481,8 +466,7 @@ async function saveEvent() {
         }
     }
 }
-// ── Toggle status ─────────────────────────────────────────────────
-// ── Toggle status ─────────────────────────────────────────────────
+// Toggle status 
 async function toggleStatus(id) {
     const e = Store.Events.getById(id);
     if (!e) return;
@@ -499,7 +483,7 @@ async function toggleStatus(id) {
     }
 }
 
-// ── Delete ────────────────────────────────────────────────────────
+// Delete
 function deleteEvent(id) {
     const e = Store.Events.getById(id);
     adminConfirm(`Delete "${e?.title}"? This action cannot be undone.`, async () => {

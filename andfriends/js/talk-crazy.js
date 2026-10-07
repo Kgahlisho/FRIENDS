@@ -1,5 +1,4 @@
-/* &FRIENDS — talk-crazy.js  ("Mic Drop")  — builds the effects layer and splits the text for css/talk-crazy.css.
-   Needs  <html data-talk="crazy">.  Click / tap / Enter / Space on the photo replays it. */
+
 (function () {
     'use strict';
     if (document.documentElement.getAttribute('data-talk') !== 'crazy') return;

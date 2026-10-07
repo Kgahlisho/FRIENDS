@@ -1,9 +1,3 @@
-/**
- * &FRIENDS — index-page.js
- * Loads admin-managed content into the homepage.
- * Renders dynamic events in the poster grid section.
- * Called only on index.html.
- */
 
 document.addEventListener('DOMContentLoaded', async () => {
   // Fetch data from Firebase first

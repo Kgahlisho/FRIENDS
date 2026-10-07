@@ -1,14 +1,4 @@
-/**
- * &FRIENDS — auth.js
- * Auth modal UI, nav account button, login/register handlers.
- *
- * getSession() is now SYNCHRONOUS (reads the cache in firebase-store.js).
- * The nav button is refreshed whenever the 'af:auth' event fires
- * (emitted by firebase-store after onAuthStateChanged resolves).
- */
 
-// Run as soon as possible — don't wait for DOMContentLoaded
-// because the nav pill is already in the HTML.
 (function initAuth() {
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', _boot);
@@ -27,9 +17,7 @@ function _boot() {
     document.addEventListener('af:requireAuth', () => openAuthModal('login'));
 }
 
-// ─────────────────────────────────────────────
 // NAV ACCOUNT BUTTON
-// ─────────────────────────────────────────────
 function injectAccountButton() {
     const pill = document.querySelector('.nav-pill');
     if (!pill) return;
@@ -42,7 +30,7 @@ function injectAccountButton() {
 }
 
 function updateNav() {
-    // Ensure the wrapper exists (in case nav renders late)
+    // Ensure the wrapper exists
     if (!document.getElementById('navAccountWrap')) {
         injectAccountButton();
     }
@@ -85,17 +73,13 @@ function updateNav() {
     </div>`;
 }
 
-// ─────────────────────────────────────────────
 // AUTH ACTIONS
-// ─────────────────────────────────────────────
 async function handleLogout() {
     await Store.Auth.logout();
     window.location.reload();
 }
 
-// ─────────────────────────────────────────────
 // MODAL CONTROL
-// ─────────────────────────────────────────────
 function openAuthModal(tab = 'login') {
     const modal = document.getElementById('authModal');
     if (!modal) return;
@@ -134,9 +118,7 @@ function showAuthError(panelId, msg) {
     if (el) { el.textContent = msg; el.style.display = 'block'; }
 }
 
-// ─────────────────────────────────────────────
 // LOGIN
-// ─────────────────────────────────────────────
 async function handleLogin(e) {
     e.preventDefault();
     clearAuthErrors();
@@ -165,9 +147,8 @@ async function handleLogin(e) {
     redirectAfterAuth(result.user);
 }
 
-// ─────────────────────────────────────────────
+
 // REGISTER
-// ─────────────────────────────────────────────
 async function handleRegister(e) {
     e.preventDefault();
     clearAuthErrors();
@@ -210,9 +191,6 @@ async function handleRegister(e) {
     redirectAfterAuth(result.user);
 }
 
-// ─────────────────────────────────────────────
-// REDIRECT
-// ─────────────────────────────────────────────
 function redirectAfterAuth(user) {
     updateNav();
     const isInHtmlFolder = window.location.pathname.includes('/html/');
@@ -223,18 +201,15 @@ function redirectAfterAuth(user) {
     }
 }
 
-// ─────────────────────────────────────────────
 // ROLE TOGGLE
-// ─────────────────────────────────────────────
 function onRoleChange() {
     const role = document.getElementById('regRole').value;
     const wrap = document.getElementById('adminCodeWrap');
     if (wrap) wrap.style.display = role === 'admin' ? 'block' : 'none';
 }
 
-// ─────────────────────────────────────────────
+
 // INJECT MODAL
-// ─────────────────────────────────────────────
 function injectAuthModal() {
     if (document.getElementById('authModal')) return;
 

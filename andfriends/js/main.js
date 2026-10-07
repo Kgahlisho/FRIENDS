@@ -1,4 +1,3 @@
-//   &FRIENDS — main.js
 
 document.addEventListener('DOMContentLoaded', () => {
 
@@ -163,5 +162,5 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 100);
     }
 
-    console.log('&FRIENDS — site loaded ✓');
+    console.log('&FRIENDS — site cool');
 });

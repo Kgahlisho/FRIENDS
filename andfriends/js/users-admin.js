@@ -1,15 +1,10 @@
- /**
- * &FRIENDS — js/users-admin.js
- */
 
 document.getElementById('sidebarMount').outerHTML =
   renderAdminSidebar('admin.html');
 
 let allTickets = [];
 
-// ─────────────────────────────────────────────
-// INIT
-// ─────────────────────────────────────────────
+
 document.addEventListener('DOMContentLoaded', async () => {
   try {
     await Store.Users.fetchAll?.();
@@ -23,25 +18,23 @@ document.addEventListener('DOMContentLoaded', async () => {
   renderUsers();
 });
 
-// ─────────────────────────────────────────────
-// STATS
-// ─────────────────────────────────────────────
+
 function renderStats() {
   const users = Store.Users.getAll();
 
   document.getElementById('userStats').innerHTML = [
     {
-      icon: '👥',
+      icon: '&#128100;',
       value: users.length,
       label: 'Total Users'
     },
     {
-      icon: '🏠',
+      icon: '&#8962;',
       value: users.filter(u => u.role === 'resident').length,
       label: 'Residents'
     },
     {
-      icon: '⚙️',
+      icon: '&#9881;',
       value: users.filter(u => u.role === 'admin').length,
       label: 'Admins'
     }
@@ -57,9 +50,7 @@ function renderStats() {
     .join('');
 }
 
-// ─────────────────────────────────────────────
-// RENDER USERS
-// ─────────────────────────────────────────────
+//list all users 
 function renderUsers() {
   const search = document.getElementById('userSearch')?.value?.toLowerCase() || '';
   const roleFilter = document.getElementById('roleFilter')?.value || 'all';
@@ -189,9 +180,7 @@ function renderUsers() {
   `;
 }
 
-// ─────────────────────────────────────────────
-// ROLE TOGGLE
-// ─────────────────────────────────────────────
+// display all users 
 async function toggleRole(id, currentRole) {
   const newRole = currentRole === 'admin' ? 'resident' : 'admin';
 
@@ -203,9 +192,7 @@ async function toggleRole(id, currentRole) {
   renderStats();
 }
 
-// ─────────────────────────────────────────────
-// DELETE USER
-// ─────────────────────────────────────────────
+//delete users active on the site
 function deleteUser(id, name) {
   adminConfirm(`Delete user "${name}"?`, async () => {
     await Store.Users.delete(id);

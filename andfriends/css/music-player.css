@@ -1,4 +1,4 @@
-/* ═══ &FRIENDS — music-player.css · TAPE DECK · horizontal ═══ */
+
 :root {
     --mp-shell:      #efe3d2;
     --mp-shell-2:    #d9c8b1;
@@ -10,7 +10,7 @@
     --mp-radius:     14px;
 }
 
-/* ── play button on artist cards ───────────────────────── */
+/* play button on artist cards  */
 #artists .reveal-left::before { display: none; }
 #artists .reveal-left { cursor: pointer; }
 
@@ -43,7 +43,7 @@
 
 @media (hover: none) { .mp-btn { opacity: 1; transform: none; width: 52px; height: 52px; margin: -26px 0 0 -26px; } }
 
-/* ── floating widget: horizontal tape deck ─────────────── */
+/*  floating widget: horizontal tape deck */
 .mp-bar {
     position: fixed;
     right: 22px; bottom: 22px;
@@ -65,7 +65,7 @@
 }
 .mp-bar.open { opacity: 1; transform: rotate(-1deg); pointer-events: auto; }
 
-/* ── main row: single horizontal band ──────────────────── */
+/* main row: single horizontal band */
 .mp-inner {
     display: flex;
     align-items: center;
@@ -99,7 +99,7 @@
 /* artwork still hidden — reels replace it */
 .mp-art { display: none; }
 
-/* ── meta: fills the middle ─────────────────────────────── */
+/*  meta: fills the middle  */
 .mp-meta {
     min-width: 0;
     flex: 1 1 auto;
@@ -136,7 +136,7 @@
 .mp-eq i:nth-child(4) { animation-delay: -.1s; }
 @keyframes mpVU { from { transform: scaleY(.3); } to { transform: scaleY(1); } }
 
-/* ── controls: pinned to the right ──────────────────────── */
+/*  controls: pinned to the right */
 .mp-ctl {
     flex: none;
     height: 38px; min-width: 44px;
@@ -160,7 +160,7 @@
 .mp-min span { display: inline-block; transition: transform .3s; }
 .mp-bar.min .mp-min span { transform: rotate(180deg); }
 
-/* ── stage: full-width strip underneath, like an open lid ─ */
+/*  stage: full-width strip underneath, like an open lid  */
 .mp-stage {
     overflow: hidden;
     max-height: 170px;
@@ -189,7 +189,7 @@
     box-shadow: 2px 2px 0 var(--mp-ink);
 }
 
-/* ── responsive ─────────────────────────────────────────── */
+/* responsive */
 @media (max-width: 560px) {
     .mp-bar { right: 12px; left: 12px; bottom: 12px; width: auto; }
     .mp-bar::before { width: 96px; height: 52px; }

@@ -1,11 +1,4 @@
-/* ══════════════════════════════════════════════════════════════
-   &TALK hero — "Mic Drop"
-   An ON AIR light flickers, the photo CRASHES down from above (squash, chromatic
-   glitch, shockwave, confetti, camera shake), speech bubbles with words burst out of
-   it and pop, the title letters slam in as captions, and the tagline types itself
-   out like live subtitles. Everything settles into the normal layout.
-   Scoped to html[data-talk="crazy"]. Timeline built by js/talk-crazy.js.
-══════════════════════════════════════════════════════════════ */
+
 html[data-talk="crazy"] #hero { overflow-x: clip; }
 html[data-talk="crazy"] #hero .hero-content { position: relative; animation: none; }
 html[data-talk="crazy"] #hero .hero-text-block { position: relative; z-index: 3; }
@@ -18,7 +11,7 @@ html[data-talk="crazy"] body:not(.tc-ready) #hero .hero-title,
 html[data-talk="crazy"] body:not(.tc-ready) #hero .hero-location { opacity: 0; animation: tcFailsafe .01s linear 4s forwards !important; }
 @keyframes tcFailsafe { to { opacity: 1; } }
 
-/* ── camera shake: one burst at the crash, a smaller one when the title lands ── */
+/* camera shake: one burst at the crash, a smaller one when the title lands  */
 html[data-talk="crazy"] body.tc-play #hero .hero-content { animation: tcShake 3.4s linear both !important; }
 @keyframes tcShake {
     0%, 24%, 100% { transform: none; }
@@ -28,7 +21,7 @@ html[data-talk="crazy"] body.tc-play #hero .hero-content { animation: tcShake 3.
     62%  { transform: none; } 63% { transform: translate(3px, 3px); } 65% { transform: translate(-3px, -2px); } 67% { transform: none; }
 }
 
-/* ── the photo: falls, slams, squashes, glitches ─────────── */
+/* the photo: falls, slams, squashes, glitches */
 html[data-talk="crazy"] #hero .hero-img-placeholder { position: relative; z-index: 2; cursor: pointer; transform-origin: 50% 100%; animation: none; will-change: transform, filter; -webkit-tap-highlight-color: transparent; }
 html[data-talk="crazy"] #hero .hero-img { animation: none; }
 html[data-talk="crazy"] body.tc-play #hero .hero-img-placeholder { animation: tcDrop 3.4s linear .05s both !important; }
@@ -42,7 +35,7 @@ html[data-talk="crazy"] body.tc-play #hero .hero-img-placeholder { animation: tc
     100% { transform: none; filter: none; opacity: 1; }
 }
 
-/* ── effects layer ───────────────────────────────────────── */
+/* effects layer */
 .tc-fx { position: absolute; left: 0; top: 0; width: 0; height: 0; z-index: 4; pointer-events: none; }
 .tc-fx > * { position: absolute; }
 
@@ -83,7 +76,7 @@ html[data-talk="crazy"] body.tc-play .tc-air { animation: tcAir 3.4s steps(1, en
     24% { opacity: 0; } 70% { opacity: 0; } 72% { opacity: 1; } 78% { opacity: 1; } 80% { opacity: 0; } 100% { opacity: 0; }
 }
 
-/* ── title letters slam in like captions ─────────────────── */
+/* title letters slam in like captions */
 .hero-title .tc-ch { display: inline-block; transform-origin: 50% 100%; will-change: transform, opacity; }
 .hero-title .tc-ch:not(.amp) { font-family: var(--font-display); font-style: normal; }
 .hero-location .tc-chr { display: inline-block; white-space: pre; position: relative; }

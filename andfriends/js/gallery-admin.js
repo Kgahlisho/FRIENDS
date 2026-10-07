@@ -1,20 +1,17 @@
-/**
- * &FRIENDS — js/gallery-admin.js
- */
+
 
 document.getElementById('sidebarMount').outerHTML = renderAdminSidebar('admin_gallery.html');
 
 let editingCampaignId = null;
 let activeCampaignId  = null;
-let pendingImages     = [];   // [{ localURL: string, file: File }]
-
-// ── Init ──────────────────────────────────────────────────────────
+let pendingImages     = [];  
+ 
 document.addEventListener('DOMContentLoaded', async () => {
     try { await Store.Gallery.fetchAll(); } catch (e) { console.error('Gallery fetch error:', e); }
     renderCampaigns();
 });
 
-// ── Render campaigns ──────────────────────────────────────────────
+//  Render campaigns 
 function renderCampaigns() {
     const campaigns = [...Store.Gallery.getAll()].sort((a, b) => (b.createdAt || '').localeCompare(a.createdAt || ''));
     const grid = document.getElementById('campaignsGrid');
@@ -66,7 +63,7 @@ function renderCampaigns() {
         </div>`).join('');
 }
 
-// ── Campaign modal ─────────────────────────────────────────────────
+//  Campaign modal 
 function openCampaignModal(id = null) {
     editingCampaignId = id;
     if (id) {
@@ -128,7 +125,7 @@ function deleteCampaign(id) {
     });
 }
 
-// ── Images modal ──────────────────────────────────────────────────
+// Images modal 
 function openImagesModal(campaignId) {
     activeCampaignId = campaignId;
     pendingImages    = [];
@@ -158,9 +155,7 @@ function _renderExisting(c) {
         : '';
 }
 
-// ── Wire the file input for drag-drop ─────────────────────────────
-// The file INPUT (position:absolute, inset:0, opacity:0) sits ON TOP of the zone div.
-// Drag events target the input — so we listen on the INPUT itself.
+
 function _wireGalleryInput() {
     const zone  = document.getElementById('imgUploadZone');
     const input = zone ? zone.querySelector('input[type="file"]') : null;
@@ -178,7 +173,6 @@ function _wireGalleryInput() {
     });
 }
 
-// ── File input onchange (click to browse) ─────────────────────────
 function handleImageUploads(input) {
     const files = [...input.files];
     if (!files.length) return;
@@ -186,7 +180,7 @@ function handleImageUploads(input) {
     input.value = '';
 }
 
-// ── Stage files for upload (show preview immediately) ─────────────
+
 function _stageFiles(files) {
     for (const file of files) {
         const localURL = URL.createObjectURL(file);
@@ -212,7 +206,7 @@ function removePending(index) {
     _renderPending();
 }
 
-// ── Save images — upload to Firebase then write to Firestore ──────
+// Save images 
 async function saveImages() {
     if (!pendingImages.length) { closeAdminModal('imagesModal'); return; }
 
@@ -226,13 +220,10 @@ async function saveImages() {
         try {
             showToast(`Uploading ${pending.file.name}…`, 'info');
 
-            // uploadImage returns a plain string URL (Firebase Storage or base64 fallback)
-            const imageURL = await Store.Gallery.uploadImage(pending.file, activeCampaignId);
+              const imageURL = await Store.Gallery.uploadImage(pending.file, activeCampaignId);
 
-            // Revoke the temporary local preview URL
             URL.revokeObjectURL(pending.localURL);
 
-            // Save the record to Firestore — imageURL is always a plain string
             await Store.Gallery.addImage(activeCampaignId, {
                 src:     imageURL,
                 caption: caption,
@@ -257,7 +248,7 @@ async function saveImages() {
     renderCampaigns();
 }
 
-// ── Remove single image ───────────────────────────────────────────
+// Remove single image 
 async function removeImage(campaignId, imageId) {
     await Store.Gallery.deleteImage(campaignId, imageId);
     showToast('Image removed.', 'info');

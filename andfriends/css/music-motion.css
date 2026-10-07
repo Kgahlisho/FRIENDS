@@ -1,8 +1,3 @@
-/* &FRIENDS — music-motion.css
-   Equalizer / vinyl-drop hero animation for &MUSIC.
-   Scoped to html[data-music="eq"] so other pages are untouched.
-   Bars are animated per-frame by music-motion.js (random + bell envelope).
-   The photo and text still use pure CSS. */
 
 html[data-music="eq"] .hero-content {
     position: relative;
@@ -18,7 +13,7 @@ html[data-music="eq"] .hero-text-block {
     z-index: 3;
 }
 
-/* ══════════ Equalizer layer ══════════ */
+/*  Equalizer layer */
 .eq-fx {
     position: absolute;
     z-index: 1;
@@ -49,8 +44,6 @@ html[data-music="eq"] .eq-fx {
             rgba(0, 0, 0, 0) 22%, rgba(0, 0, 0, 1) 52%, rgba(0, 0, 0, 0) 100%);
 }
 
-/* Bars size to their own envelope (--env from JS).
-   JS writes transform: scaleY(...) every frame — no CSS animation here. */
 .eq-fx .bar {
     flex: 1 1 auto;
     width: 100%;
@@ -80,7 +73,7 @@ html[data-music="eq"] .eq-fx {
         0 0 24px rgba(194, 24, 91, .22);
 }
 
-/* ══════════ Photo: vinyl drop + heartbeat ══════════ */
+/* Photo: vinyl drop + heartbeat  */
 html[data-music="eq"] .hero-img-placeholder {
     position: relative;
     animation:
@@ -163,7 +156,7 @@ html[data-music="eq"] .hero-img {
     }
 }
 
-/* ══════════ Title letters: radio-tuning in ══════════ */
+/* Title letters: radio-tuning in  */
 html[data-music="eq"] .hero-title {
     clip-path: none !important;
     transition: none !important;
@@ -275,7 +268,7 @@ html[data-music="eq"] .hero-text-block:not(.eq-text-play) .eq-line {
     }
 }
 
-/* ══════════ reduced motion ══════════ */
+/* reduced motion */
 @media (prefers-reduced-motion: reduce) {
 
     .eq-text-play .eq-ch,

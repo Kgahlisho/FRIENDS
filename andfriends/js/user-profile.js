@@ -1,11 +1,4 @@
-/**
- * &FRIENDS — js/user-profile.js
- * Deferred auth guard — waits for Firebase onAuthStateChanged before checking session.
- */
 
-// ─────────────────────────────────────────────
-// DEFERRED AUTH GUARD
-// ─────────────────────────────────────────────
 (function deferredGuard() {
     if (Store.Auth.isLoggedIn()) return;
 
@@ -33,9 +26,7 @@
 let session;
 let currentUser;
 
-// ─────────────────────────────────────────────
-// INIT
-// ─────────────────────────────────────────────
+
 document.addEventListener('DOMContentLoaded', () => {
     if (Store.Auth.isLoggedIn()) {
         _bootProfile();
@@ -85,9 +76,7 @@ async function _bootProfile() {
     fillForm(currentUser);
 }
 
-// ─────────────────────────────────────────────
-// RENDER HEADER
-// ─────────────────────────────────────────────
+//render profile header
 function renderProfileHeader(user) {
     const avatarEl = document.getElementById('profileAvatar');
     const nameEl   = document.getElementById('profileName');
@@ -101,9 +90,7 @@ function renderProfileHeader(user) {
         new Date(user.createdAt || Date.now()).toLocaleDateString('en-ZA', { year: 'numeric', month: 'long' });
 }
 
-// ─────────────────────────────────────────────
-// FILL FORM
-// ─────────────────────────────────────────────
+//fill the form 
 function fillForm(user) {
     const set = (id, val) => { const el = document.getElementById(id); if (el) el.value = val || ''; };
     set('pName',  user.name);
@@ -112,9 +99,7 @@ function fillForm(user) {
     set('pDob',   user.dob);
 }
 
-// ─────────────────────────────────────────────
-// SAVE PROFILE
-// ─────────────────────────────────────────────
+//dave the users profile 
 async function saveProfile() {
     const name  = document.getElementById('pName')?.value.trim();
     const phone = document.getElementById('pPhone')?.value.trim();
@@ -133,9 +118,7 @@ async function saveProfile() {
     }
 }
 
-// ─────────────────────────────────────────────
-// CHANGE PASSWORD
-// ─────────────────────────────────────────────
+//allow the user to change their password
 async function changePassword() {
     const pw  = document.getElementById('pNewPw')?.value;
     const pw2 = document.getElementById('pNewPw2')?.value;
@@ -157,9 +140,7 @@ async function changePassword() {
     }
 }
 
-// ─────────────────────────────────────────────
-// DELETE ACCOUNT
-// ─────────────────────────────────────────────
+//confirm the deletion of their account and make sure that the database as well registers this change
 async function deleteAccount() {
     if (!confirm('Are you sure? This will permanently delete your account.')) return;
     try {
@@ -171,9 +152,7 @@ async function deleteAccount() {
     }
 }
 
-// ─────────────────────────────────────────────
-// HELPERS
-// ─────────────────────────────────────────────
+
 function showBanner(id) {
     const el = document.getElementById(id);
     if (!el) return;

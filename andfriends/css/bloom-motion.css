@@ -42,7 +42,7 @@ html[data-bloom="petals"] .bloom-fx .fx-petals {
     display: block;
 }
 
-/* ═════════ Petals and photo ═════════
+/* Petals and photo 
    A two-ring flower spins open behind the photo. The photo irises open from
    its centre, swells past its frame, then the petals fold away and it settles. */
 html[data-bloom="petals"] body[data-page="bloom"] .hero-img-placeholder {
@@ -191,7 +191,7 @@ html[data-bloom="petals"] body[data-page="bloom"] .hero-img {
 }
 
 
-/* ═════════ Text flies out of the flower ═════════ */
+/* Text flies out of the flower  */
 /* main.js wipes the title in with an inline clip-path; hand that over to the letters. */
 html[data-bloom="petals"] body[data-page="bloom"] .hero-title {
     clip-path: none !important;
@@ -302,7 +302,7 @@ html[data-bloom="petals"] body[data-page="bloom"] .hero-text-block:not(.bloom-te
     }
 }
 
-/* ═════════ shared ═════════ */
+/*  shared  */
 @media (max-width: 768px) {
     .bloom-fx {
         transform: scale(.78);

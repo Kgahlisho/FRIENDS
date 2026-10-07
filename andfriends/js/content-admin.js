@@ -9,18 +9,15 @@ document.getElementById('sidebarMount').outerHTML =
 const stagedImages = {};
 
 
-// ─────────────────────────────────────────────
-// 📦 LOAD CONTENT ON PAGE OPEN
-// ─────────────────────────────────────────────
+
+//LOAD CONTENT ON PAGE OPEN
 document.addEventListener('DOMContentLoaded', async () => {
   await Store.Content.fetch();
   populateAllFields();
 });
 
 
-// ─────────────────────────────────────────────
-// 🧭 TAB SWITCHING
-// ─────────────────────────────────────────────
+// TAB SWITCHING
 function switchSection(key, btn) {
   document.querySelectorAll('.section-tab')
     .forEach(b => b.classList.remove('active'));
@@ -33,9 +30,8 @@ function switchSection(key, btn) {
 }
 
 
-// ─────────────────────────────────────────────
-// 🧠 POPULATE ALL FIELDS FROM FIREBASE
-// ─────────────────────────────────────────────
+
+// POPULATE ALL FIELDS FROM FIREBASE
 function populateAllFields() {
   const c = Store.Content.get();
   if (!c) return;
@@ -101,9 +97,8 @@ function populateAllFields() {
 }
 
 
-// ─────────────────────────────────────────────
-// 📤 IMAGE UPLOAD (PER SECTION)
-// ─────────────────────────────────────────────
+
+// IMAGE UPLOAD (PER SECTION)
 async function uploadSectionImage(section, key, input) {
   const file = input.files[0];
   if (!file) return;
@@ -143,9 +138,8 @@ async function uploadSectionImage(section, key, input) {
 }
 
 
-// ─────────────────────────────────────────────
-// 💾 SAVE SECTION TO FIREBASE
-// ─────────────────────────────────────────────
+
+//  SAVE SECTION TO FIREBASE
 async function saveSection(section) {
   const get = id => document.getElementById(id)?.value;
 

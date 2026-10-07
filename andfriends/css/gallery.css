@@ -6,7 +6,7 @@
    Rendered by js/gallery-public.js — no HTML changes needed.
 ══════════════════════════════════════════════════════════════ */
 
-/* ── per-brand accents ─────────────────────────────────────── */
+/* per-brand accents */
 .tag-bloom { --accent: #d4607f; --accent-soft: #fbe4ea; }
 .tag-music { --accent: #e85d04; --accent-soft: #fde6d6; }
 .tag-fun   { --accent: #d49a0a; --accent-soft: #fcf0cc; }
@@ -14,7 +14,7 @@
 .tag-food  { --accent: #6f9447; --accent-soft: #e6f0da; }
 .tag-other { --accent: var(--orange); --accent-soft: var(--pink-light); }
 
-/* ── hero ──────────────────────────────────────────────────── */
+/* hero */
 .gallery-hero {
   position: relative;
   padding: 150px 24px 52px;
@@ -113,7 +113,7 @@
   color: var(--dark);
 }
 
-/* ── sticky pill filter ────────────────────────────────────── */
+/*  sticky pill filter  */
 .gallery-filter-bar {
   position: sticky;
   top: 84px;
@@ -169,7 +169,7 @@
 }
 .gallery-filter-btn.active .gallery-filter-count { background: rgba(255, 255, 255, .18); }
 
-/* ── stories ───────────────────────────────────────────────── */
+/* stories */
 .gallery-campaigns {
   max-width: 1240px;
   margin: 0 auto;
@@ -257,7 +257,7 @@
 .story-btn:hover { background: var(--dark-brown); color: var(--warm-white); }
 .story-btn:hover span { transform: translateX(4px); }
 
-/* ── mosaic ────────────────────────────────────────────────── */
+/*  mosaic  */
 .mosaic {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -332,7 +332,7 @@
 .mosaic[data-n="3"] .tile:nth-child(n+2) { grid-column: span 2; }
 .mosaic[data-n="4"] .tile:nth-child(2) { grid-column: span 2; }
 
-/* ── spotlight (the latest drop) ───────────────────────────── */
+/* spotlight (the latest drop) */
 .story.is-spotlight {
   grid-template-columns: 1fr;
   gap: 30px;
@@ -354,7 +354,7 @@
 .is-spotlight .story-btn:hover { background: var(--accent); border-color: var(--accent); }
 .is-spotlight .mosaic { grid-auto-rows: clamp(140px, 19vw, 268px); }
 
-/* ── reveal on scroll (only when JS is running) ────────────── */
+/*  reveal on scroll (only when JS is running )  */
 .js-reveal .story {
   opacity: 0;
   transform: translateY(34px);
@@ -369,7 +369,7 @@
 .js-reveal .story.is-in,
 .js-reveal .story.is-in .tile { opacity: 1; transform: none; }
 
-/* ── loading skeleton + empty state ────────────────────────── */
+/* loading skeleton + empty state */
 .gallery-skel {
   height: clamp(280px, 38vw, 460px);
   border-radius: 32px;
@@ -395,7 +395,7 @@
   color: var(--dark-brown);
 }
 
-/* ── lightbox ──────────────────────────────────────────────── */
+/*  lightbox */
 .gallery-lightbox {
   position: fixed;
   inset: 0;
@@ -469,7 +469,7 @@
 .lightbox-prev:hover { transform: translateX(-2px); }
 .lightbox-next:hover { transform: translateX(2px); }
 
-/* ── boot loader ───────────────────────────────────────────── */
+/* boot loader */
 .gal-loader {
   position: fixed;
   inset: 0;
@@ -545,7 +545,7 @@
 }
 
 
-/* ── responsive ────────────────────────────────────────────── */
+/* responsive  */
 @media (max-width: 960px) {
   .story,
   .story.flip { grid-template-columns: 1fr; gap: 24px; }

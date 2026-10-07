@@ -1,11 +1,4 @@
-/**
- * &FRIENDS — js/user-tickets.js
- * Deferred auth guard — waits for Firebase onAuthStateChanged.
- */
 
-// ─────────────────────────────────────────────
-// DEFERRED AUTH GUARD
-// ─────────────────────────────────────────────
 (function deferredGuard() {
     if (Store.Auth.isLoggedIn()) return;
 
@@ -32,18 +25,15 @@
 
 let session = null;
 
-// ─────────────────────────────────────────────
-// BROWSE EVENTS VARIABLES
-// ─────────────────────────────────────────────
+//browse events 
+
 let browseEvents = [];
 let currentBrowseFilter = 'all';
 let modalCurrentEvent = null;
 let modalSelectedTier = null;
 let modalQty = 1;
 
-// ─────────────────────────────────────────────
-// INIT
-// ─────────────────────────────────────────────
+
 document.addEventListener('DOMContentLoaded', () => {
     if (Store.Auth.isLoggedIn()) {
         _bootTickets();
@@ -84,9 +74,7 @@ async function _bootTickets() {
     renderTickets();
 }
 
-// ─────────────────────────────────────────────
-// STATS
-// ─────────────────────────────────────────────
+
 function renderStats() {
     const tickets = Store.Tickets.getByUser(session.id);
     const spent   = tickets.reduce((sum, t) => sum + (t.total || 0), 0);
@@ -96,9 +84,9 @@ function renderStats() {
     if (!container) return;
 
     container.innerHTML = [
-        { icon: '🎟', value: tickets.length,              label: 'Total Tickets' },
-        { icon: '✅', value: active,                       label: 'Active Tickets' },
-        { icon: '💳', value: 'R' + spent.toLocaleString(), label: 'Total Spent', accent: true },
+        { icon: '&#127915;', value: tickets.length,              label: 'Total Tickets' },
+        { icon: '&#9989;', value: active,                       label: 'Active Tickets' },
+        { icon: '&#128179;', value: 'R' + spent.toLocaleString(), label: 'Total Spent', accent: true },
     ].map(s => `
     <div class="stat-card ${s.accent ? 'accent' : ''}">
       <div class="stat-icon">${s.icon}</div>
@@ -107,9 +95,7 @@ function renderStats() {
     </div>`).join('');
 }
 
-// ─────────────────────────────────────────────
-// TICKETS RENDER
-// ─────────────────────────────────────────────
+//produce the tickets 
 function renderTickets() {
     const filter  = document.getElementById('filterStatus')?.value || 'all';
     let tickets   = Store.Tickets.getByUser(session.id);
@@ -176,9 +162,7 @@ function renderTickets() {
     generateQRCodes(tickets);
 }
 
-// ─────────────────────────────────────────────
-// QR CODES
-// ─────────────────────────────────────────────
+//produce the QR codes for the tickets
 function generateQRCodes(tickets) {
     setTimeout(() => {
         tickets.forEach(t => {
@@ -194,9 +178,7 @@ function generateQRCodes(tickets) {
     }, 50);
 }
 
-// ─────────────────────────────────────────────
-// TICKET MODAL - Large QR Code for Scanning
-// ─────────────────────────────────────────────
+//ticket modal to allow the users to display the ticket when they are entering the premisis 
 let currentTicket = null;
 
 function openTicketModal(ticketId) {
@@ -208,9 +190,9 @@ function openTicketModal(ticketId) {
     document.getElementById('modalTicketTag').textContent = ticket.tag || 'LIVE EVENT';
     document.getElementById('modalTicketTitle').textContent = ticket.eventTitle;
     document.getElementById('modalTicketMeta').innerHTML = `
-        <span>📅 ${escapeHtml(ticket.eventDate)}</span>
-        <span>⏰ ${escapeHtml(ticket.eventTime || 'Time TBA')}</span>
-        <span>📍 ${escapeHtml(ticket.eventLocation || '5 De Beer St, Braamfontein')}</span>
+        <span> &#128197; ${escapeHtml(ticket.eventDate)}</span>
+        <span> &#128339; ${escapeHtml(ticket.eventTime || 'Time TBA')}</span>
+        <span> &#128205; ${escapeHtml(ticket.eventLocation || '5 De Beer St, Braamfontein')}</span>
     `;
     
     document.getElementById('modalTicketDetails').innerHTML = `
@@ -241,7 +223,7 @@ function openTicketModal(ticketId) {
         <div class="modal-detail-row">
             <span class="modal-detail-label">Status</span>
             <span class="modal-detail-value ${ticket.validated ? 'used' : 'active'}">
-                ${ticket.validated ? '✓ Used' : '● Active'}
+                ${ticket.validated ? ' Used' : '&#128994; Active'}
             </span>
         </div>
     `;
@@ -297,9 +279,7 @@ function printTicket() {
     window.print();
 }
 
-// ─────────────────────────────────────────────
-// BROWSE EVENTS FUNCTIONS
-// ─────────────────────────────────────────────
+//display all the avaibilbe events including the ones that are currently available/has been used and cancled  
 function showEventsSection() {
     document.getElementById('ticketsView').style.display = 'none';
     document.getElementById('eventsView').style.display = 'block';
@@ -382,9 +362,7 @@ function renderBrowseEvents() {
     }).join('');
 }
 
-// ─────────────────────────────────────────────
-// EVENT MODAL FUNCTIONS (for purchase)
-// ─────────────────────────────────────────────
+//allow users to purchase tickets even on their dashboard
 function openEventFromTickets(eventId) {
     const event = Store.Events.getById(eventId);
     if (!event) return;
@@ -403,15 +381,15 @@ function openEventFromTickets(eventId) {
     
     document.getElementById('modalEventMeta').innerHTML = `
         <div class="meta-item">
-            <span class="meta-icon">📅</span>
+            <span class="meta-icon">&#128197;</span>
             <span>${event.date}</span>
         </div>
         <div class="meta-item">
-            <span class="meta-icon">⏰</span>
+            <span class="meta-icon">&#128339;</span>
             <span>${event.time}</span>
         </div>
         <div class="meta-item">
-            <span class="meta-icon">📍</span>
+            <span class="meta-icon">&#128205;</span>
             <span>${escapeHtml(event.location || '5 De Beer St, Braamfontein')}</span>
         </div>
         <div class="meta-item">
@@ -561,13 +539,13 @@ async function finalizePurchase() {
     if (result.ok) {
         closeConfirmationModal();
         closeEventModal();
-        alert(`✓ Success! ${modalQty} ticket(s) purchased for ${modalCurrentEvent.title}`);
+        alert(`Success! ${modalQty} ticket(s) purchased for ${modalCurrentEvent.title}`);
         
         await Store.Tickets.fetchByUser(session.id);
         renderStats();
         renderTickets();
     } else {
-        alert(`✗ Purchase failed: ${result.error}`);
+        alert(`Purchase failed: ${result.error}`);
         if (confirmBtn) {
             confirmBtn.disabled = false;
             confirmBtn.textContent = 'Confirm Purchase';
@@ -575,9 +553,7 @@ async function finalizePurchase() {
     }
 }
 
-// ─────────────────────────────────────────────
-// FILTER HOOK
-// ─────────────────────────────────────────────
+//filter tickets 
 function applyTicketFilter() { renderTickets(); }
 
 function handleLogout() {

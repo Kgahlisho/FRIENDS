@@ -1,7 +1,3 @@
-/**
- * &FRIENDS — play-page.js
- * Dynamic Events Page for play.html
- */
 
 document.addEventListener('DOMContentLoaded', async () => {
 
@@ -108,8 +104,8 @@ function renderEventsPage() {
               <h3 class="featured-title">${escapeHtml(hero.title)}</h3>
               <p class="featured-desc">${(hero.description || '').slice(0, 100)}${hero.description?.length > 100 ? '...' : ''}</p>
               <div class="featured-date">
-                <span>📅 ${hero.date || ''}</span>
-                <span>⏰ ${hero.time || ''}</span>
+                <span> &#128197; ${hero.date || ''}</span>
+                <span> &#128337; ${hero.time || ''}</span>
               </div>
               <a href="event.html?id=${hero.id}" class="featured-link">Discover Event →</a>
             </div>
@@ -128,8 +124,8 @@ function renderEventsPage() {
           <span class="event-card-tag">${escapeHtml(event.tag || 'EVENT')}</span>
           <h4 class="event-card-title">${escapeHtml(event.title)}</h4>
           <div class="event-card-date">
-            <span>📅 ${event.date || ''}</span>
-            <span>⏰ ${event.time || ''}</span>
+            <span> &#128197; ${event.date || ''}</span>
+            <span> &#128337; ${event.time || ''}</span>
           </div>
           <a href="event.html?id=${event.id}" class="event-card-link">Get Tickets →</a>
         </div>

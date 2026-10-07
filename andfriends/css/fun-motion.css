@@ -1,10 +1,4 @@
-/* ══════════════════════════════════════════════════════════════
-   &FUN hero — "Cinematic"
-   The photo pulls back out of the dark, a light sweep crosses it, then
-   the photo tilts and throws the title letters out. Timeline lives in
-   js/fun-motion.js; this file holds layout helpers, the pre-script
-   hidden state and failsafes.
-══════════════════════════════════════════════════════════════ */
+
 
 body[data-page="fun"] #hero .hero-content { animation: none; }
 body[data-page="fun"] #hero .hero-text-block { position: relative; z-index: 3; }   /* letters fly over the photo */
@@ -16,7 +10,7 @@ body[data-page="fun"] #hero .hero-location {
     animation: none;
 }
 
-/* ── hidden until the script starts (no flash) ─────────────── */
+/*  hidden until the script starts */
 body[data-page="fun"]:not(.fm-ready):not(.fm-off) #hero .hero-img-placeholder,
 body[data-page="fun"]:not(.fm-ready):not(.fm-off) #hero .hero-title,
 body[data-page="fun"]:not(.fm-ready):not(.fm-off) #hero .hero-location {
@@ -25,7 +19,7 @@ body[data-page="fun"]:not(.fm-ready):not(.fm-off) #hero .hero-location {
 }
 @keyframes fmFailsafe { to { opacity: 1; } }
 
-/* ── photo ─────────────────────────────────────────────────── */
+/*  photo */
 body[data-page="fun"] #hero .hero-img-placeholder {
     position: relative;
     cursor: pointer;
@@ -34,7 +28,7 @@ body[data-page="fun"] #hero .hero-img-placeholder {
 }
 body[data-page="fun"] #hero .hero-img { transform-origin: 50% 50%; }
 
-/* ── title ─────────────────────────────────────────────────── */
+/*  title  */
 /* main.js wipes the title with an inline clip-path; switch it off here */
 body[data-page="fun"] #hero .hero-title {
     position: relative;
@@ -50,7 +44,7 @@ body[data-page="fun"] .hero-title span.fm-gen {
     font-style: normal;
 }
 
-/* ── light sweep across the photo ──────────────────────────── */
+/* light sweep across the photo */
 .fm-sweep {
     position: absolute;
     inset: 0;
@@ -68,7 +62,7 @@ body[data-page="fun"] .hero-title span.fm-gen {
     will-change: transform;
 }
 
-/* ── script off / reduced motion: plain page ───────────────── */
+/*  script off / reduced motion: plain page  */
 body[data-page="fun"].fm-off #hero .hero-img-placeholder,
 body[data-page="fun"].fm-off #hero .hero-title,
 body[data-page="fun"].fm-off #hero .hero-location { animation: none; }

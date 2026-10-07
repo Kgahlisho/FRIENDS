@@ -1,6 +1,4 @@
-/* &FRIENDS — bloom-motion.js
-   Builds the petal layer for the &BLOOM hero animation (css/bloom-motion.css), splits the
-   title/tagline so they can fly out of the flower, and replays it when the photo is clicked. */
+
 (function () {
     if (document.documentElement.getAttribute('data-bloom') !== 'petals') return;
 
@@ -14,12 +12,12 @@
 
     var petals = document.createElement('div'); petals.className = 'fx-petals';
     var i, el;
-    for (i = 0; i < 10; i++) {                                   // outer ring
+    for (i = 0; i < 10; i++) { // outer ring
         el = document.createElement('span'); el.className = 'petal';
         el.style.setProperty('--a', (i * 36) + 'deg'); el.style.setProperty('--d', (i * 0.045) + 's');
         petals.appendChild(el);
     }
-    for (i = 0; i < 10; i++) {                                   // inner ring, offset
+    for (i = 0; i < 10; i++) { // inner ring
         el = document.createElement('span'); el.className = 'petal inner';
         el.style.setProperty('--a', (i * 36 + 18) + 'deg'); el.style.setProperty('--d', (0.25 + i * 0.04) + 's');
         petals.appendChild(el);
@@ -29,7 +27,7 @@
     fx.appendChild(petals);
     content.insertBefore(fx, content.firstChild);
 
-    function place() {           // centre the layer on the photo; petals extend well past its frame
+    function place() { // centre the layer on the photo; petals extend well past its frame
         // offset* = layout size, unaffected by the photo's in-flight scale/rotate
         var ww = wrap.offsetWidth, wh = wrap.offsetHeight, wl = wrap.offsetLeft, wt = wrap.offsetTop;
         var w = ww * 1.9, h = wh * 1.35;
@@ -37,10 +35,7 @@
         fx.style.left = (wl + ww / 2 - w / 2) + 'px';
         fx.style.top = (wt + wh / 2 - h / 2) + 'px';
     }
-    /* ── Text that flies out of the flower ───────────────────
-       Title: every letter becomes its own element. Tagline: every line does.
-       On each play we measure how far each piece sits from the flower's centre
-       (the middle of the photo) and launch it from there on a curved path. */
+    // Text that flies out of the flower 
     var title = document.querySelector('.hero-title');
     var tagline = document.querySelector('.hero-location');
     var textBlock = document.querySelector('.hero-text-block');

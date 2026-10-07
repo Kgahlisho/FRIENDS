@@ -1,14 +1,8 @@
-/**
- * &FRIENDS — gallery-public.js
- * Renders the "Moments" gallery using the editorial story/mosaic
- * layout defined in css/gallery.css.
- */
 
 let _lightboxImages = [];
 let _lightboxIndex = 0;
 let _revealObserver = null;
 
-/* ─── Init ───────────────────────────────────────────────────────── */
 document.addEventListener('DOMContentLoaded', async () => {
 
     // Enable reveal animations only if JS is running
@@ -34,7 +28,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     document.addEventListener('af:content', _loadFooter);
 });
 
-/* ─── Data ───────────────────────────────────────────────────────── */
+//Data 
 function _getCampaigns() {
     return Store.Gallery.getAll() || [];
 }
@@ -44,7 +38,7 @@ function imgSrc(src) {
     return (src.startsWith('http') || src.startsWith('data:')) ? src : '../' + src;
 }
 
-/* ─── Footer ─────────────────────────────────────────────────────── */
+//footer
 function _loadFooter() {
     const c = Store.Content.getSection('contact');
     if (!c) return;
@@ -54,7 +48,7 @@ function _loadFooter() {
     if (em) { em.textContent = 'Email Us: ' + (c.email || ''); em.href = 'mailto:' + (c.email || ''); }
 }
 
-/* ─── Tag helpers ────────────────────────────────────────────────── */
+//tags
 const _norm = t => (t || '').replace(/&/g, '').trim().toLowerCase();
 
 const _TAG_CLASS = {
@@ -66,7 +60,8 @@ const _TAG_CLASS = {
 };
 function _tagClass(tag) { return _TAG_CLASS[_norm(tag)] || 'tag-other'; }
 
-/* ─── Filter counts ──────────────────────────────────────────────── */
+//filter counters
+
 function _buildFilterCounts() {
     const all = _getCampaigns();
 
@@ -87,7 +82,8 @@ function _buildFilterCounts() {
     });
 }
 
-/* ─── Reveal on scroll ───────────────────────────────────────────── */
+//reveal while scrolling
+
 function _setupReveal() {
     if (!('IntersectionObserver' in window)) {
         // No IO support — just show everything.
@@ -104,9 +100,7 @@ function _setupReveal() {
     }, { rootMargin: '0px 0px -10% 0px', threshold: 0.1 });
 }
 
-/* ═══════════════════════════════════════════════════════════════════
-   FILTER
-═══════════════════════════════════════════════════════════════════ */
+//   FILTER
 function filterGallery(tag, btn) {
     document.querySelectorAll('.gallery-filter-btn').forEach(b => b.classList.remove('active'));
     if (btn) btn.classList.add('active');
@@ -119,9 +113,7 @@ function filterGallery(tag, btn) {
     _renderCampaigns(toShow);
 }
 
-/* ═══════════════════════════════════════════════════════════════════
-   RENDER
-═══════════════════════════════════════════════════════════════════ */
+//   RENDER
 const MAX_TILES = 5; // 1 big + 4 small matches the mosaic grid rules
 
 function _renderCampaigns(campaigns) {
@@ -211,9 +203,7 @@ function _esc(s) {
         .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
 }
 
-/* ═══════════════════════════════════════════════════════════════════
-   LIGHTBOX
-═══════════════════════════════════════════════════════════════════ */
+//   LIGHTBOX
 function openLightbox(campaignId, startIdx) {
     const campaign = Store.Gallery.getById(campaignId);
     if (!campaign) return;

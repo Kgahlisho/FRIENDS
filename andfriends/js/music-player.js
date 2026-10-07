@@ -1,12 +1,4 @@
-/* &FRIENDS — music-player.js
-   Lets visitors play each Featured Artist right on the music page — no API key or backend needed.
-   It uses the free embedded players from Spotify / YouTube, or a plain audio file.
 
-   HOW TO ADD MUSIC: fill in ARTISTS below. For each artist paste ONE of:
-     spotify : any Spotify link  (artist, album, track or playlist) e.g. 'https://open.spotify.com/artist/xxxxxxxx'
-     youtube : any YouTube link  (video or playlist)
-     audio   : a direct .mp3 link (e.g. a Firebase Storage download URL)
-   With nothing filled in, the button opens a "Listen on Spotify" search for that artist. */
 (function () {
     'use strict';
     var ARTISTS = {
@@ -20,8 +12,8 @@
         'fiji mageba': { spotify: 'https://open.spotify.com/artist/6G2TipihRm2uODVF7RXQIn?si=4zGAunobRnu3bf2ybCFT6w', youtube: '', audio: '' }
     };
 
-    /* The player lives for the whole visit. When pages are swapped (site-persist.js) this file runs again:
-       it only re-attaches the play buttons to the new page and leaves the playing song alone. */
+    // The player lives for the whole visit. When pages are swapped (site-persist.js) this file runs again:
+    // it only re-attaches the play buttons to the new page and leaves the playing song alone.
     if (window.__afMusic) { window.__afMusic.wire(); return; }
 
     function norm(s) { return (s || '').replace(/\s+/g, ' ').trim().toLowerCase(); }

@@ -1,29 +1,21 @@
-/**
- * &FRIENDS — js/dashboard.js
- * Firebase-safe dashboard (async fetch + cached sync rendering)
- */
-
-// ─────────────────────────────────────────────────────────────
-// AUTH GUARD - Wait for Firebase auth before loading
-// ─────────────────────────────────────────────────────────────
 (async function initAdminDashboard() {
     try {
         // Wait for auth to be ready
         await Store.Auth.waitForAuth();
-        
+
         // Check if user is admin
         if (!Store.Auth.isAdmin()) {
             console.warn('Not an admin, redirecting to home');
             window.location.href = '../html/index.html';
             return;
         }
-        
+
         // Render sidebar after auth is confirmed
         document.getElementById('sidebarMount').outerHTML = renderAdminSidebar('dashboard.html');
-        
+
         // Now load dashboard data
         await loadDashboardData();
-        
+
         // Hide loading overlay
         const overlay = document.getElementById('adminLoadingOverlay');
         if (overlay) {
@@ -32,16 +24,14 @@
                 overlay.style.display = 'none';
             }, 300);
         }
-        
+
     } catch (err) {
         console.error('Auth error:', err);
         window.location.href = '../html/index.html';
     }
 })();
 
-// ─────────────────────────────────────────────────────────────
 // LOAD DASHBOARD DATA
-// ─────────────────────────────────────────────────────────────
 async function loadDashboardData() {
     try {
         // Fetch all required data with timeout
@@ -51,31 +41,30 @@ async function loadDashboardData() {
             Store.Users.fetchAll(),
             Store.Gallery.fetchAll(),
         ]);
-        
+
         // Add timeout to prevent infinite loading
         const timeoutPromise = new Promise((_, reject) => {
             setTimeout(() => reject(new Error('Data loading timeout after 15 seconds')), 15000);
         });
-        
+
         await Promise.race([fetchPromise, timeoutPromise]);
-        
+
         // Render dashboard
         renderStats();
         renderRecentEvents();
         renderRecentTickets();
-        
+
     } catch (err) {
         console.error('Dashboard load error:', err);
         showErrorState(err.message);
     }
 }
 
-// ─────────────────────────────────────────────────────────────
-// SHOW ERROR STATE
-// ─────────────────────────────────────────────────────────────
+
+// SHOW the type of error 
 function showErrorState(errorMessage) {
     const statsGrid = document.getElementById('statsGrid');
-    
+
     if (statsGrid) {
         statsGrid.innerHTML = `
             <div class="stat-card" style="grid-column:1/-1; text-align:center; background: rgba(244, 67, 54, 0.1); border-color: #f44336;">
@@ -86,7 +75,7 @@ function showErrorState(errorMessage) {
             </div>
         `;
     }
-    
+
     const recentEvents = document.getElementById('recentEvents');
     if (recentEvents) {
         recentEvents.innerHTML = `
@@ -97,7 +86,7 @@ function showErrorState(errorMessage) {
             </div>
         `;
     }
-    
+
     const recentTickets = document.getElementById('recentTickets');
     if (recentTickets) {
         recentTickets.innerHTML = `
@@ -110,9 +99,8 @@ function showErrorState(errorMessage) {
     }
 }
 
-// ─────────────────────────────────────────────────────────────
+
 // STATS
-// ─────────────────────────────────────────────────────────────
 function renderStats() {
     const events = Store.Events.getAll() || [];
     const tickets = Store.Tickets.getAll() || [];
@@ -129,37 +117,37 @@ function renderStats() {
 
     statsGrid.innerHTML = [
         {
-            icon: '🗓',
+            icon: '&#128198',
             value: publishedEvents,
             label: 'Published Events',
             accent: false
         },
         {
-            icon: '🎟',
+            icon: '&#127915',
             value: tickets.length,
             label: 'Tickets Sold',
             accent: false
         },
         {
-            icon: '👥',
+            icon: '&#128100',
             value: residents,
             label: 'Residents',
             accent: false
         },
         {
-            icon: '💰',
+            icon: '&#128176',
             value: 'R' + revenue.toLocaleString(),
             label: 'Total Revenue',
             accent: true
         },
         {
-            icon: '🖼',
+            icon: '&#128247',
             value: galleryCampaigns,
             label: 'Gallery Campaigns',
             accent: false
         },
         {
-            icon: '📝',
+            icon: '&#128195',
             value: draftEvents,
             label: 'Draft Events',
             accent: false
@@ -173,9 +161,8 @@ function renderStats() {
     `).join('');
 }
 
-// ─────────────────────────────────────────────────────────────
+
 // RECENT EVENTS
-// ─────────────────────────────────────────────────────────────
 function renderRecentEvents() {
     const events = Store.Events
         .getAll()
@@ -229,9 +216,8 @@ function renderRecentEvents() {
     `;
 }
 
-// ─────────────────────────────────────────────────────────────
+
 // RECENT TICKETS
-// ─────────────────────────────────────────────────────────────
 function renderRecentTickets() {
     const tickets = Store.Tickets
         .getAll()
@@ -283,9 +269,8 @@ function renderRecentTickets() {
     `;
 }
 
-// ─────────────────────────────────────────────────────────────
+
 // HELPER FUNCTIONS
-// ─────────────────────────────────────────────────────────────
 function escapeHtml(str) {
     if (!str) return '';
     str = String(str);

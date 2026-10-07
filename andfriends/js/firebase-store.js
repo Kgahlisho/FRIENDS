@@ -1,28 +1,9 @@
-/**
- * &FRIENDS — firebase-store.js
- *
- * Architecture: sync cache + async fetchers.
- *
- *   • Sync  getters  (getAll / getById / getSession) read in-memory cache instantly.
- *   • Async fetchers (fetchAll / fetchPublished / fetch) hit Firestore, update cache,
- *     then emit a DOM event so pages re-render.
- *   • Auth state is kept by onAuthStateChanged → _cache.session (always sync-readable).
- *
- * DOM events emitted:
- *   'af:auth'    — auth state changed   (detail: session | null)
- *   'af:events'  — events cache updated (detail: events[])
- *   'af:gallery' — gallery updated      (detail: campaigns[])
- *   'af:content' — content updated      (detail: content{})
- *   'af:tickets' — tickets updated      (detail: tickets[])
- *   'af:users'   — users updated        (detail: users[])
- */
+
 
 const Store = (() => {
 
-    // ── Firebase service handles ─────────────────────────────────────
     let _auth, _db, _storage;
 
-    // ── In-memory sync cache ─────────────────────────────────────────
     const _cache = {
         session: null,
         events: [],
@@ -32,7 +13,6 @@ const Store = (() => {
         users: [],
     };
 
-    // ── Helpers ──────────────────────────────────────────────────────
     const uid = () => 'id_' + Math.random().toString(36).slice(2, 11);
     const ts = () => new Date().toISOString();
     const emit = (name, detail) =>
@@ -44,7 +24,7 @@ const Store = (() => {
             ? '../' : '';
     }
 
-    // Add this helper function to ensure auth before any Firestore operation
+    // ensure that anyone that access the base is authorised
     async function _waitForAuthAndInit() {
         if (!_authReady) {
             console.log('[&FRIENDS] Waiting for auth to initialize...');
@@ -57,17 +37,15 @@ const Store = (() => {
     const docToObj = d => d.exists ? { id: d.id, ...d.data() } : null;
     const snapArr = s => s.docs.map(d => ({ id: d.id, ...d.data() }));
 
-    /** Sanitise a filename for Firebase Storage paths */
+    // make sure that the file name is suitable for storage 
     function _safeName(name) {
         return name
-            .replace(/[^a-zA-Z0-9.\-_]/g, '_')  // replace unsafe chars with _
-            .replace(/_+/g, '_')                  // collapse multiple _
+            .replace(/[^a-zA-Z0-9.\-_]/g, '_')  
+            .replace(/_+/g, '_')                  
             .toLowerCase();
     }
 
 
-    // ── Firestore query with hard timeout ────────────────────────────
-    // Prevents any Firestore query from hanging forever.
     async function _fsGet(queryRef, ms = 12000) {
         const timer = new Promise((_, rej) =>
             setTimeout(() => rej(new Error('Firestore timed out after ' + ms + 'ms')), ms)
@@ -75,30 +53,20 @@ const Store = (() => {
         return Promise.race([queryRef.get(), timer]);
     }
 
-    // ── Firebase init ────────────────────────────────────────────────
     (function _init() {
         try {
-            // firebase-config.js already called firebase.initializeApp()
-            // so we just grab the handles — never call initializeApp again.
             _auth = firebase.auth();
             _db = firebase.firestore();
 
-            // Use firebase.storage() with no argument — it reads storageBucket from the
-            // already-initialised app config (supports both .appspot.com and .firebasestorage.app)
             _storage = firebase.storage();
 
-            // NOTE: Auth state is handled by _authReadyPromise below.
-            // Do NOT add a second onAuthStateChanged here — it would race with that one
-            // and emit 'af:auth' at the wrong time, breaking admin auth guards.
-
+           
         } catch (err) {
             console.error('[&FRIENDS] Firebase init failed:', err);
         }
     })();
 
-    // ── Upload a File to Firebase Storage ────────────────────────────
-    // Returns: Firebase Storage download URL (string)
-    // Throws:  Error with descriptive message if upload fails
+    // Upload a File to Firebase Storage 
     async function _upload(file, folder) {
         if (!_storage) throw new Error('Firebase Storage is not initialised.');
         if (!file || !(file instanceof File || file instanceof Blob)) {
@@ -110,8 +78,7 @@ const Store = (() => {
 
         try {
             const ref = _storage.ref(path);
-            // Race the upload against a 30-second timeout so it never hangs
-            const uploadTimeout = new Promise((_, rej) =>
+             const uploadTimeout = new Promise((_, rej) =>
                 setTimeout(() => rej(new Error('Storage upload timed out after 30s')), 30000)
             );
             const snap = await Promise.race([
@@ -121,7 +88,7 @@ const Store = (() => {
             const url = await snap.ref.getDownloadURL();
             return url;
         } catch (err) {
-            // Re-throw with a clear message
+            //throw a message to know whats going on in the database 
             const msg = err.code === 'storage/unauthorized'
                 ? 'Storage permission denied. Check Firebase Storage Rules — allow write: if request.auth != null.'
                 : (err.message || String(err));
@@ -129,7 +96,7 @@ const Store = (() => {
         }
     }
 
-    // ── Convert File to base64 data URL (fallback if Storage fails) ──
+    // Convert File to base64 data URL 
     function _fileToBase64(file) {
         return new Promise((resolve, reject) => {
             const reader = new FileReader();
@@ -139,18 +106,16 @@ const Store = (() => {
         });
     }
 
-    // ── Upload with automatic base64 fallback ────────────────────────
-    // First tries Firebase Storage. If that fails, falls back to base64.
-    // ALWAYS returns a plain string URL — never an object, never throws.
+    //  Upload with automatic base64 fallback 
     async function _uploadWithFallback(file, folder) {
         try {
             const url = await _upload(file, folder);
             console.log('[&FRIENDS] Storage upload success:', url);
-            return url;   // plain string
+            return url;   
         } catch (storageErr) {
             console.warn('[&FRIENDS] Storage upload failed, using base64 fallback:', storageErr.message);
             try {
-                return await _fileToBase64(file);   // plain string data URL
+                return await _fileToBase64(file);   
             } catch (b64Err) {
                 console.error('[&FRIENDS] Base64 fallback also failed:', b64Err);
                 return '';
@@ -158,20 +123,13 @@ const Store = (() => {
         }
     }
 
-    // ================================================================
-    //  AUTH
-    // ================================================================
-    // ================================================================
-    // AUTH
-    // ================================================================
+    //  Authentication
 
     let _authReady = false;
 
     const _authReadyPromise = new Promise(resolve => {
 
-        // Persistent listener — stays active for the lifetime of the page
-        // so session stays in sync if the user logs out or switches accounts.
-        _auth.onAuthStateChanged(async fbUser => {
+         _auth.onAuthStateChanged(async fbUser => {
 
             try {
 
@@ -180,9 +138,6 @@ const Store = (() => {
                     let profile = null;
 
                     try {
-                        // Race the profile fetch against a 5-second timeout.
-                        // If Firestore rules block the users collection, the fetch
-                        // would hang forever — this prevents that from happening.
                         const profileTimeout = new Promise((_, rej) =>
                             setTimeout(() => rej(new Error('profile fetch timeout')), 5000)
                         );
@@ -196,7 +151,7 @@ const Store = (() => {
                         }
 
                     } catch (profileErr) {
-                        // Timed out or denied — continue with basic user info from Firebase Auth
+                        // Timed out
                         console.warn(
                             '[&FRIENDS] Profile fetch skipped (timeout or rules):', profileErr.message
                         );
@@ -231,8 +186,7 @@ const Store = (() => {
 
                 console.error('[&FRIENDS] Auth restore failed:', err);
 
-                // Still resolve with basic auth info so the page doesn't hang
-                if (fbUser) {
+                 if (fbUser) {
                     _cache.session = {
                         id: fbUser.uid,
                         name: fbUser.displayName || fbUser.email.split('@')[0],
@@ -249,17 +203,14 @@ const Store = (() => {
 
             emit('af:auth', _cache.session);
 
-            resolve(true); // Only resolves the promise once; subsequent fires just update cache
+            resolve(true);
         });
 
     });
 
     const Auth = {
 
-        // ------------------------------------------------------------
-        // Session
-        // ------------------------------------------------------------
-
+    // Session
         getSession() {
             return _cache.session;
         },
@@ -286,8 +237,6 @@ const Store = (() => {
                 return _cache.session;
             }
 
-            // Hard 6-second timeout — if auth never resolves (offline / SDK issue),
-            // we still proceed rather than hanging the page forever.
             await Promise.race([
                 _authReadyPromise,
                 new Promise(resolve => setTimeout(resolve, 6000))
@@ -296,9 +245,7 @@ const Store = (() => {
             return _cache.session;
         },
 
-        // ------------------------------------------------------------
         // Route Guards
-        // ------------------------------------------------------------
 
         async requireAdmin() {
 
@@ -330,10 +277,7 @@ const Store = (() => {
             return true;
         },
 
-        // ------------------------------------------------------------
         // Login
-        // ------------------------------------------------------------
-
         async login(email, password) {
 
             try {
@@ -417,10 +361,7 @@ const Store = (() => {
             }
         },
 
-        // ------------------------------------------------------------
         // Register
-        // ------------------------------------------------------------
-
         async register(data) {
 
             const ADMIN_CODE = 'ANDFRIENDS2026';
@@ -505,10 +446,7 @@ const Store = (() => {
             }
         },
 
-        // ------------------------------------------------------------
         // Logout
-        // ------------------------------------------------------------
-
         async logout() {
 
             await _auth.signOut();
@@ -533,12 +471,7 @@ const Store = (() => {
     }
       */
 
-    // ================================================================
     //  EVENTS
-    // ================================================================
-    // ================================================================
-    //  EVENTS
-    // ================================================================
     const Events = {
 
         getAll() { return _cache.events; },
@@ -587,13 +520,12 @@ const Store = (() => {
         },
 
         async create(data) {
-            // Create a slug from the title (like your original code)
+            // Create a more readable url web address that identifies the page or resource
             let slug = data.title.toLowerCase().replace(/[^a-z0-9]+/g, '-');
-            // Remove leading/trailing hyphens
+            // Remove anything that are not characters
             slug = slug.replace(/^-+|-+$/g, '');
-            // Add timestamp to ensure uniqueness
+            // also add a timestamp 
             const eventId = `${slug}-${Date.now()}`;
-
             // Ensure image is a string
             const imageUrl = data.image && typeof data.image === 'string' ? data.image : '';
 
@@ -613,35 +545,28 @@ const Store = (() => {
         },
 
         async update(id, data) {
-            // Get the existing event to preserve fields
+
             const existingEvent = this.getById(id);
-
-            // Create patch object - only update fields that are provided
             const patch = { updatedAt: ts() };
-
-            // List of fields that can be updated
             const updatableFields = ['title', 'tag', 'date', 'time', 'location', 'description',
                 'lineup', 'tickets', 'status', 'featured', 'image'];
 
             for (const field of updatableFields) {
                 if (data[field] !== undefined) {
-                    // Special handling for image: only update if it's a valid string and not empty
                     if (field === 'image') {
                         if (data.image && typeof data.image === 'string' && data.image !== '') {
                             patch.image = data.image;
                         }
                         // If image is not provided or empty, don't include it in patch
-                        // This preserves the existing image
+                        // preserving any existing image
                     } else {
                         patch[field] = data[field];
                     }
                 }
             }
 
-            // If image wasn't updated but we have an existing image, preserve it
             if (patch.image === undefined && existingEvent && existingEvent.image) {
-                // Don't include image in patch - this preserves the existing one
-                // We need to ensure we don't overwrite it with undefined
+              
             }
 
             console.log('[&FRIENDS] Updating event:', id, patch);
@@ -663,18 +588,12 @@ const Store = (() => {
             emit('af:events', _cache.events);
         },
 
-        /**
-         * Upload an event image.
-         * Returns a plain string URL (Firebase or base64)
-         */
         async uploadImage(file, eventId) {
             return _uploadWithFallback(file, 'events/' + (eventId || uid()));
         },
     };
 
-    // ================================================================
     //  GALLERY
-    // ================================================================
     const Gallery = {
 
         getAll() { return _cache.gallery; },
@@ -702,7 +621,6 @@ const Store = (() => {
                 try { snap = await _fsGet(_db.collection('gallery')); }
                 catch (e2) { emit('af:gallery', _cache.gallery); return _cache.gallery; }
             }
-            // reassign snap reference for the sort below (filter handled inline)
             const snap_pub = snap;
             _cache.gallery = snapArr(snap_pub)
                 .filter(g => g.published)
@@ -756,19 +674,13 @@ const Store = (() => {
             emit('af:gallery', _cache.gallery);
         },
 
-        /**
-         * Upload a gallery image.
-         * Returns { url, source } — source is 'firebase' or 'base64'.
-         * Never throws.
-         */
+       
         async uploadImage(file, campaignId) {
             return _uploadWithFallback(file, 'gallery/' + (campaignId || uid()));
         },
     };
 
-    // ================================================================
-    //  CONTENT
-    // ================================================================
+    //site content
     const Content = {
 
         get() { return _cache.content; },
@@ -797,9 +709,7 @@ const Store = (() => {
         },
     };
 
-    // ================================================================
     //  TICKETS
-    // ================================================================
     const Tickets = {
 
         getAll() { return _cache.tickets; },
@@ -866,9 +776,7 @@ const Store = (() => {
         },
     };
 
-    // ================================================================
     //  USERS
-    // ================================================================
     const Users = {
 
         getAll() { return _cache.users; },
@@ -916,9 +824,8 @@ const Store = (() => {
         },
     };
 
-    // ================================================================
-    //  STORAGE (direct util — same as above but explicit API)
-    // ================================================================
+    //  STORAGE 
+    
     const Storage = {
         async upload(file, path = 'uploads') {
             return _uploadWithFallback(file, path);
@@ -930,7 +837,7 @@ const Store = (() => {
         },
     };
 
-    // ── Auth error messages ──────────────────────────────────────────
+    // Auth error messages 
     function _authMsg(code, message) {
         const raw = (code || '') + ' ' + (message || '');
         if (raw.includes('user-not-found') || raw.includes('USER_NOT_FOUND')) return 'No account found with this email.';

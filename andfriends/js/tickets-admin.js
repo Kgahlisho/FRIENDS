@@ -1,6 +1,4 @@
-/**
- * &FRIENDS — js/tickets-admin.js
- */
+
 
 document.getElementById('sidebarMount').outerHTML =
   renderAdminSidebar('tickets.html');
@@ -23,10 +21,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     ?.addEventListener('change', renderTickets);
 });
 
-
-// ─────────────────────────────────────────────
-// 📊 STATS
-// ─────────────────────────────────────────────
+//statistics
 function renderStats() {
   const tickets = Store.Tickets.getAll();
 
@@ -48,10 +43,7 @@ function renderStats() {
   `).join('');
 }
 
-
-// ─────────────────────────────────────────────
-// 🔽 EVENT FILTER DROPDOWN
-// ─────────────────────────────────────────────
+//event filter dropdown
 function populateEventFilter() {
   const sel = document.getElementById('ticketEventFilter');
   if (!sel) return;
@@ -67,9 +59,7 @@ function populateEventFilter() {
 }
 
 
-// ─────────────────────────────────────────────
-// 📋 TABLE RENDER
-// ─────────────────────────────────────────────
+//render tables
 function renderTickets() {
   const search = document.getElementById('ticketSearch')?.value?.toLowerCase() || '';
   const eventFilter = document.getElementById('ticketEventFilter')?.value || 'all';
@@ -173,14 +163,12 @@ function renderTickets() {
 }
 
 
-// ─────────────────────────────────────────────
-// ⚡ QUICK VALIDATION
-// ─────────────────────────────────────────────
+// validation
 async function quickValidate(id) {
   const res = await Store.Tickets.validate(id);
 
   if (res?.ok) {
-    showToast(`Ticket ${id} validated ✓`, 'success');
+    showToast(`Ticket ${id} validated`, 'success');
     renderTickets();
     renderStats();
   } else {
@@ -188,10 +176,7 @@ async function quickValidate(id) {
   }
 }
 
-
-// ─────────────────────────────────────────────
-// 🔍 MANUAL VALIDATION INPUT
-// ─────────────────────────────────────────────
+//manual input validation
 async function validateTicket() {
   const input = document.getElementById('validateInput');
   const result = document.getElementById('validateResult');
@@ -210,7 +195,7 @@ async function validateTicket() {
   if (!ticket) {
     result.innerHTML = `
       <div style="background:var(--danger-bg);padding:14px;border-radius:10px;">
-        ❌ Ticket not found
+        &#10006; Ticket not found
       </div>`;
     return;
   }
@@ -218,7 +203,7 @@ async function validateTicket() {
   if (ticket.validated) {
     result.innerHTML = `
       <div style="background:var(--warning-bg);padding:14px;border-radius:10px;">
-        ⚠️ Already used<br>
+        &#9888; Already used<br>
         <small>Validated on ${
           new Date(ticket.validatedAt).toLocaleString()
         }</small>
@@ -231,7 +216,7 @@ async function validateTicket() {
   if (res?.ok) {
     result.innerHTML = `
       <div style="background:var(--success-bg);padding:14px;border-radius:10px;">
-        ✅ Valid ticket<br>
+        &#9989; Valid ticket<br>
         Holder: <strong>${ticket.userName}</strong><br>
         Event: ${ticket.eventTitle}<br>
         Tier: ${ticket.tier}

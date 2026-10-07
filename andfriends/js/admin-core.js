@@ -1,13 +1,5 @@
-/**
- * &FRIENDS — admin-core.js
- * Shared utilities for all admin pages: auth guard, sidebar, toasts, modals.
- *
- * Auth guard is deferred: Firebase's onAuthStateChanged fires async,
- * so we wait for the 'af:auth' event before checking isAdmin().
- * A loading overlay hides the page until auth resolves (max 4 s).
- */
 
-// ── Deferred auth guard ─────────────────────────────────────────
+//  auth guard 
 (function adminGuard() {
 
     // Show a loading overlay so the page content isn't visible
@@ -56,7 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
     highlightActiveNav();
 });
 
-// ── Sidebar ─────────────────────────────────────────────────────
+// Sidebar 
 function initSidebar() {
     const ham = document.createElement('button');
     ham.className = 'admin-hamburger';
@@ -107,7 +99,7 @@ function adminLogout() {
     window.location.href = 'html/index.html';
 }
 
-// ── Toast system ─────────────────────────────────────────────────
+// Toast system 
 function injectToastContainer() {
     if (document.getElementById('toastContainer')) return;
     const el = document.createElement('div');
@@ -132,7 +124,7 @@ function showToast(message, type = 'success') {
     }, 3200);
 }
 
-// ── Modal helpers ────────────────────────────────────────────────
+// Modal helpers 
 function openAdminModal(id) {
     const el = document.getElementById(id);
     if (!el) return;
@@ -154,7 +146,7 @@ document.addEventListener('click', e => {
     }
 });
 
-// ── Confirm dialog ───────────────────────────────────────────────
+// Confirm dialog 
 function adminConfirm(message, onConfirm) {
     if (document.getElementById('confirmModal')) {
         document.getElementById('confirmModal').remove();
@@ -183,7 +175,7 @@ function adminConfirm(message, onConfirm) {
     requestAnimationFrame(() => el.classList.add('visible'));
 }
 
-// ── File → base64 ────────────────────────────────────────────────
+// File -- base64 
 function fileToBase64(file) {
     return new Promise((resolve, reject) => {
         const reader = new FileReader();
@@ -193,7 +185,7 @@ function fileToBase64(file) {
     });
 }
 
-// ── Sidebar HTML template (shared across all admin pages) ────────
+//  Sidebar HTML template (shared across admin pages) 
 function renderAdminSidebar(activePage) {
     const pages = [
         { href: 'dashboard.html',    label: 'Overview',        icon: '📊' },

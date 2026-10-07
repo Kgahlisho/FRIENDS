@@ -1,12 +1,7 @@
-/**
- * &FRIENDS — store.js
- * Single source of truth. All pages read and write through here.
- * When the backend is integrated, only this file changes — no UI rewrites.
- */
 
 const Store = (() => {
 
-  // ─── Storage keys ────────────────────────────────────────────────
+  // Storage keys 
   const K = {
     users:   'af_users',
     session: 'af_session',
@@ -21,7 +16,6 @@ const Store = (() => {
   const uid   = () => 'id_' + Math.random().toString(36).slice(2, 11);
   const ts    = () => new Date().toISOString();
 
-  // ─── Seed on first run ──────────────────────────────────────────
   function seed() {
 
     // Default admin account

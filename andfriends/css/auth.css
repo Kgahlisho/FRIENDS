@@ -1,8 +1,6 @@
-/* &FRIENDS — auth.css
-   Auth modal, nav account button, user pill, dropdown
-*/
 
-/* ── Nav Account Button ──────────────────────────────────────────── */
+
+/* Nav Account Button */
 .nav-account-wrap { display: flex; align-items: center; margin-left: 8px; }
 
 .nav-account-btn {
@@ -24,7 +22,7 @@
 }
 .nav-account-btn:hover { background: var(--orange); }
 
-/* ── Logged-in user pill ────────────────────────────────────────── */
+/* Logged-in user pill */
 .nav-user-pill {
   position: relative;
   display: flex;
@@ -98,7 +96,7 @@
 .nav-user-dropdown button:hover { background: rgba(255,255,255,0.1); }
 .nav-user-dropdown button { color: #e57373; }
 
-/* ── Auth Modal Backdrop ────────────────────────────────────────── */
+/* Auth Modal Backdrop */
 .auth-modal-backdrop {
   position: fixed;
   inset: 0;
@@ -114,7 +112,7 @@
 }
 .auth-modal-backdrop.visible { opacity: 1; }
 
-/* ── Auth Modal ─────────────────────────────────────────────────── */
+/* Auth Modal */
 .auth-modal {
   background: var(--warm-white);
   border-radius: 20px;
@@ -253,7 +251,7 @@ select.auth-input { cursor: pointer; background-image: url("data:image/svg+xml,%
 .auth-switch-text a { color: var(--orange); text-decoration: none; font-weight: 500; }
 .auth-switch-text a:hover { text-decoration: underline; }
 
-/* ── Responsive ─────────────────────────────────────────────────── */
+/* Responsive */
 @media (max-width: 600px) {
   .auth-modal { padding: 36px 24px 32px; }
   .nav-user-name { display: none; }

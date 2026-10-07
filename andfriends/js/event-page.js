@@ -1,9 +1,3 @@
-/**
- * &FRIENDS — event-page.js
- * Single event detail + ticket purchase (event.html).
- *
- * Layout: LEFT = full event image | RIGHT = all details + ticket panel
- */
 
 let currentEvent = null;
 let selectedTier = null;
@@ -12,7 +6,7 @@ let qty = 1;
 document.addEventListener('DOMContentLoaded', async () => {
 
     const params = new URLSearchParams(window.location.search);
-    const id     = params.get('id');
+    const id = params.get('id');
 
     if (!id) { window.location.href = 'play.html'; return; }
 
@@ -26,7 +20,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         return;
     }
 
-    try { await Store.Content.fetch(); } catch (_) {}
+    try { await Store.Content.fetch(); } catch (_) { }
 
     document.title = `&FRIENDS — ${currentEvent.title}`;
     renderPage();
@@ -146,19 +140,15 @@ function renderPage() {
           <!-- Info cards -->
           <div class="ev-info-grid">
             <div class="ev-info-card">
-              <span class="ev-info-icon">📍</span>
               <div><strong>Venue</strong><p>${escapeHtml(e.location)}</p></div>
             </div>
             <div class="ev-info-card">
-              <span class="ev-info-icon">🎟</span>
               <div><strong>Ticket Policy</strong><p>Non-refundable. QR code required for entry.</p></div>
             </div>
             <div class="ev-info-card">
-              <span class="ev-info-icon">🕐</span>
               <div><strong>Doors Open</strong><p>30 minutes before showtime</p></div>
             </div>
             <div class="ev-info-card">
-              <span class="ev-info-icon">🪪</span>
               <div><strong>Age</strong><p>18+ Event. Valid ID required.</p></div>
             </div>
           </div>
@@ -210,9 +200,9 @@ function renderPage() {
               <div class="confirmation-event-card">
                 <div class="confirmation-event-name" id="confEventName"></div>
                 <div class="confirmation-event-meta">
-                  <span>📅 <span id="confEventDate"></span></span>
-                  <span>⏰ <span id="confEventTime"></span></span>
-                  <span>📍 <span id="confEventLocation"></span></span>
+                  <span> &#128198; <span id="confEventDate"></span></span>
+                  <span> &#128336; <span id="confEventTime"></span></span>
+                  <span> &#128205; <span id="confEventLocation"></span></span>
                 </div>
               </div>
             </div>
@@ -307,7 +297,7 @@ function setupTermsListener() {
     const termsCheckbox = document.getElementById('termsCheckbox');
     const confirmBtn = document.getElementById('confirmPurchaseBtn');
     if (termsCheckbox && confirmBtn) {
-        termsCheckbox.addEventListener('change', function() {
+        termsCheckbox.addEventListener('change', function () {
             confirmBtn.disabled = !this.checked;
         });
     }
@@ -343,13 +333,13 @@ function openConfirmationModal() {
     // Reset terms checkbox
     const termsCheckbox = document.getElementById('termsCheckbox');
     if (termsCheckbox) termsCheckbox.checked = false;
-    
+
     const confirmBtn = document.getElementById('confirmPurchaseBtn');
     if (confirmBtn) confirmBtn.disabled = true;
 
     // Show modal
     document.getElementById('confirmationModal').style.display = 'flex';
-    
+
     // Setup terms listener
     setupTermsListener();
 }
@@ -382,10 +372,10 @@ function updateTotal() {
 
 async function handlePurchase() {
     const session = Store.Auth.getSession();
-    if (!session) { 
+    if (!session) {
         closeConfirmationModal();
-        openAuthModal('login'); 
-        return; 
+        openAuthModal('login');
+        return;
     }
     if (!selectedTier || !selectedTier.available) {
         alert('Please select an available ticket tier.');
@@ -394,23 +384,23 @@ async function handlePurchase() {
     }
 
     const confirmBtn = document.getElementById('confirmPurchaseBtn');
-    if (confirmBtn) { 
-        confirmBtn.disabled = true; 
-        confirmBtn.textContent = 'Processing...'; 
+    if (confirmBtn) {
+        confirmBtn.disabled = true;
+        confirmBtn.textContent = 'Processing...';
     }
 
     const result = await Store.Tickets.purchase(
         currentEvent.id, selectedTier.tier, qty, session
     );
 
-    if (confirmBtn) { 
-        confirmBtn.disabled = false; 
-        confirmBtn.textContent = 'Confirm Purchase'; 
+    if (confirmBtn) {
+        confirmBtn.disabled = false;
+        confirmBtn.textContent = 'Confirm Purchase';
     }
 
-    if (!result.ok) { 
-        alert(result.error); 
-        return; 
+    if (!result.ok) {
+        alert(result.error);
+        return;
     }
 
     // Close confirmation modal and show ticket modal
@@ -419,9 +409,9 @@ async function handlePurchase() {
 }
 
 function showTicketModal(ticket) {
-    document.getElementById('tModalTag').textContent   = ticket.tag || 'LIVE EVENT';
+    document.getElementById('tModalTag').textContent = ticket.tag || 'LIVE EVENT';
     document.getElementById('tModalTitle').textContent = ticket.eventTitle;
-    document.getElementById('tModalMeta').innerHTML    = `
+    document.getElementById('tModalMeta').innerHTML = `
       <span>${ticket.eventDate}</span>
       <span class="meta-divider">•</span>
       <span>${escapeHtml(ticket.eventLocation)}</span>`;

@@ -1,10 +1,4 @@
-/**
- * &FRIENDS — js/user-dashboard.js
- */
 
-// ─────────────────────────────────────────────
-// DEFERRED AUTH GUARD
-// ─────────────────────────────────────────────
 (function deferredGuard() {
     if (Store.Auth.isLoggedIn()) return;
 
@@ -31,26 +25,21 @@
     }, 5000);
 })();
 
-// ─────────────────────────────────────────────
-// GLOBAL VARIABLES
-// ─────────────────────────────────────────────
+//global variables
+
 let allEvents = [];
 let currentEventFilter = 'all';
 let modalCurrentEvent = null;
 let modalSelectedTier = null;
 let modalQty = 1;
 
-// ─────────────────────────────────────────────
-// LOGOUT
-// ─────────────────────────────────────────────
+//logout
 function resLogout() {
     Store.Auth.logout();
     window.location.href = 'html/index.html';
 }
 
-// ─────────────────────────────────────────────
-// VIEW TOGGLES
-// ─────────────────────────────────────────────
+//view 
 function showEventsSection() {
     document.getElementById('dashboardView').style.display = 'none';
     document.getElementById('eventsView').style.display = 'block';
@@ -62,9 +51,7 @@ function showDashboardView() {
     document.getElementById('eventsView').style.display = 'none';
 }
 
-// ─────────────────────────────────────────────
-// FILTER EVENTS
-// ─────────────────────────────────────────────
+//filter events
 function filterEvents(category) {
     currentEventFilter = category;
     
@@ -79,9 +66,7 @@ function filterEvents(category) {
     renderAllEvents();
 }
 
-// ─────────────────────────────────────────────
-// OPEN EVENT MODAL (Inline instead of redirect)
-// ─────────────────────────────────────────────
+//modal
 function openEventModal(eventId) {
     const event = Store.Events.getById(eventId);
     if (!event) return;
@@ -102,15 +87,15 @@ function openEventModal(eventId) {
     // Create meta grid with icons
     document.getElementById('modalEventMeta').innerHTML = `
         <div class="meta-item">
-            <span class="meta-icon">📅</span>
+            <span class="meta-icon">&#128197;</span>
             <span>${event.date}</span>
         </div>
         <div class="meta-item">
-            <span class="meta-icon">⏰</span>
+            <span class="meta-icon">&#128339;</span>
             <span>${event.time}</span>
         </div>
         <div class="meta-item">
-            <span class="meta-icon">📍</span>
+            <span class="meta-icon">&#128205;</span>
             <span>${escapeHtml(event.location || '5 De Beer St, Braamfontein')}</span>
         </div>
         <div class="meta-item">
@@ -182,9 +167,8 @@ function updateModalTotal() {
     document.getElementById('modalTotalPrice').textContent = `R${total.toLocaleString()}`;
 }
 
-// ─────────────────────────────────────────────
-// CONFIRMATION MODAL FUNCTIONS
-// ─────────────────────────────────────────────
+
+//confirmation modal
 function showConfirmationModal() {
     if (!modalSelectedTier || !modalSelectedTier.available) {
         alert('Please select an available ticket tier.');
@@ -256,14 +240,14 @@ async function finalizePurchase() {
     if (result.ok) {
         closeConfirmationModal();
         closeEventModal();
-        alert(`✓ Success! ${modalQty} ticket(s) purchased for ${modalCurrentEvent.title}\n\nYour ticket has been sent to your email.`);
+        alert(`Success! ${modalQty} ticket(s) purchased for ${modalCurrentEvent.title}\n\nYour ticket has been sent to your email.`);
         
         // Refresh data
         await Store.Tickets.fetchByUser(session.id);
         renderStats(session);
         renderRecentTickets(session);
     } else {
-        alert(`✗ Purchase failed: ${result.error}`);
+        alert(`Purchase failed: ${result.error}`);
         if (confirmBtn) {
             confirmBtn.disabled = false;
             confirmBtn.textContent = 'Confirm Purchase';
@@ -289,9 +273,7 @@ async function purchaseFromModal() {
     showConfirmationModal();
 }
 
-// ─────────────────────────────────────────────
-// RENDER ALL EVENTS (Full Grid)
-// ─────────────────────────────────────────────
+//render events
 function renderAllEvents() {
     const container = document.getElementById('allEventsGrid');
     if (!container) return;
@@ -330,9 +312,9 @@ function renderAllEvents() {
                     <span class="event-grid-tag">${escapeHtml(e.tag)}</span>
                     <h3 class="event-grid-title">${escapeHtml(e.title)}</h3>
                     <div class="event-grid-meta">
-                        📅 ${e.date}<br>
-                        ⏰ ${e.time}<br>
-                        📍 ${escapeHtml(e.location || '5 De Beer St, Braamfontein')}
+                        &#128197; ${e.date}<br>
+                        &#128339; ${e.time}<br>
+                        &#128205; ${escapeHtml(e.location || '5 De Beer St, Braamfontein')}
                     </div>
                     <div class="event-grid-footer">
                         <span class="event-grid-price">From R${firstPrice.toLocaleString()}</span>
@@ -344,9 +326,7 @@ function renderAllEvents() {
     }).join('');
 }
 
-// ─────────────────────────────────────────────
-// RENDER UPCOMING EVENTS PREVIEW
-// ─────────────────────────────────────────────
+//display upcmoing events 
 function renderUpcomingEventsPreview() {
     const events = allEvents;
     const el = document.getElementById('upcomingEventsPreview');
@@ -376,9 +356,7 @@ function renderUpcomingEventsPreview() {
     }).join('');
 }
 
-// ─────────────────────────────────────────────
-// INIT
-// ─────────────────────────────────────────────
+
 document.addEventListener('DOMContentLoaded', () => {
     if (Store.Auth.isLoggedIn()) {
         _bootDashboard();

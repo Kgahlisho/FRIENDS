@@ -1,6 +1,3 @@
-/* &FRIENDS — Event Detail Page — Two-column layout */
-
-/* ── Creative Animations for Event Image ────────────────────────── */
 
 /* Main image fade-in with cinematic zoom */
 @keyframes cinematicReveal {
@@ -52,7 +49,7 @@
     }
 }
 
-/* ── Apply Animations ──────────────────────────────────────────── */
+/* Apply Animations  */
 
 /* Left image container */
 .ev-split-img {
@@ -306,9 +303,7 @@
 }
 .breadcrumb-link:hover { color: var(--orange); }
 
-/* ══════════════════════════════════════════════════════
-   TWO-COLUMN SPLIT
-══════════════════════════════════════════════════════ */
+/* TWO-COLUMN SPLIT */
 .ev-split {
     display: grid;
     grid-template-columns: 1fr 1fr;
