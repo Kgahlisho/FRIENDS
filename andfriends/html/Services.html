@@ -9,6 +9,7 @@
         content="Host your event, workshop, or gathering at &FRIENDS. Flexible bookings for creative collaborations." />
     <link rel="stylesheet" href="../css/styles.css" />
     <link rel="stylesheet" href="../css/auth.css" />
+    <link rel="stylesheet" href="../css/services-live.css" />
 </head>
 
 <body>
@@ -45,7 +46,7 @@
     </nav>
 
     <!-- hero section  -->
-    <section id="hero" class="striped-bg">
+    <section id="hero" class="striped-bg sv-hero">
         <div class="hero-content">
             <div class="hero-img-placeholder">
                 <img src="../Resources/sa-mamakashakaandfriends-2.jpg" alt="Event at &FRIENDS" class="hero-img" />
@@ -57,16 +58,24 @@
         </div>
     </section>
 
+    <!-- jump bar -->
+    <nav class="sv-jump" aria-label="On this page">
+        <a href="#services" class="on">What we offer</a>
+        <a href="#the-space">The space</a>
+        <a href="#event-types">Event types</a>
+        <a href="#amenities">Included</a>
+        <a href="#booking">How to book</a>
+        <a href="#pricing">Pricing</a>
+    </nav>
+
     <!-- services offered  -->
-    <section id="services" class="striped-bg">
-        <div style="max-width:900px; margin:0 auto; padding:80px 40px;">
-            <div class="section-amp">&</div>
+    <section id="services" class="striped-bg sv-sec">
+        <div class="sv-wrap">
+            <div class="section-amp">&amp;</div>
             <div class="section-label">What We Offer :</div>
-            <div class="services-grid">
-                <div class="who-img-wrap ">
-                    <img src="../Resources/galley.jpg" alt="Service space at &FRIENDS" class="who-img" />
-                </div>
-                <div class="who-text reveal">
+            <div class="sv-offer">
+                <div class="sv-offer-img"><img src="../Resources/galley.jpg" alt="Service space at &amp;FRIENDS" /></div>
+                <div class="sv-offer-text">
                     <p>Think of us as your creative partner, not just a rental. We're equipped to host intimate
                         experiences or larger gatherings. Artists launching exhibitions. Entrepreneurs facilitating
                         strategy sessions. Musicians performing for devoted listeners. Thought leaders hosting
@@ -76,187 +85,266 @@
                 </div>
             </div>
         </div>
+        <div class="sv-people" aria-label="Who hosts here">
+            <div class="sv-people-track"><figure class="sv-person"><img loading="lazy" src="../Resources/Gallery.jpeg" alt="Artists" /><figcaption><b>Artists</b><span>launching exhibitions</span></figcaption></figure><figure class="sv-person"><img loading="lazy" src="../Resources/Creative space.jpg" alt="Entrepreneurs" /><figcaption><b>Entrepreneurs</b><span>facilitating strategy sessions</span></figcaption></figure><figure class="sv-person"><img loading="lazy" src="../Resources/eunic_regional_seminar_johannesburg_14_october_2025-153-1440x.jpg" alt="Musicians" /><figcaption><b>Musicians</b><span>performing for devoted listeners</span></figcaption></figure><figure class="sv-person"><img loading="lazy" src="../Resources/imGES.jpg" alt="Thought leaders" /><figcaption><b>Thought leaders</b><span>hosting masterclasses</span></figcaption></figure><figure class="sv-person"><img loading="lazy" src="../Resources/316132.jpg" alt="Filmmakers" /><figcaption><b>Filmmakers</b><span>screening their work</span></figcaption></figure></div>
+        </div>
     </section>
 
-    <!-- our space -->
-    <br>
-    <section id="the-space">
-        <div class="about-inner">
-            <div class="reveal-left">
-                <img src="../Resources/316132.jpg" alt="The versatile space" class="about-img"
-                    style="margin-top: 20px; margin-bottom: 25px;" />
+    <!-- ═════════ VENUE DETAILS ═════════ -->
+    <section id="the-space" class="sp-sec sp-dark sp-venue">
+        <div class="sp-wrap">
+            <p class="sp-eyebrow sp-rv">Venue Details</p>
+            <div class="sp-venue-head">
+                <h2 class="sp-h2 sp-rv">Lived-in.<br>Warm.<br><em>Full of character.</em></h2>
+                <div class="sp-venue-side sp-rv">
+                    <p class="sp-lead">5 De Beer carries history in its walls: textured, intimate and endlessly
+                        reconfigurable. Bring the idea, and the room meets it halfway.</p>
+                    <ul class="sp-stats">
+                        <li><b><span data-count="6">6</span></b><span>Event formats</span></li>
+                        <li><b><span data-count="4">4</span></b><span>Service pillars</span></li>
+                        <li><b><span data-count="24">24</span>h</b><span>Reply time</span></li>
+                    </ul>
+                    <a href="#amenities" class="sp-btn sp-btn-light">Full Amenities List <i>→</i></a>
+                </div>
             </div>
-            <div class="about-text reveal">
-                <div class="section-label">Venue Details :</div>
-                <p>5 De Beer isn't a sterile event space. It's lived-in, warm, and full of character. Original wooden
-                    beams. Ambient lighting that shifts with mood. A bar that flows naturally. Sound system ready for
-                    acoustic sets or DJ performances. Flexible layouts for everything from intimate dinners to
-                    standing-room gatherings.</p>
-                <p style="margin-top: 16px;">Maximum capacity: 250 people (flexible based on configuration)</p>
-                <a href="#amenities" class="btn">Full Amenities List</a>
+        </div>
+        <div class="sp-reel" aria-label="Photos of the space">
+            <div class="sp-reel-track">
+                <figure class="sp-frame wide"><img loading="lazy" src="../Resources/316132.jpg" alt="Inside 5 De Beer" /><figcaption>01</figcaption></figure>
+                <figure class="sp-frame"><img loading="lazy" src="../Resources/galley.jpg" alt="Gallery wall at 5 De Beer" /><figcaption>02</figcaption></figure>
+                <figure class="sp-frame"><img loading="lazy" src="../Resources/rl5mq3ehahgcufivmlwk.webp" alt="Event at 5 De Beer" /><figcaption>03</figcaption></figure>
+                <figure class="sp-frame wide"><img loading="lazy" src="../Resources/Creative%20space.jpg" alt="The creative space" /><figcaption>04</figcaption></figure>
+                <figure class="sp-frame sq"><img loading="lazy" src="../Resources/wvpw8vannd2pwexpidcz.webp" alt="Guests at 5 De Beer" /><figcaption>05</figcaption></figure>
+                <figure class="sp-frame"><img loading="lazy" src="../Resources/oxrq7axkuxdshtymdkrx.webp" alt="Evening at 5 De Beer" /><figcaption>06</figcaption></figure>
+                <figure class="sp-frame wide"><img loading="lazy" src="../Resources/316133.jpg" alt="Another view of the space" /><figcaption>07</figcaption></figure>
+                <figure class="sp-frame"><img loading="lazy" src="../Resources/ylzsubmgvfyd6facu8xy.webp" alt="Details at 5 De Beer" /><figcaption>08</figcaption></figure>
+                <figure class="sp-frame"><img loading="lazy" src="../Resources/udtd6048cfaq6tjozwvh.webp" alt="Atmosphere at 5 De Beer" /><figcaption>09</figcaption></figure>
             </div>
         </div>
     </section>
 
-    <!-- the types of functions and events that they do-->
-    <section id="event-types" class="striped-bg">
-        <div class="talk-inner">
-            <div class="section-big-title reveal" style="margin-top: 50px;">EVENT CATEGORIES</div>
-            <div style="max-width:900px; margin:0 auto; padding:40px;">
+    <!-- ═════════ EVENT CATEGORIES : expanding gallery ═════════ -->
+    <section id="event-types" class="sp-sec sp-dark sp-dark2">
+        <div class="sp-wrap">
+            <p class="sp-eyebrow sp-rv">Event Categories</p>
+            <div class="sp-head2 sp-rv">
+                <h2 class="sp-h2">Six ways to<br><em>fill the room.</em></h2>
+                <p class="sp-lead">Hover, tap or use the arrow keys to open a category and see how it looks and what to expect.</p>
+            </div>
+            <div class="sp-acc sp-rv" role="group" aria-label="Event categories">
+                <article class="sp-panel is-on" tabindex="0" role="button" aria-expanded="true">
+                    <img loading="lazy" src="../Resources/galeeyr'.jpg" alt="Creative Exhibitions" />
+                    <span class="sp-panel-n">01</span>
+                    <span class="sp-panel-v">Creative Exhibitions</span>
+                    <div class="sp-panel-body">
+                        <h3>Creative Exhibitions</h3>
+                        <p>Solo or group art shows. Photography displays. Sculpture installations. Mixed media experiences. Our walls and spaces become your canvas. Opening nights that draw the community. Weeklong or monthlong runs depending on scope.</p>
+                        <ul class="sp-tags"><li>Weeklong or monthlong runs</li><li>Opening nights</li><li>Exhibition walls</li></ul>
+                    </div>
+                </article>
+                <article class="sp-panel" tabindex="0" role="button" aria-expanded="false">
+                    <img loading="lazy" src="../Resources/Photo-by-Nani-Vercetti-1.jpg" alt="Performance Events" />
+                    <span class="sp-panel-n">02</span>
+                    <span class="sp-panel-v">Performance Events</span>
+                    <div class="sp-panel-body">
+                        <h3>Performance Events</h3>
+                        <p>Live music sets from intimate acoustic to higher energy performances. Poetry and spoken word. Theater and stand-up. Dance performances. Solo acts or full productions. Audience capacities scale to suit the performance.</p>
+                        <ul class="sp-tags"><li>Acoustic to high energy</li><li>Solo acts or full productions</li><li>Capacity scales to the show</li></ul>
+                    </div>
+                </article>
+                <article class="sp-panel" tabindex="0" role="button" aria-expanded="false">
+                    <img loading="lazy" src="../Resources/Gallery%233.jpeg" alt="Workshops &amp; Masterclasses" />
+                    <span class="sp-panel-n">03</span>
+                    <span class="sp-panel-v">Workshops &amp; Masterclasses</span>
+                    <div class="sp-panel-body">
+                        <h3>Workshops &amp; Masterclasses</h3>
+                        <p>Skill-building sessions in any discipline. Hands-on creative workshops. Thought leadership seminars. Professional development. Intimate group learning in an inspiring setting. Capacity typically 30-80 depending on structure.</p>
+                        <ul class="sp-tags"><li>Typically 30–80 guests</li><li>Hands-on or seminar</li><li>Any discipline</li></ul>
+                    </div>
+                </article>
+                <article class="sp-panel" tabindex="0" role="button" aria-expanded="false">
+                    <img loading="lazy" src="../Resources/Images.jpg" alt="Panel Discussions &amp; Talks" />
+                    <span class="sp-panel-n">04</span>
+                    <span class="sp-panel-v">Panel Discussions &amp; Talks</span>
+                    <div class="sp-panel-body">
+                        <h3>Panel Discussions &amp; Talks</h3>
+                        <p>Multi-speaker conversations on topics that matter. Industry insights. Storytelling sessions. Community dialogues. Moderated discussions with Q&amp;A. Theater-style seating or roundtable arrangements.</p>
+                        <ul class="sp-tags"><li>Moderated Q&amp;A</li><li>Theater-style or roundtable</li><li>Multi-speaker</li></ul>
+                    </div>
+                </article>
+                <article class="sp-panel" tabindex="0" role="button" aria-expanded="false">
+                    <img loading="lazy" src="../Resources/1E6A6485-2.jpg" alt="Social &amp; Networking Events" />
+                    <span class="sp-panel-n">05</span>
+                    <span class="sp-panel-v">Social &amp; Networking</span>
+                    <div class="sp-panel-body">
+                        <h3>Social &amp; Networking Events</h3>
+                        <p>Launch parties with purpose. Mixer gatherings for creative professionals. Community celebrations. Happy hours with intention. Casual meet-ups that foster collaboration. Standing or cocktail-style setups.</p>
+                        <ul class="sp-tags"><li>Standing or cocktail-style</li><li>Launch parties</li><li>Creative mixers</li></ul>
+                    </div>
+                </article>
+                <article class="sp-panel" tabindex="0" role="button" aria-expanded="false">
+                    <img loading="lazy" src="../Resources/kr3aysbgelhgvpxwhy5a.webp" alt="Private Functions" />
+                    <span class="sp-panel-n">06</span>
+                    <span class="sp-panel-v">Private Functions</span>
+                    <div class="sp-panel-body">
+                        <h3>Private Functions</h3>
+                        <p>Intimate dinners. Celebrations. Milestone gatherings. Birthday functions with character. Corporate team-building with soul. Seated, catered experiences or standing cocktail formats.</p>
+                        <ul class="sp-tags"><li>Seated &amp; catered</li><li>Or standing cocktail</li><li>Birthdays, milestones, team-building</li></ul>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
 
-                <div class="reveal" style="margin-bottom: 25px;">
-                    <h3 style="font-family: var(--font-serif); font-size: 24px; margin: 0 0 12px 0;">Creative
-                        Exhibitions</h3>
-                    <p>Solo or group art shows. Photography displays. Sculpture installations. Mixed media experiences.
-                        Our walls and spaces become your canvas. Opening nights that draw the community. Weeklong or
-                        monthlong runs depending on scope.</p>
+    <!-- ═════════ WHAT'S INCLUDED : spec sheet ═════════ -->
+    <section id="amenities" class="sp-sec sp-paper">
+        <div class="sp-wrap">
+            <p class="sp-eyebrow sp-rv">What's Included</p>
+            <div class="sp-head2 sp-rv">
+                <h2 class="sp-h2">The<br><em>spec sheet.</em></h2>
+                <p class="sp-lead">Everything that comes with the room, so you can plan the night instead of the logistics.</p>
+            </div>
+            <div class="sp-spec">
+                <article class="sp-row sp-rv" tabindex="0">
+                    <span class="sp-row-n">01</span>
+                    <div class="sp-row-main">
+                        <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="10" y="6" width="28" height="36" rx="6"/><circle cx="24" cy="29" r="7"/><circle cx="24" cy="29" r="2"/><circle cx="24" cy="15" r="2.5"/></svg>
+                        <h3>Audio &amp; Visual</h3>
+                    </div>
+                    <p>Professional sound system. Projector and screen. Lighting design. DJ equipment. Microphones and monitors for presentations. Technical support team.</p>
+                    <ul class="sp-spec-list"><li>Sound system</li><li>Projector &amp; screen</li><li>Lighting design</li><li>DJ equipment</li><li>Mics &amp; monitors</li><li>Technical team</li></ul>
+                </article>
+                <article class="sp-row sp-rv" tabindex="0">
+                    <span class="sp-row-n">02</span>
+                    <div class="sp-row-main">
+                        <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 8h28L24 26z"/><path d="M24 26v14M16 40h16"/><path d="M15 14h18"/></svg>
+                        <h3>Catering &amp; Beverages</h3>
+                    </div>
+                    <p>Full bar service. Beverage packages. Catering options (in-house or bring your own). Food &amp; drink setup support.</p>
+                    <ul class="sp-spec-list"><li>Full bar service</li><li>Beverage packages</li><li>In-house or bring your own</li><li>Setup support</li></ul>
+                </article>
+                <article class="sp-row sp-rv" tabindex="0">
+                    <span class="sp-row-n">03</span>
+                    <div class="sp-row-main">
+                        <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="6" width="16" height="16" rx="3"/><rect x="26" y="6" width="16" height="10" rx="3"/><rect x="26" y="20" width="16" height="22" rx="3"/><rect x="6" y="26" width="16" height="16" rx="3"/></svg>
+                        <h3>Space Flexibility</h3>
+                    </div>
+                    <p>Modular layouts. Lounge areas. Exhibition walls. Performance stage. Breakout rooms. Outdoor garden space (weather permitting).</p>
+                    <ul class="sp-spec-list"><li>Modular layouts</li><li>Lounge areas</li><li>Exhibition walls</li><li>Performance stage</li><li>Breakout rooms</li><li>Outdoor garden</li></ul>
+                </article>
+                <article class="sp-row sp-rv" tabindex="0">
+                    <span class="sp-row-n">04</span>
+                    <div class="sp-row-main">
+                        <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="24" cy="24" r="16"/><circle cx="24" cy="24" r="6"/><path d="M13 13l7 7M35 13l-7 7M13 35l7-7M35 35l-7-7"/></svg>
+                        <h3>Support &amp; Coordination</h3>
+                    </div>
+                    <p>Event planning guidance. Day-of coordination. Parking information. Accessibility support. Setup and breakdown assistance.</p>
+                    <ul class="sp-spec-list"><li>Planning guidance</li><li>Day-of coordination</li><li>Parking info</li><li>Accessibility support</li><li>Setup &amp; breakdown</li></ul>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═════════ BOOKING PROCESS : scroll-driven story ═════════ -->
+    <section id="booking" class="sp-sec sp-dark">
+        <div class="sp-wrap sp-story">
+            <div class="sp-story-pin">
+                <p class="sp-eyebrow">Let's Make It Real</p>
+                <div class="sp-big" id="spBig" aria-hidden="true"><span>01</span></div>
+                <h2 class="sp-h2">Four steps.<br><em>One event.</em></h2>
+                <div class="sp-meter" id="spMeter" aria-hidden="true"><i></i></div>
+                <p class="sp-count" id="spCount" aria-hidden="true">Step 01 / 04</p>
+                <a href="contactUs.html" class="sp-btn sp-btn-light">Start with step one <i>→</i></a>
+            </div>
+            <ol class="sp-steps">
+                <li class="sp-step is-on">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h16v10H8l-4 4z"/></svg>
+                    <span class="sp-step-n">01</span>
+                    <h3>Reach Out</h3>
+                    <p>Contact us with your vision. Dates. Rough outline of what you're imagining. Estimated guest count. We'll respond within 24 hours.</p>
+                    <span class="sp-step-tag">We reply within 24 hours</span>
+                </li>
+                <li class="sp-step">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11a7 7 0 0114 0c0 4.8-7 11-7 11z"/></svg>
+                    <span class="sp-step-n">02</span>
+                    <h3>Walk Through</h3>
+                    <p>Schedule a space tour (virtual or in-person). Discuss layouts. Ask questions. Get a feel for how your event fits into 5 De Beer.</p>
+                    <span class="sp-step-tag">Virtual or in-person</span>
+                </li>
+                <li class="sp-step">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h9l4 4v14H6zM9 12h7M9 16h7"/></svg>
+                    <span class="sp-step-n">03</span>
+                    <h3>Plan &amp; Quote</h3>
+                    <p>We'll put together a customized proposal. Pricing based on date, duration, guest count, and services needed. Flexible packages available.</p>
+                    <span class="sp-step-tag">Flexible packages</span>
+                </li>
+                <li class="sp-step">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 13l4 4L19 7"/></svg>
+                    <span class="sp-step-n">04</span>
+                    <h3>Finalize Details</h3>
+                    <p>Confirm dates and pricing. Discuss specific requirements. Handle logistics. You focus on content—we handle the rest.</p>
+                    <span class="sp-step-tag">You focus on content</span>
+                </li>
+            </ol>
+        </div>
+    </section>
+
+    <!-- ═════════ PRICING : rate card ═════════ -->
+    <section id="pricing" class="sp-sec sp-paper">
+        <div class="sp-wrap">
+            <p class="sp-eyebrow sp-rv">Investment Level</p>
+            <div class="sp-head2 sp-rv">
+                <h2 class="sp-h2">Transparent.<br><em>Flexible.</em></h2>
+                <p class="sp-lead">Our pricing varies significantly based on event type, date, time, guest count, and technical requirements. We pride ourselves on transparent pricing and flexible options.</p>
+            </div>
+            <div class="sp-rate sp-rv">
+                <div class="sp-rate-top"><span>Rate card</span><span>5 De Beer · Quotes on request</span></div>
+                <div class="sp-rate-cols">
+                    <article class="sp-rc">
+                        <span class="sp-rc-k">Option A</span>
+                        <h3>Weekday Bookings</h3>
+                        <p class="sp-rc-lead">Often more affordable</p>
+                        <p>Ideal for workshops, screenings, intimate events.</p>
+                        <ul class="sp-tags"><li>Workshops</li><li>Screenings</li><li>Intimate events</li></ul>
+                        <a class="sp-rc-link" href="contactUs.html">Ask for a quote →</a>
+                    </article>
+                    <article class="sp-rc sp-rc-hot">
+                        <span class="sp-rc-badge">Peak demand</span>
+                        <span class="sp-rc-k">Option B</span>
+                        <h3>Weekend Bookings</h3>
+                        <p class="sp-rc-lead">Premium rates reflect demand</p>
+                        <p>Perfect for higher-energy celebrations and larger gatherings.</p>
+                        <ul class="sp-tags"><li>Celebrations</li><li>Larger gatherings</li></ul>
+                        <a class="sp-rc-link" href="contactUs.html">Ask for a quote →</a>
+                    </article>
+                    <article class="sp-rc">
+                        <span class="sp-rc-k">Option C</span>
+                        <h3>Off-Peak Periods</h3>
+                        <p class="sp-rc-lead">Special rates available</p>
+                        <p>Negotiate directly for longer-term bookings or recurring events.</p>
+                        <ul class="sp-tags"><li>Longer-term</li><li>Recurring events</li></ul>
+                        <a class="sp-rc-link" href="contactUs.html">Ask for a quote →</a>
+                    </article>
                 </div>
-
-                <div class="reveal" style="margin-bottom: 25px;">
-                    <h3 style="font-family: var(--font-serif); font-size: 24px; margin: 0 0 12px 0;">Performance Events
-                    </h3>
-                    <p>Live music sets from intimate acoustic to higher energy performances. Poetry and spoken word.
-                        Theater and stand-up. Dance performances. Solo acts or full productions. Audience capacities
-                        scale to suit the performance.</p>
-                </div>
-
-                <div class="reveal" style="margin-bottom: 25px;">
-                    <h3 style="font-family: var(--font-serif); font-size: 24px; margin: 0 0 12px 0;">Workshops &
-                        Masterclasses</h3>
-                    <p>Skill-building sessions in any discipline. Hands-on creative workshops. Thought leadership
-                        seminars. Professional development. Intimate group learning in an inspiring setting. Capacity
-                        typically 30-80 depending on structure.</p>
-                </div>
-
-                <div class="reveal" style="margin-bottom: 25px;">
-                    <h3 style="font-family: var(--font-serif); font-size: 24px; margin: 0 0 12px 0;">Panel Discussions &
-                        Talks</h3>
-                    <p>Multi-speaker conversations on topics that matter. Industry insights. Storytelling sessions.
-                        Community dialogues. Moderated discussions with Q&A. Theater-style seating or roundtable
-                        arrangements.</p>
-                </div>
-
-                <div class="reveal" style="margin-bottom: 25px;">
-                    <h3 style="font-family: var(--font-serif); font-size: 24px; margin: 0 0 12px 0;">Social & Networking
-                        Events</h3>
-                    <p>Launch parties with purpose. Mixer gatherings for creative professionals. Community celebrations.
-                        Happy hours with intention. Casual meet-ups that foster collaboration. Standing or
-                        cocktail-style setups.</p>
-                </div>
-
-                <div class="reveal">
-                    <h3 style="font-family: var(--font-serif); font-size: 24px; margin: 0 0 12px 0;">Private Functions
-                    </h3>
-                    <p>Intimate dinners. Celebrations. Milestone gatherings. Birthday functions with character.
-                        Corporate team-building with soul. Seated, catered experiences or standing cocktail formats.</p>
+                <div class="sp-rate-foot">
+                    <span>Price depends on</span>
+                    <ul aria-label="What the price depends on"><li>Event type</li><li>Date &amp; time</li><li>Duration</li><li>Guest count</li><li>Technical needs</li></ul>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Services -->
-    <section id="amenities">
-        <div style="max-width:900px; margin:0 auto; padding:80px 40px;">
-            <div class="section-amp">&</div>
-            <div class="section-label">What's Included :</div>
-
-            <div class="reveal" style="margin-bottom: 25px;">
-                <h3 style="font-family: var(--font-serif); font-size: 20px; margin: 0 0 8px 0;">Audio & Visual</h3>
-                <p>Professional sound system. Projector and screen. Lighting design. DJ equipment. Microphones and
-                    monitors for presentations. Technical support team.</p>
-            </div>
-
-            <div class="reveal" style="margin-bottom: 25px;">
-                <h3 style="font-family: var(--font-serif); font-size: 20px; margin: 0 0 8px 0;">Catering & Beverages
-                </h3>
-                <p>Full bar service. Beverage packages. Catering options (in-house or bring your own). Food & drink
-                    setup support.</p>
-            </div>
-
-            <div class="reveal" style="margin-bottom: 25px;">
-                <h3 style="font-family: var(--font-serif); font-size: 20px; margin: 0 0 8px 0;">Space Flexibility</h3>
-                <p>Modular layouts. Lounge areas. Exhibition walls. Performance stage. Breakout rooms. Outdoor garden
-                    space (weather permitting).</p>
-            </div>
-
-            <div class="reveal" style="margin-bottom: 25px;">
-                <h3 style="font-family: var(--font-serif); font-size: 20px; margin: 0 0 8px 0;">Support & Coordination
-                </h3>
-                <p>Event planning guidance. Day-of coordination. Parking information. Accessibility support. Setup and
-                    breakdown assistance.</p>
-            </div>
+    <!-- ═════════ CALL TO ACTION : full photo ═════════ -->
+    <section id="cta" class="sp-sec sp-cta">
+        <img class="sp-cta-bg" src="../Resources/Creative%20space.jpg" alt="" loading="lazy" />
+        <div class="sp-wrap">
+            <p class="sp-eyebrow sp-center">Your vision &amp; our corner</p>
+            <h2 class="sp-h2">Ready to <em>book?</em></h2>
+            <p class="sp-cta-copy">Let's talk about your event. We're excited to hear what you're creating and how 5 De Beer can amplify it.</p>
+            <a href="contactUs.html" class="sp-btn sp-btn-solid">Get In Touch <i>→</i></a>
         </div>
+        <div class="sp-ribbon" aria-hidden="true"><div class="sp-ribbon-track"><span>Your vision</span><i>&amp;</i><span>Our corner</span><i>&amp;</i><span>Your vision</span><i>&amp;</i><span>Our corner</span><i>&amp;</i></div></div>
     </section>
-
-    <!-- Booking Process -->
-    <section id="booking" class="striped-bg">
-        <div style="max-width:900px; margin:0 auto; padding:80px 40px;">
-            <div class="section-amp">&</div>
-            <div class="section-label">Let's Make It Real :</div>
-
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 60px; margin-top: 40px;">
-                <div class="reveal">
-                    <h3 style="font-family: var(--font-serif); font-size: 20px; margin: 0 0 8px 0;">01. Reach Out</h3>
-                    <p>Contact us with your vision. Dates. Rough outline of what you're imagining. Estimated guest
-                        count. We'll respond within 24 hours.</p>
-                </div>
-
-                <div class="reveal">
-                    <h3 style="font-family: var(--font-serif); font-size: 20px; margin: 0 0 8px 0;">02. Walk Through
-                    </h3>
-                    <p>Schedule a space tour (virtual or in-person). Discuss layouts. Ask questions. Get a feel for how
-                        your event fits into 5 De Beer.</p>
-                </div>
-
-                <div class="reveal">
-                    <h3 style="font-family: var(--font-serif); font-size: 20px; margin: 0 0 8px 0;">03. Plan & Quote
-                    </h3>
-                    <p>We'll put together a customized proposal. Pricing based on date, duration, guest count, and
-                        services needed. Flexible packages available.</p>
-                </div>
-
-                <div class="reveal">
-                    <h3 style="font-family: var(--font-serif); font-size: 20px; margin: 0 0 8px 0;">04. Finalize Details
-                    </h3>
-                    <p>Confirm dates and pricing. Discuss specific requirements. Handle logistics. You focus on
-                        content—we handle the rest.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Pricing -->
-    <section id="pricing">
-        <div style="max-width:900px; margin:0 auto; padding:80px 40px;">
-            <div class="section-amp">&</div>
-            <div class="section-label">Investment Level :</div>
-            <div class="reveal">
-                <p style="font-size: 16px; line-height: 1.8; margin-bottom: 24px;">Our pricing varies significantly
-                    based on event type, date, time, guest count, and technical requirements. We pride ourselves on
-                    transparent pricing and flexible options.</p>
-                <p style="font-size: 16px; line-height: 1.8; margin-bottom: 24px;"><strong>Weekday Bookings:</strong>
-                    Often more affordable. Ideal for workshops, screenings, intimate events.</p>
-                <p style="font-size: 16px; line-height: 1.8; margin-bottom: 24px;"><strong>Weekend Bookings:</strong>
-                    Premium rates reflect demand. Perfect for higher-energy celebrations and larger gatherings.</p>
-                <p style="font-size: 16px; line-height: 1.8; margin-bottom: 24px;"><strong>Off-Peak Periods:</strong>
-                    Special rates available. Negotiate directly for longer-term bookings or recurring events.</p>
-            </div>
-        </div>
-    </section>
-
-    <section id="cta" class="striped-bg">
-        <div style="max-width:900px; margin:0 auto; padding:80px 40px; text-align: center;">
-            <div class="reveal">
-                <h2 style="font-family: var(--font-serif); font-size: 32px; margin-bottom: 24px;">Ready To Book?</h2>
-                <p
-                    style="font-size: 16px; margin-bottom: 32px; max-width: 600px; margin-left: auto; margin-right: auto;">
-                    Let's talk about your event. We're excited to hear what you're creating and how 5 De Beer can
-                    amplify it.</p>
-                <a href="contactUs.html" class="btn-event">Get In Touch</a>
-            </div>
-        </div>
-    </section>
-
     <!-- footer-->
     <footer>
         <section id="footer">
@@ -296,6 +384,7 @@
     <script src="../js/auth.js"></script>
     <script src="../js/main.js"></script>
     <script src="../js/nav-dropdown.js"></script>
+    <script src="../js/services-live.js"></script>
 
 </body>
 
