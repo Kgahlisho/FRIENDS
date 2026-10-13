@@ -1,0 +1,258 @@
+/* &FRIENDS — music page, sections below the hero. */
+:root {
+    --mu-ink: #140b06;
+    --mu-o: var(--orange, #e85d04);
+    --mu-pink: #ec6f9c;
+    --mu-gold: #f3c98b;
+    --mu-ease: cubic-bezier(.2, .8, .25, 1);
+}
+
+.mu-sec { position: relative; }
+.mu-dark { background: var(--mu-ink); color: var(--warm-white, #fdf6f2); }
+.mu-wrap { max-width: 1040px; margin: 0 auto; padding: 110px 40px; }
+
+.mu-text p, .mu-book p { font-size: 1.04rem; line-height: 1.85; margin: 0 0 20px; color: var(--text-body); }
+.mu-dark .mu-text p, .mu-dark .mu-book p { color: rgba(253, 246, 242, .8); }
+.mu-dark .section-label { color: var(--mu-gold); }
+.mu-dark .section-label::after { background: rgba(253, 246, 242, .25); }
+
+.mu-h2 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: clamp(2.6rem, 5.4vw, 4.4rem);
+    line-height: 1;
+    letter-spacing: .02em;
+    text-transform: uppercase;
+    color: var(--mu-ink);
+    margin: 4px 0 28px;
+}
+.mu-dark .mu-h2 { color: var(--warm-white, #fdf6f2); }
+.mu-h2 em { font-family: var(--font-serif); font-style: italic; font-weight: 900; font-size: .8em; letter-spacing: -.02em; text-transform: none; color: var(--mu-o); }
+.mu-dark .mu-h2 em { color: var(--mu-pink); }
+
+.mu-btn {
+    display: inline-block;
+    margin-top: 8px;
+    padding: 14px 30px;
+    font-family: var(--font-body);
+    font-size: .74rem;
+    font-weight: 500;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--mu-o);
+    border: 2px solid var(--mu-o);
+    border-radius: 999px;
+    transition: background .25s, color .25s, border-color .25s;
+}
+.mu-btn:hover { background: var(--mu-o); color: #fff; }
+.mu-btn-solid { background: var(--mu-o); color: #fff; }
+.mu-btn-solid:hover { background: transparent; color: var(--mu-o); }
+
+/* Feel The Connection: photo fills the section, text in front */
+.mu-fill { 
+    display: flex; 
+    align-items: center; 
+    min-height: 640px; 
+    background: #000; 
+    position: relative;
+    z-index: 2; /* Ensures it sits above any background elements from previous sections */
+}
+.mu-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 70% center; }
+.mu-fill::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(20, 11, 6, .92) 0, rgba(20, 11, 6, .74) 42%, rgba(20, 11, 6, .15) 100%); z-index: 1; }
+.mu-over { position: relative; z-index: 2; width: 100%; }
+.mu-over .mu-text { max-width: 540px; }
+
+/* featured artists */
+body:not(#about-us) #artists.mu-artists { background: var(--pink-light, #f5ddd8); padding: 0; }
+#artists.mu-artists::before { display: none; }
+.mu-head { margin-bottom: 56px; }
+.mu-head .mu-h2 { margin-bottom: 0; }
+#artists.mu-artists .artists-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 52px 56px; margin: 0 0 90px; }
+#artists.mu-artists .artists-grid > .mu-card { position: relative; isolation: isolate; background: none; border-radius: 0; overflow: visible; box-shadow: none; }
+#artists.mu-artists .artists-grid > .mu-card:hover { transform: none; box-shadow: none; }
+
+/* a record slides out from behind the sleeve on hover (and keeps turning while that song plays) */
+#artists.mu-artists .mu-card::before {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    top: 3%;
+    left: 3%;
+    width: 94%;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background:
+        radial-gradient(circle, var(--mu-ink) 0 3.5%, transparent 4%),
+        radial-gradient(circle, var(--mu-o) 0 19%, var(--mu-pink) 20% 26%, transparent 27%),
+        repeating-radial-gradient(circle, #101010 0 2px, #212121 2px 3px);
+    box-shadow: 0 0 0 2px var(--mu-ink);
+    transform: translateX(0);
+    opacity: 0;
+    transition: transform .7s var(--mu-ease), opacity .3s ease 0s;
+}
+#artists.mu-artists .mu-card.visible::before { opacity: 1; transition: transform .7s var(--mu-ease), opacity .3s ease 1s; }
+#artists.mu-artists .mu-card:hover::before,
+#artists.mu-artists .mu-card:focus-within::before { transform: translateX(28%) rotate(120deg); }
+#artists.mu-artists .mu-card:has(.mp-btn.is-on)::before { transform: translateX(28%); animation: muDiscSpin 3.2s linear infinite; }
+@keyframes muDiscSpin { from { transform: translateX(28%) rotate(0deg); } to { transform: translateX(28%) rotate(360deg); } }
+
+#artists.mu-artists .mu-card .reveal-left {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    border: 3px solid var(--mu-ink);
+    border-radius: 4px;
+    background: #000;
+    box-shadow: 6px 6px 0 var(--mu-ink);
+}
+#artists.mu-artists .mu-card .reveal-left::after { display: none; }
+#artists.mu-artists .mu-card .artist-imgs { width: 100%; max-width: none; height: 100%; border-radius: 0; object-fit: cover; display: block; transition: transform .6s var(--mu-ease); }
+#artists.mu-artists .mu-card:hover .artist-imgs { transform: scale(1.05); }
+#artists.mu-artists .mu-card h3 { font-family: var(--font-display); font-size: 1.7rem; font-weight: 400; line-height: 1; letter-spacing: .03em; text-transform: uppercase; color: var(--mu-ink); margin: 20px 0 0 !important; }
+#artists.mu-artists .mu-card h3::after { font-family: var(--font-body); font-size: .68rem; font-weight: 500; letter-spacing: .16em; color: var(--mu-o); margin-top: 7px; }
+
+.mu-more { max-width: 620px; padding-top: 36px; border-top: 2px solid var(--mu-ink); }
+.mu-more h3 { font-family: var(--font-display); font-weight: 400; font-size: 2rem; letter-spacing: .03em; text-transform: uppercase; color: var(--mu-ink); margin: 0 0 10px; }
+.mu-more p { font-size: 1rem; line-height: 1.8; color: var(--text-body); margin: 0; }
+
+/* booking */
+.mu-book { max-width: 720px; }
+.mu-book .mu-btn { margin-top: 14px; }
+
+/* =========================================
+   EDITORIAL LAYOUT FOR MUSIC SECTIONS
+   ========================================= */
+
+.mu-editorial {
+    display: block; /* Ensures the section wraps its content naturally */
+    overflow: hidden; /* Prevents any child elements from breaking out and causing layout shifts */
+}
+
+.mu-editorial-wrap {
+    display: grid;
+    grid-template-columns: 240px 1fr;
+    gap: 60px;
+    max-width: 1100px;
+    position: relative;
+    width: 100%;
+}
+
+.mu-editorial-header {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding-top: 12px;
+}
+
+.mu-editorial-num {
+    font-family: var(--font-display);
+    font-size: 5rem;
+    line-height: 1;
+    color: rgba(253, 246, 242, 0.05);
+    margin-top: 20px;
+    letter-spacing: -0.02em;
+}
+
+.mu-dark .mu-editorial-num {
+    color: rgba(253, 246, 242, 0.04);
+}
+
+.mu-editorial-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.mu-editorial-content .mu-h2 {
+    margin-top: 0;
+    margin-bottom: 32px;
+    max-width: 700px;
+}
+
+.mu-editorial-body {
+    max-width: 620px;
+    margin-left: auto; /* Push body text slightly to the right for a staggered look */
+}
+
+.mu-editorial-body p {
+    font-size: 1.04rem;
+    line-height: 1.85;
+    margin: 0 0 20px;
+    color: rgba(253, 246, 242, .8);
+}
+
+/* Mirrored layout for the booking section */
+.mu-editorial-reverse .mu-editorial-wrap {
+    grid-template-columns: 1fr 240px; /* Reverse columns */
+}
+
+.mu-editorial-reverse .mu-editorial-header {
+    grid-column: 2;
+    text-align: right;
+}
+
+.mu-editorial-reverse .mu-editorial-content {
+    grid-column: 1;
+    grid-row: 1;
+}
+
+.mu-editorial-reverse .mu-editorial-body {
+    margin-left: 0;
+    margin-right: auto; /* Push body text to the left for the mirrored stagger */
+}
+
+/* Responsive adjustments */
+@media (max-width: 1000px) { 
+    #artists.mu-artists .artists-grid { grid-template-columns: repeat(2, 1fr); gap: 48px 52px; } 
+}
+
+@media (max-width: 900px) {
+    .mu-editorial-wrap,
+    .mu-editorial-reverse .mu-editorial-wrap {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+
+    .mu-editorial-reverse .mu-editorial-header {
+        grid-column: 1;
+        text-align: left;
+    }
+
+    .mu-editorial-reverse .mu-editorial-content {
+        grid-column: 1;
+        grid-row: auto;
+    }
+
+    .mu-editorial-body {
+        margin-left: 0;
+    }
+
+    .mu-editorial-reverse .mu-editorial-body {
+        margin-right: 0;
+    }
+
+    .mu-editorial-num {
+        font-size: 4rem;
+        margin-top: 10px;
+    }
+}
+
+@media (max-width: 800px) { 
+    .mu-fill { min-height: 0; } 
+    .mu-fill::after { background: rgba(20, 11, 6, .78); } 
+}
+
+@media (max-width: 600px) {
+    .mu-wrap { padding: 72px 22px; }
+    #artists.mu-artists .artists-grid { gap: 40px 40px; margin-bottom: 64px; }
+    #artists.mu-artists .mu-card h3 { font-size: 1.4rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    #artists.mu-artists .mu-card::before, #artists.mu-artists .mu-card .artist-imgs { transition: none; }
+}
