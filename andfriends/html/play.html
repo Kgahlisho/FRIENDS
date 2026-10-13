@@ -9,6 +9,7 @@
 
     <link rel="stylesheet" href="../css/styles.css" />
     <link rel="stylesheet" href="../css/auth.css" />
+    <link rel="stylesheet" href="../css/play-live.css" />
 </head>
 
 <body>
@@ -58,20 +59,24 @@
     </section>
 
     <!-- Events -->
-    <section id="events" class="striped-bg">
-        <div style="max-width:900px; margin:0 auto; padding:80px 40px;">
-          
-            <div class="section-label">What's Coming :</div>
-            <div class="who-text reveal">
-                <p>Our calendar pulses with life. Live performances. Community conversations. Creative workshops.
-                    Moments designed for you to discover something new, meet someone special, or remember why showing up
-                    matters.</p>
-                <p style="margin-top: 16px;">Check back regularly—the schedule shifts with the seasons, always
-                    reflecting what the community needs.</p>
+    <section id="events" class="pl-intro">
+        <div class="pl-wrap pl-roots">
+            <figure class="pl-roots-img" aria-hidden="true">
+                <div class="pl-frame">
+                    <img class="on" loading="lazy" src="../Resources/Photo-by-Nani-Vercetti-1.jpg" alt="" />
+                    <img loading="lazy" src="../Resources/1E6A6485-2.jpg" alt="" />
+                    <img loading="lazy" src="../Resources/Gallery%232.jpeg" alt="" />
+                </div>
+                <figcaption>5 De Beer St, Braamfontein</figcaption>
+            </figure>
+            <div class="pl-intro-copy">
+                <div class="pl-eyebrow"><b>01</b></div>
+                <h2 class="pl-h2">Come one, <em>come all.</em></h2>
+                <p>Live performances. Community conversations. Creative workshops. Moments designed for you to discover something new, meet someone special, or remember why showing up matters.</p>
+                <p class="pl-muted">Check back regularly&mdash;the schedule shifts with the seasons, always reflecting what the community needs.</p>
             </div>
         </div>
     </section>
-
 
     <section id="eventsSection">
 
@@ -82,63 +87,72 @@
 
 
     <!-- categories / brand extensions -->
-    <section id="categories" class="striped-bg">
-        <div style="max-width:900px; margin:0 auto; padding:80px 40px;">
-         
-            <div class="section-label">Explore Our Vibe :</div>
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 40px;">
-                <div class="reveal">
-                    <h3 style="font-family: var(--font-serif); font-size: 24px; margin: 0 0 12px 0;">
-                        <a href="music.html" style="color: inherit; text-decoration: none;">&amp;MUSIC</a>
-                    </h3>
-                    <p>Live performances. Acoustic sets. DJ nights. Sonic experiences that connect.</p>
-                </div>
-                <div class="reveal">
-                    <h3 style="font-family: var(--font-serif); font-size: 24px; margin: 0 0 12px 0;">
-                        <a href="talk.html" style="color: inherit; text-decoration: none;">&amp;TALK</a>
-                    </h3>
-                    <p>Conversations that matter. Panels. Masterclasses. Thought leadership.</p>
-                </div>
-                <div class="reveal">
-                    <h3 style="font-family: var(--font-serif); font-size: 24px; margin: 0 0 12px 0;">
-                        <a href="bloom.html" style="color: inherit; text-decoration: none;">&amp;BLOOM</a>
-                    </h3>
-                    <p>Art exhibitions. Photography. Installations. Visual storytelling.</p>
-                </div>
-                <div class="reveal">
-                    <h3 style="font-family: var(--font-serif); font-size: 24px; margin: 0 0 12px 0;">
-                        <a href="fun.html" style="color: inherit; text-decoration: none;">&amp;FUN</a>
-                    </h3>
-                    <p>Workshops. Game nights. Community celebrations. Joy and connection.</p>
-                </div>
+    <section id="categories" class="pl-vibe">
+        <div class="pl-wrap">
+            <div class="pl-eyebrow"><b>02</b></div>
+            <h2 class="pl-h2 pl-h2-dark">Explore more <em>, in house.</em></h2>
+            <div class="pl-index">
+            <a class="pl-row" href="music.html" data-img="../Resources/Photo-by-Nani-Vercetti-1.jpg">
+                <span class="pl-row-n">01</span>
+                <h3>&amp;MUSIC</h3>
+                <p>Live performances. Acoustic sets. DJ nights. Sonic experiences that connect.</p>
+                <span class="pl-row-go" aria-hidden="true">&nearr;</span>
+                <img class="pl-row-thumb" loading="lazy" src="../Resources/Photo-by-Nani-Vercetti-1.jpg" alt="" />
+            </a>
+            <a class="pl-row" href="talk.html" data-img="../Resources/Images.jpg">
+                <span class="pl-row-n">02</span>
+                <h3>&amp;TALK</h3>
+                <p>Conversations that matter. Panels. Masterclasses. Thought leadership.</p>
+                <span class="pl-row-go" aria-hidden="true">&nearr;</span>
+                <img class="pl-row-thumb" loading="lazy" src="../Resources/Images.jpg" alt="" />
+            </a>
+            <a class="pl-row" href="bloom.html" data-img="../Resources/galeeyr'.jpg">
+                <span class="pl-row-n">03</span>
+                <h3>&amp;BLOOM</h3>
+                <p>Art exhibitions. Photography. Installations. Visual storytelling.</p>
+                <span class="pl-row-go" aria-hidden="true">&nearr;</span>
+                <img class="pl-row-thumb" loading="lazy" src="../Resources/galeeyr'.jpg" alt="" />
+            </a>
+            <a class="pl-row" href="fun.html" data-img="../Resources/yomzansi_4527.jpg">
+                <span class="pl-row-n">04</span>
+                <h3>&amp;FUN</h3>
+                <p>Workshops. Game nights. Community celebrations. Joy and connection.</p>
+                <span class="pl-row-go" aria-hidden="true">&nearr;</span>
+                <img class="pl-row-thumb" loading="lazy" src="../Resources/yomzansi_4527.jpg" alt="" />
+            </a>
             </div>
         </div>
+        <div class="pl-peek" aria-hidden="true"><img alt="" /></div>
     </section>
 
     <!-- Past events  -->
-    <section id="past-events">
-        <div style="max-width:900px; margin:0 auto; padding:80px 40px;">
-            <div class="section-amp">&</div>
-            <div class="section-label">What's Happened :</div>
-            <div class="reveal">
-                <p style="font-size: 16px; line-height: 1.8; margin-bottom: 24px;">Our space has hosted unforgettable
-                    nights. Jazz that made people forget their phones existed. Artists launching into prominence.
-                    Conversations that shifted perspectives. Friendships forged over food and flow.</p>
-                <p style="font-size: 16px; line-height: 1.8;">Each event adds another layer to our story. And there's
-                    plenty more coming.</p>
+    <section id="past-events" class="pl-past">
+        <div class="pl-stage">
+            <div class="pl-reels" aria-hidden="true">
+                <div class="pl-reel"><div class="pl-reel-track"><figure><img loading="lazy" src="../Resources/1E6A6485-2.jpg" alt="" /></figure><figure><img loading="lazy" src="../Resources/Gallery%232.jpeg" alt="" /></figure><figure><img loading="lazy" src="../Resources/Gallery%233.jpeg" alt="" /></figure><figure><img loading="lazy" src="../Resources/Images.jpg" alt="" /></figure><figure><img loading="lazy" src="../Resources/imGES.jpg" alt="" /></figure></div></div>
+                <div class="pl-reel pl-slow"><div class="pl-reel-track"><figure><img loading="lazy" src="../Resources/galeeyr'.jpg" alt="" /></figure><figure><img loading="lazy" src="../Resources/316132.jpg" alt="" /></figure><figure><img loading="lazy" src="../Resources/yomzansi_4458.jpg" alt="" /></figure><figure><img loading="lazy" src="../Resources/fun.jpg" alt="" /></figure><figure><img loading="lazy" src="../Resources/sa-mamakashakaandfriends-2.jpg" alt="" /></figure></div></div>
+            </div>
+            <div class="pl-wrap pl-past-copy">
+                <div class="pl-eyebrow"><b>03</b><span>What's Happened</span></div>
+                <p class="pl-quote">Our space has hosted unforgettable nights. Jazz that made people forget their phones existed. Artists launching into prominence. Conversations that shifted perspectives. Friendships forged over food and flow.</p>
+                <p class="pl-quote-sub">Each event adds another layer to our story. And there's plenty more coming.</p>
             </div>
         </div>
     </section>
 
     <!-- newsletter  -->
-    <section id="notifications" class="striped-bg">
-        <div style="max-width:900px; margin:0 auto; padding:80px 40px; text-align: center;">
-            <div class="reveal">
-                <h2 style="font-family: var(--font-serif); font-size: 32px; margin-bottom: 24px;">Stay In The Loop</h2>
-                <p
-                    style="font-size: 16px; margin-bottom: 32px; max-width: 600px; margin-left: auto; margin-right: auto;">
-                    Want to know about new events first? Follow our socials or reach out to be added to our mailing
-                    list.</p>
+    <section id="notifications" class="pl-loop">
+        <div class="pl-wrap pl-loop-in">
+            <div class="pl-loop-copy">
+                <div class="pl-eyebrow"><b>04</b><span>Stay In The Loop</span></div>
+                <p class="pl-loop-t">Want to know about new events first? Follow our socials or reach out to be added to our mailing list.</p>
+            </div>
+            <div class="pl-orbit">
+                <span class="pl-ring" style="--d:0s"></span><span class="pl-ring" style="--d:1.6s"></span><span class="pl-ring" style="--d:3.2s"></span><span class="pl-ring" style="--d:4.8s"></span>
+                <a href="contactUs.html" class="pl-badge" aria-label="Reach out to be added to our mailing list">
+                    <svg viewBox="0 0 200 200" aria-hidden="true"><defs><path id="plCirc" d="M100,100 m-78,0 a78,78 0 1,1 156,0 a78,78 0 1,1 -156,0"/></defs><text><textPath href="#plCirc" startOffset="0" textLength="486" lengthAdjust="spacing">Stay in the loop &#8226; Reach out &#8226; Stay in the loop &#8226; Reach out &#8226;</textPath></text></svg>
+                    <b>&rarr;</b>
+                </a>
             </div>
         </div>
     </section>
@@ -185,6 +199,7 @@
     <script src="../js/play-page.js"></script>
     <script src="../js/main.js"></script>
     <script src="../js/nav-dropdown.js"></script>
+    <script src="../js/play-live.js"></script>
 
 </body>
 

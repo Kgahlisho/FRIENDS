@@ -204,3 +204,147 @@
         play();
     }
 })();
+
+
+/* ══════════════════════════════════════════════════════════════
+   &FUN — sections below the hero: programme, lit-up words, size switch
+══════════════════════════════════════════════════════════════ */
+(function () {
+    'use strict';
+
+    if (!document.body || document.body.getAttribute('data-page') !== 'fun') return;
+
+    function ready(fn) {
+        if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', fn);
+        else fn();
+    }
+    ready(function () {
+        var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (!reduce) document.documentElement.classList.add('fp-js');
+        programme();
+        litWords(reduce);
+        sizeSwitch(reduce);
+    });
+
+    /* 1 · the programme: hover / focus / tap picks the active row */
+    function programme() {
+        var list = document.getElementById('fpList');
+        if (!list) return;
+        var items = Array.prototype.slice.call(list.querySelectorAll('.fp-item'));
+        var canHover = window.matchMedia && matchMedia('(hover: hover) and (min-width: 900px)');
+
+        function open(i) {
+            items.forEach(function (it, n) {
+                var on = n === i;
+                it.classList.toggle('on', on);
+                var b = it.querySelector('.fp-row');
+                if (b) b.setAttribute('aria-expanded', on ? 'true' : 'false');
+            });
+        }
+        items.forEach(function (it, i) {
+            var row = it.querySelector('.fp-row');
+            if (!row) return;
+            row.addEventListener('click', function () { open(i); });
+            row.addEventListener('focus', function () { open(i); });
+            row.addEventListener('mouseenter', function () { if (canHover && canHover.matches) open(i); });
+            row.addEventListener('keydown', function (e) {
+                var to = -1;
+                if (e.key === 'ArrowDown') to = (i + 1) % items.length;
+                else if (e.key === 'ArrowUp') to = (i - 1 + items.length) % items.length;
+                if (to < 0) return;
+                e.preventDefault();
+                items[to].querySelector('.fp-row').focus();
+            });
+        });
+    }
+
+    /* 2 · "It's Contagious": the words light up as you scroll */
+    function litWords(reduce) {
+        var p = document.getElementById('fpLit');
+        if (!p || reduce) return;
+
+        var text = p.textContent.replace(/\s+/g, ' ').trim();
+        p.setAttribute('aria-label', text);
+        p.textContent = '';
+        var words = text.split(' ').map(function (w) {
+            var s = document.createElement('span');
+            s.className = 'w' + (/^(laughter|soundtrack)/i.test(w) ? ' k' : '');
+            s.setAttribute('aria-hidden', 'true');
+            s.textContent = w;
+            p.appendChild(s);
+            p.appendChild(document.createTextNode(' '));
+            return s;
+        });
+
+        var ticking = false;
+        function update() {
+            ticking = false;
+            var r = p.getBoundingClientRect();
+            var vh = window.innerHeight || document.documentElement.clientHeight;
+            // starts as the paragraph enters the lower part of the screen, done by the time it reaches the middle
+            var prog = (vh * 0.9 - r.top) / (r.height + vh * 0.35);
+            prog = Math.max(0, Math.min(1, prog));
+            var n = Math.round(prog * words.length);
+            words.forEach(function (w, i) { w.classList.toggle('on', i < n); });
+        }
+        function onScroll() {
+            if (ticking) return;
+            ticking = true;
+            requestAnimationFrame(update);
+        }
+        window.addEventListener('scroll', onScroll, { passive: true });
+        window.addEventListener('resize', onScroll);
+        update();
+    }
+
+    /* 3 · "Bring Your Vision": small & intimate  <->  bigger & louder */
+    function sizeSwitch(reduce) {
+        var stage = document.getElementById('fpStage');
+        var sw = document.querySelector('.fp-switch');
+        if (!stage || !sw) return;
+        var btns = Array.prototype.slice.call(sw.querySelectorAll('button'));
+        var dot = sw.querySelector('.fp-switch-dot');
+        var touched = false, timer = null, visible = false;
+
+        function place(btn) {
+            if (!dot || !btn) return;
+            dot.style.width = btn.offsetWidth + 'px';
+            dot.style.transform = 'translateX(' + (btn.offsetLeft - 5) + 'px)';
+        }
+        function setMode(mode) {
+            stage.setAttribute('data-mode', mode);
+            btns.forEach(function (b) {
+                var on = b.getAttribute('data-mode') === mode;
+                b.classList.toggle('on', on);
+                b.setAttribute('aria-pressed', on ? 'true' : 'false');
+                if (on) place(b);
+            });
+        }
+        btns.forEach(function (b) {
+            b.addEventListener('click', function () {
+                touched = true;
+                stop();
+                setMode(b.getAttribute('data-mode'));
+            });
+        });
+        function current() { return sw.querySelector('button.on') || btns[0]; }
+        window.addEventListener('resize', function () { place(current()); });
+        if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { place(current()); });
+        place(current());
+
+        // gentle auto-flip until the visitor takes over
+        function stop() { if (timer) { clearInterval(timer); timer = null; } }
+        function start() {
+            if (reduce || touched || timer) return;
+            timer = setInterval(function () {
+                setMode(stage.getAttribute('data-mode') === 'small' ? 'loud' : 'small');
+            }, 3800);
+        }
+        if ('IntersectionObserver' in window) {
+            new IntersectionObserver(function (es) {
+                visible = es[0].isIntersecting;
+                if (visible) start(); else stop();
+            }, { threshold: 0.35 }).observe(stage);
+        }
+    }
+})();
