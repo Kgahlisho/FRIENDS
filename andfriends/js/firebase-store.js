@@ -1,5 +1,3 @@
-
-
 const Store = (() => {
 
     let _auth, _db, _storage;
@@ -133,7 +131,7 @@ const Store = (() => {
 
             try {
 
-                if (fbUser) {
+                if (fbUser && _verified(fbUser)) {
 
                     let profile = null;
 
@@ -186,7 +184,7 @@ const Store = (() => {
 
                 console.error('[&FRIENDS] Auth restore failed:', err);
 
-                 if (fbUser) {
+                 if (fbUser && _verified(fbUser)) {
                     _cache.session = {
                         id: fbUser.uid,
                         name: fbUser.displayName || fbUser.email.split('@')[0],
@@ -208,7 +206,39 @@ const Store = (() => {
 
     });
 
+    // Accounts created before this date are treated as verified so existing
+    // users are not locked out. Set it to the day you deploy email verification.
+    const VERIFY_CUTOFF = Date.parse('2026-11-15T00:00:00Z');
+    function _verified(u) {
+        if (!u) return false;
+        if (u.emailVerified) return true;
+        const created = Date.parse(u.metadata && u.metadata.creationTime);
+        return !!created && created < VERIFY_CUTOFF;
+    }
+
+    const _DISPOSABLE = ['mailinator.com', 'guerrillamail.com', '10minutemail.com', 'tempmail.com', 'temp-mail.org',
+        'yopmail.com', 'trashmail.com', 'sharklasers.com', 'getnada.com', 'throwawaymail.com', 'dispostable.com',
+        'maildrop.cc', 'fakeinbox.com', 'mintemail.com', 'mohmal.com', 'emailondeck.com'];
+
+    // Returns an error message, or null when the email looks acceptable.
+    function _emailProblem(raw) {
+        const email = String(raw || '').trim().toLowerCase();
+        if (email.length <= 6) return 'Email address is too short.';
+        if (email.length > 254) return 'Email address is too long.';
+        if (!/^[a-z0-9._%+\-]+@[a-z0-9\-]+(\.[a-z0-9\-]+)*\.[a-z]{2,}$/.test(email)) return 'Please enter a valid email address.';
+        const [local, domain] = email.split('@');
+        if (local.length < 2 || local.length > 64 || local.startsWith('.') || local.endsWith('.') || local.includes('..'))
+            return 'Please enter a valid email address.';
+        if (_DISPOSABLE.includes(domain)) return 'Temporary email addresses are not allowed. Please use a real email.';
+        if ((domain === 'gmail.com' || domain === 'googlemail.com') && local.includes('+'))
+            return 'Please use your main email address (without a + tag).';
+        return null;
+    }
+
     const Auth = {
+
+        validateEmail(email) { return _emailProblem(email); },
+
 
     // Session
         getSession() {
@@ -277,6 +307,40 @@ const Store = (() => {
             return true;
         },
 
+        // Password recovery: email a reset link.
+        // Always reports success for unknown emails so the form can't be used to discover who has an account.
+        async sendPasswordReset(email) {
+            try {
+                await _auth.sendPasswordResetEmail(String(email || '').trim());
+                return { ok: true };
+            } catch (err) {
+                const code = err && err.code || '';
+                if (code.includes('user-not-found')) return { ok: true };
+                console.error('[&FRIENDS] Password reset error:', err);
+                return { ok: false, error: _authMsg(err.code, err.message) };
+            }
+        },
+
+        // Reset page, step 1: check the emailed link and return the account email.
+        async verifyResetCode(code) {
+            try {
+                const email = await _auth.verifyPasswordResetCode(code);
+                return { ok: true, email };
+            } catch (err) {
+                return { ok: false, error: _authMsg(err.code, err.message) };
+            }
+        },
+
+        // Reset page, step 2: save the new password.
+        async confirmPasswordReset(code, newPassword) {
+            try {
+                await _auth.confirmPasswordReset(code, newPassword);
+                return { ok: true };
+            } catch (err) {
+                return { ok: false, error: _authMsg(err.code, err.message) };
+            }
+        },
+
         // Login
         async login(email, password) {
 
@@ -295,6 +359,16 @@ const Store = (() => {
                     return {
                         ok: false,
                         error: 'Authentication failed.'
+                    };
+                }
+
+                if (!_verified(fbUser)) {
+                    await _auth.signOut();
+                    _cache.session = null;
+                    return {
+                        ok: false,
+                        needsVerification: true,
+                        error: 'Please verify your email first. We sent a link to your inbox when you signed up.'
                     };
                 }
 
@@ -377,6 +451,10 @@ const Store = (() => {
                 };
             }
 
+            data.email = String(data.email || '').trim().toLowerCase();
+            const emailErr = _emailProblem(data.email);
+            if (emailErr) return { ok: false, error: emailErr };
+
             try {
 
                 const cred =
@@ -409,29 +487,15 @@ const Store = (() => {
                         createdAt: ts(),
                     });
 
-                _cache.session = {
-
-                    id: cred.user.uid,
-
-                    name: data.name,
-
-                    email: data.email,
-
-                    role:
-                        data.role || 'resident',
-
-                    phone:
-                        data.phone || '',
-
-                    dob:
-                        data.dob || '',
-                };
-
-                emit('af:auth', _cache.session);
+                // Email must be confirmed before the account can be used
+                await cred.user.sendEmailVerification();
+                await _auth.signOut();
+                _cache.session = null;
 
                 return {
                     ok: true,
-                    user: _cache.session
+                    pending: true,
+                    email: data.email
                 };
 
             } catch (err) {
@@ -444,6 +508,25 @@ const Store = (() => {
                     )
                 };
             }
+        },
+
+        // Re-send the verification email (signs in briefly with the credentials, then out)
+        async resendVerification(email, password) {
+            try {
+                const cred = await _auth.signInWithEmailAndPassword(String(email || '').trim(), password);
+                if (_verified(cred.user)) { await _auth.signOut(); return { ok: true, alreadyVerified: true }; }
+                await cred.user.sendEmailVerification();
+                await _auth.signOut();
+                return { ok: true };
+            } catch (err) {
+                return { ok: false, error: _authMsg(err.code, err.message) };
+            }
+        },
+
+        // Confirm an email from the link's oobCode
+        async verifyEmail(code) {
+            try { await _auth.applyActionCode(code); return { ok: true }; }
+            catch (err) { return { ok: false, error: _authMsg(err.code, err.message) }; }
         },
 
         // Logout
@@ -846,6 +929,8 @@ const Store = (() => {
         if (raw.includes('invalid-email') || raw.includes('INVALID_EMAIL')) return 'Please enter a valid email address.';
         if (raw.includes('email-already-in-use') || raw.includes('EMAIL_EXISTS')) return 'An account with this email already exists.';
         if (raw.includes('weak-password') || raw.includes('WEAK_PASSWORD')) return 'Password must be at least 6 characters.';
+        if (raw.includes('expired-action-code') || raw.includes('EXPIRED_OOB_CODE')) return 'This reset link has expired. Please request a new one.';
+        if (raw.includes('invalid-action-code') || raw.includes('INVALID_OOB_CODE')) return 'This reset link is invalid or has already been used. Please request a new one.';
         if (raw.includes('too-many-requests') || raw.includes('TOO_MANY_ATTEMPTS')) return 'Too many attempts. Please try again later.';
         if (raw.includes('network-request-failed')) return 'Network error. Check your connection.';
         if (raw.includes('operation-not-allowed') || raw.includes('OPERATION_NOT_ALLOWED')) return 'Email/password sign-up is not enabled in Firebase console.';

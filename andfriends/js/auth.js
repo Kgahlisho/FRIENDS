@@ -1,4 +1,3 @@
-
 (function initAuth() {
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', _boot);
@@ -15,6 +14,9 @@ function _boot() {
     // Re-render nav whenever Firebase resolves the auth state
     document.addEventListener('af:auth', () => updateNav());
     document.addEventListener('af:requireAuth', () => openAuthModal('login'));
+
+    // e.g. index.html#login (used by the password-reset page)
+    if (location.hash === '#login') openAuthModal('login');
 }
 
 // NAV ACCOUNT BUTTON
@@ -99,14 +101,27 @@ function closeAuthModal() {
 }
 
 function switchAuthTab(tab) {
+    const fromLogin = document.getElementById('loginEmail');
     document.querySelectorAll('.auth-tab-btn')
         .forEach(b => b.classList.toggle('active', b.dataset.tab === tab));
     document.querySelectorAll('.auth-panel')
         .forEach(p => p.classList.toggle('active', p.dataset.panel === tab));
+    const modal = document.getElementById('authModal');
+    if (modal) modal.classList.toggle('is-forgot', tab === 'forgot');
+    clearAuthErrors();
+    if (tab === 'forgot') {
+        const f = document.getElementById('forgotEmail');
+        if (f && fromLogin && fromLogin.value && !f.value) f.value = fromLogin.value;
+        if (f) setTimeout(() => f.focus(), 50);
+    }
 }
 
 function clearAuthErrors() {
     document.querySelectorAll('.auth-error').forEach(e => {
+        e.textContent = '';
+        e.style.display = 'none';
+    });
+    document.querySelectorAll('.auth-success').forEach(e => {
         e.textContent = '';
         e.style.display = 'none';
     });
@@ -138,13 +153,68 @@ async function handleLogin(e) {
 
     if (btn) { btn.disabled = false; btn.textContent = 'Log In →'; }
 
+    const resend = document.getElementById('resendVerify');
+    if (resend) resend.style.display = 'none';
+
     if (!result.ok) {
         showAuthError('loginPanel', result.error);
+        if (result.needsVerification && resend) resend.style.display = 'block';
         return;
     }
 
     closeAuthModal();
     redirectAfterAuth(result.user);
+}
+
+
+// RESEND VERIFICATION EMAIL
+async function handleResendVerify() {
+    const email = document.getElementById('loginEmail').value.trim();
+    const password = document.getElementById('loginPassword').value;
+    const link = document.getElementById('resendVerify');
+    if (!email || !password) { showAuthError('loginPanel', 'Enter your email and password, then try again.'); return; }
+    if (link) link.textContent = 'Sending…';
+    const r = await Store.Auth.resendVerification(email, password);
+    if (link) link.textContent = 'Resend verification email';
+    if (!r.ok) { showAuthError('loginPanel', r.error); return; }
+    clearAuthErrors();
+    const ok = document.querySelector('#loginPanel .auth-success');
+    if (ok) {
+        ok.textContent = r.alreadyVerified ? 'Your email is already verified. You can log in.' : 'Verification email sent. Check your inbox (and spam folder).';
+        ok.style.display = 'block';
+    }
+    if (link) link.style.display = 'none';
+}
+
+
+// FORGOT PASSWORD
+async function handleForgot(e) {
+    e.preventDefault();
+    clearAuthErrors();
+
+    const email = document.getElementById('forgotEmail').value.trim();
+    if (!email || !/^\S+@\S+\.\S+$/.test(email)) {
+        showAuthError('forgotPanel', 'Please enter a valid email address.');
+        return;
+    }
+
+    const btn = e.target.querySelector('button[type="submit"]');
+    if (btn) { btn.disabled = true; btn.textContent = 'Sending…'; }
+
+    const result = await Store.Auth.sendPasswordReset(email);
+
+    if (btn) { btn.disabled = false; btn.textContent = 'Send Reset Link →'; }
+
+    if (!result.ok) {
+        showAuthError('forgotPanel', result.error);
+        return;
+    }
+
+    const ok = document.querySelector('#forgotPanel .auth-success');
+    if (ok) {
+        ok.textContent = 'If an account exists for ' + email + ', a reset link is on its way. Check your inbox (and spam folder). The link works once and expires after a while.';
+        ok.style.display = 'block';
+    }
 }
 
 
@@ -164,6 +234,11 @@ async function handleRegister(e) {
 
     if (!name || !email || !password || !password2) {
         showAuthError('registerPanel', 'Please fill in all required fields.');
+        return;
+    }
+    const emailProblem = Store.Auth.validateEmail(email);
+    if (emailProblem) {
+        showAuthError('registerPanel', emailProblem);
         return;
     }
     if (password.length < 8) {
@@ -187,8 +262,13 @@ async function handleRegister(e) {
         return;
     }
 
-    closeAuthModal();
-    redirectAfterAuth(result.user);
+    // Account created, but it must be verified by email before logging in
+    e.target.reset();
+    const ok = document.querySelector('#registerPanel .auth-success');
+    if (ok) {
+        ok.textContent = 'Account created! We sent a verification link to ' + result.email + '. Click it, then come back and log in. Check your spam folder if you don\u2019t see it.';
+        ok.style.display = 'block';
+    }
 }
 
 function redirectAfterAuth(user) {
@@ -248,12 +328,39 @@ function injectAuthModal() {
             <input type="password" id="loginPassword" class="auth-input"
               placeholder="Your password" required />
           </div>
+          <div class="auth-forgot-row">
+            <a href="#" class="auth-forgot-link" onclick="switchAuthTab('forgot'); return false;">Forgot password?</a>
+          </div>
           <div class="auth-error" style="display:none;"></div>
+          <div class="auth-success" style="display:none;"></div>
+          <p class="auth-switch-text" id="resendVerify" style="display:none;margin:0 0 12px;">
+            <a href="#" onclick="handleResendVerify(); return false;">Resend verification email</a>
+          </p>
           <button type="submit" class="auth-submit-btn">Log In →</button>
         </form>
         <p class="auth-switch-text">
           No account yet?
           <a href="#" onclick="switchAuthTab('register'); return false;">Create one →</a>
+        </p>
+      </div>
+
+      <!-- FORGOT PASSWORD -->
+      <div class="auth-panel" data-panel="forgot" id="forgotPanel">
+        <h3 class="auth-panel-title">Reset your password</h3>
+        <p class="auth-panel-text">Enter the email you signed up with and we'll send you a link to create a new password.</p>
+        <form onsubmit="handleForgot(event)" novalidate>
+          <div class="auth-field">
+            <label>Email Address</label>
+            <input type="email" id="forgotEmail" class="auth-input"
+              placeholder="you@example.com" autocomplete="email" required />
+          </div>
+          <div class="auth-error" style="display:none;"></div>
+          <div class="auth-success" style="display:none;"></div>
+          <button type="submit" class="auth-submit-btn">Send Reset Link →</button>
+        </form>
+        <p class="auth-switch-text">
+          Remembered it?
+          <a href="#" onclick="switchAuthTab('login'); return false;">Back to log in →</a>
         </p>
       </div>
 
@@ -302,6 +409,7 @@ function injectAuthModal() {
               placeholder="Organisation code" />
           </div>
           <div class="auth-error" style="display:none;"></div>
+          <div class="auth-success" style="display:none;"></div>
           <button type="submit" class="auth-submit-btn">Create Account →</button>
         </form>
         <p class="auth-switch-text">
