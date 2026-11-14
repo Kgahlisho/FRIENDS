@@ -227,8 +227,16 @@ const Store = (() => {
         if (email.length > 254) return 'Email address is too long.';
         if (!/^[a-z0-9._%+\-]+@[a-z0-9\-]+(\.[a-z0-9\-]+)*\.[a-z]{2,}$/.test(email)) return 'Please enter a valid email address.';
         const [local, domain] = email.split('@');
-        if (local.length < 2 || local.length > 64 || local.startsWith('.') || local.endsWith('.') || local.includes('..'))
+        if (local.length > 64 || local.startsWith('.') || local.endsWith('.') || local.includes('..'))
             return 'Please enter a valid email address.';
+        // The part before the @ must look like a real address, not "a1" or "1234"
+        const letters = (local.match(/[a-z]/g) || []).length;
+        if (local.length < 4 || letters < 3 || /^(.)\1+$/.test(local.replace(/[^a-z0-9]/g, '')))
+            return 'That email looks too short or incomplete. Please use your real email address.';
+        if ((domain === 'gmail.com' || domain === 'googlemail.com')) {
+            const g = local.replace(/\./g, '').replace(/\+.*/, '');
+            if (g.length < 6 || g.length > 30) return 'That is not a valid Gmail address (Gmail names are 6\u201330 characters).';
+        }
         if (_DISPOSABLE.includes(domain)) return 'Temporary email addresses are not allowed. Please use a real email.';
         if ((domain === 'gmail.com' || domain === 'googlemail.com') && local.includes('+'))
             return 'Please use your main email address (without a + tag).';
