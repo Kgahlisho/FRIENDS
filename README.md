@@ -1,5 +1,4 @@
-<p align="center">
-  <img src="docs/images/banner.png" alt="&FRIENDS: Pick. Reserve. Pay. Walk right in." width="100%">
+<img width="1600" height="620" alt="banner" src="https://github.com/user-attachments/assets/4bbd2bff-4beb-4873-b4aa-66f9f17ae531" />
 </p>
 
 <p align="center">
@@ -73,21 +72,21 @@ Built by **KAI INC** for the Independent Institute of Education (IIE) Work Integ
 ##  Screenshots
 
 ### Mobile app
+<img width="1422" height="775" alt="01_getting_started" src="https://github.com/user-attachments/assets/726933a0-d266-47cb-ab69-bd2890f0644b" />
+<img width="1582" height="717" alt="02_book_and_pay" src="https://github.com/user-attachments/assets/c33557e6-247a-4368-9510-6ec7cf0fcf5b" />
+<img width="1582" height="717" alt="03_tickets" src="https://github.com/user-attachments/assets/d0682c2c-a893-4724-aef4-3e378713967a" />
+<img width="1582" height="717" alt="04_staff_mode" src="https://github.com/user-attachments/assets/31db0ae8-1c6f-4e3d-bed5-ff8f0ca84f75" />
+<img width="1582" height="717" alt="05_first_ticket_guide" src="https://github.com/user-attachments/assets/d9908d95-5a12-4f99-a459-efdba1b5ddb0" />
+<img width="1582" height="717" alt="07_discover_and_after" src="https://github.com/user-attachments/assets/e01f3d67-741e-4c82-89ce-313502fe62d8" />
+<img width="1582" height="717" alt="06_account_and_community" src="https://github.com/user-attachments/assets/cd32f0be-8cab-4aa8-b1e5-28d6012159bf" />
 
-![Getting started](docs/images/app/01_getting_started.jpg)
-![Book and pay](docs/images/app/02_book_and_pay.jpg)
-![Tickets and receipts](docs/images/app/03_tickets.jpg)
-![Staff mode](docs/images/app/04_staff_mode.jpg)
-![First-ticket guide](docs/images/app/05_first_ticket_guide.jpg)
-![Discover and after the event](docs/images/app/07_discover_and_after.jpg)
-![Account and community](docs/images/app/06_account_and_community.jpg)
 
 ### Website
+<img width="1281" height="430" alt="01_brand_pages" src="https://github.com/user-attachments/assets/beffc37f-066c-4f50-8a53-2c05897cf0e3" />
+<img width="1120" height="430" alt="02_events_and_booking" src="https://github.com/user-attachments/assets/e6d9d94b-5845-4de5-b610-5fc1989c0096" />
+<img width="1275" height="430" alt="03_venue_hire" src="https://github.com/user-attachments/assets/75b556d3-fc0e-4513-b519-63af1c85833c" />
+<img width="1251" height="420" alt="04_dashboards" src="https://github.com/user-attachments/assets/9c868362-d82b-4c71-ad88-d1820bc2fd34" />
 
-![Brand pages](docs/images/website/01_brand_pages.jpg)
-![Events and booking](docs/images/website/02_events_and_booking.jpg)
-![Venue hire](docs/images/website/03_venue_hire.jpg)
-![Dashboards](docs/images/website/04_dashboards.jpg)
 
 ## Features
 
@@ -132,7 +131,7 @@ The website uses a warmer palette (cream, blush and dark brown with orange accen
 
 The app has four bottom tabs (Explore, Tickets, Saved, Profile). Booking is one clear path from Explore to the QR ticket. Admin accounts also get a staff mode. We planned this with sitemaps and wireframes before building.
 
-[![App sitemap](docs/images/design/app_sitemap.png)](docs/images/design/app_sitemap.png)
+[![App sitemap]<img width="5884" height="2572" alt="app_sitemap" src="https://github.com/user-attachments/assets/3452e9d5-49c4-4905-82b3-dd56c0056b8a" />)
 
 *Updated mobile app sitemap (click to enlarge).*
 
@@ -152,11 +151,12 @@ The app has four bottom tabs (Explore, Tickets, Saved, Profile). Booking is one 
 
 We designed in low-fidelity first, so the team agreed on layout and hierarchy before styling.
 
-[![Mobile wireframes: booking and payment](docs/images/design/app_wireframes_3_booking.png)](docs/images/design/app_wireframes_3_booking.png)
+<img width="2240" height="3260" alt="app_wireframes_3_booking" src="https://github.com/user-attachments/assets/defb5b4f-f919-4d69-a9b0-1e9081b229ca" />
 
 *All wireframe sheets are in [`docs/images/design`](docs/images/design): onboarding, discovery, booking, tickets and profile, staff mode, outcomes and community, plus three website sheets.*
 
-[![Website wireframes: public pages](docs/images/design/website_wireframes_web_1_public.png)](docs/images/design/website_wireframes_web_1_public.png)
+<img width="2140" height="3344" alt="website_wireframes_web_1_public" src="https://github.com/user-attachments/assets/6fe21875-a21d-4934-9faa-009d760dfc5f" />
+
 
 ### 5. Security and data design
 
@@ -224,12 +224,13 @@ GitHub is our central version-control platform, and the evidence of our teamwork
 - **Planning:** 9 epics, features and user stories (91 work items in total) across seven two-week sprints, from 21 July to 26 October 2026.
 - **Reviews:** changes are reviewed before they are merged, and we keep the agreed folder structure and avoid duplicate files.
 
-![Azure Boards linked to GitHub](docs/images/devops/github_connection.jpg)
+![Azure Boards linked to GitHub]<img width="1431" height="186" alt="image" src="https://github.com/user-attachments/assets/cc5092c4-fba6-4bab-9204-7f18b25fb6a8" />
+
 
 <details>
 <summary>Planning evidence: kanban board, sprints and backlog</summary>
 
-![Kanban board](docs/images/devops/azure_boards_kanban.jpg)
+![Kanban board]()
 ![Sprints](docs/images/devops/sprints.jpg)
 ![Backlog tree](docs/images/devops/backlog_tree.jpg)
 
@@ -250,8 +251,10 @@ The workflow files are in `.github/workflows` in the app repository.
 
 **Azure Pipelines** (`azure-pipelines.yml`) does the same job in two stages, *Type check and tests* and *Build Android APK*. Run `#20261018.1` on `feature/braam-night` passed 100% of its tests and published the installable APK in 33 minutes.
 
-![Azure Pipelines run](docs/images/devops/azure_pipeline_run.jpg)
-![Pipeline stages](docs/images/devops/pipeline_stages.jpg)
+![Azure Pipelines run](<img width="1431" height="480" alt="image" src="https://github.com/user-attachments/assets/90549051-5167-45f5-9f80-7813e12441fc" />
+)
+![Pipeline stages](<img width="1431" height="338" alt="image" src="https://github.com/user-attachments/assets/f3faaa70-8897-451d-b873-bcc027df9619" />
+)
 
 **Why this matters:** bugs are caught before they reach the main branch, the access rules cannot be broken without a failing test, and a tested APK is always available to install and demo.
 
