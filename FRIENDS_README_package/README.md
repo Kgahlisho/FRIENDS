@@ -36,7 +36,7 @@ Built by **KAI INC** for the Independent Institute of Education (IIE) Work Integ
 14. [Known limitations](#-known-limitations)
 15. [License](#-license)
 
-## 🔗 Quick links
+## Quick links
 
 | What | Link |
 |---|---|
@@ -45,10 +45,8 @@ Built by **KAI INC** for the Independent Institute of Education (IIE) Work Integ
 | Website repository | [github.com/Kgahlisho/-FRIENDS](https://github.com/Kgahlisho/-FRIENDS) |
 | Azure DevOps board | [dev.azure.com/ST10448302/FRIENDS-App](https://dev.azure.com/ST10448302/FRIENDS-App) |
 | Release notes | [RELEASE_NOTES.md](RELEASE_NOTES.md) |
-| Video walkthrough (with voice-over) | **TODO: add your YouTube (unlisted) link here** |
-| Android APK | **TODO: add the link to the APK build artifact or release** |
 
-## 🎯 Purpose of the app
+## Purpose of the app
 
 &FRIENDS hosts music nights, talks, game nights and food markets. Before this project its only online presence was social media, which caused three real problems:
 
@@ -72,7 +70,7 @@ Built by **KAI INC** for the Independent Institute of Education (IIE) Work Integ
 5. Handle user data and authentication securely.
 6. Show good software engineering: version control, CI/CD and automated tests.
 
-## 📸 Screenshots
+##  Screenshots
 
 ### Mobile app
 
@@ -91,7 +89,7 @@ Built by **KAI INC** for the Independent Institute of Education (IIE) Work Integ
 ![Venue hire](docs/images/website/03_venue_hire.jpg)
 ![Dashboards](docs/images/website/04_dashboards.jpg)
 
-## ✨ Features
+## Features
 
 ### For guests (mobile app)
 
@@ -115,7 +113,7 @@ Built by **KAI INC** for the Independent Institute of Education (IIE) Work Integ
 
 Home, Services (venue hire with a rate card), Events, About us, Community, Contact us, customer and admin accounts, ticket booking, and customer and admin dashboards. It works on desktop and mobile browsers.
 
-## 🎨 Design considerations
+## Design considerations
 
 ### 1. Brand and visual system ("Braam Night+")
 
@@ -167,7 +165,7 @@ We designed in low-fidelity first, so the team agreed on layout and hierarchy be
 - **Proof of payment:** uploaded proofs are stored with Firebase Storage and are only reviewed by staff.
 - **Tested rules:** 53 automated tests check the rules on the Firebase emulator.
 
-## 🧩 How it all fits together
+## How it all fits together
 
 ```mermaid
 flowchart LR
@@ -194,7 +192,7 @@ sequenceDiagram
     S->>F: Scan updates the check-in count
 ```
 
-## 🛠 Tech stack
+## Tech stack
 
 | Area | Technology |
 |---|---|
@@ -207,7 +205,7 @@ sequenceDiagram
 | Design | Figma, Draw.io, Visual Paradigm |
 | Tools | Git and GitHub, Visual Studio Code |
 
-## 🐙 How we used GitHub
+## How we used GitHub
 
 GitHub is our central version-control platform, and the evidence of our teamwork.
 
@@ -237,7 +235,7 @@ GitHub is our central version-control platform, and the evidence of our teamwork
 
 </details>
 
-## ⚙️ GitHub Actions and CI/CD
+## GitHub Actions and CI/CD
 
 Every change has to pass automated checks before it reaches `master`.
 
@@ -257,7 +255,7 @@ The workflow files are in `.github/workflows` in the app repository.
 
 **Why this matters:** bugs are caught before they reach the main branch, the access rules cannot be broken without a failing test, and a tested APK is always available to install and demo.
 
-## ✅ Testing and quality
+## Testing and quality
 
 | Type | What it covers |
 |---|---|
@@ -266,7 +264,7 @@ The workflow files are in `.github/workflows` in the app repository.
 | **CI checks** | Type check and tests on every pull request, and on the Azure pipeline |
 | **Manual testing** | Navigation, links, forms and input, user interaction, responsive layouts, booking and events, authentication, database and back end, error and bug tracking, and cross-browser checks |
 
-## 🚀 Run it yourself
+## Run it yourself
 
 **Website**
 
@@ -286,7 +284,7 @@ To run the same checks as CI: `npx tsc --noEmit` (type check) and `npx jest` (un
 
 **Install the Android build:** download the APK from the latest pipeline run or release (see Quick links).
 
-## 📦 Release notes
+## Release notes
 
 > The same notes are also in [RELEASE_NOTES.md](RELEASE_NOTES.md).
 
@@ -365,23 +363,23 @@ This is the first full release since the prototype. It turns the working prototy
 - The app is in English. Other languages are shown as "coming soon".
 - The installable build is the Android APK. iOS is built as a simulator build.
 
-## 👥 Team
+## Team
 
 **KAI INC** works cooperatively: members review and encourage each other's work, while each person owns different tasks.
 
 | Team member | Role | Main responsibilities |
 |---|---|---|
-| **Ayanda Magocoba** (ST10351403) | Project Coordinator | Project coordination and planning, DevOps, back-end support, GitHub management, report integration and final quality review |
 | **Ivant Wambo** (ST10448302) | Mobile Application / Requirements | Requirements analysis, mobile application planning, mobile wireframes and mobile functionality |
 | **Kgahlisho Mokoala** (ST10325173) | UI/UX / Web Development | Website design, website wireframes, sitemap development, UI/UX and website implementation |
+| **Ayanda Magocoba** (ST10351403) | Project Coordinator | Project coordination  GitHub management, report integration and final quality review |
 
-## ⚠️ Known limitations
+##  Known limitations
 
 - Payments are made by EFT and verified by staff. There is no live card payment gateway.
 - The app is in English. Other languages are shown as "coming soon".
 - The installable build is the Android APK. iOS is built as a simulator build.
 - Further usability and responsive testing across more devices and screen sizes would improve the product.
 
-## 📄 License
+##  License
 
-This project was developed for educational purposes as part of the Independent Institute of Education (IIE) Work Integrated Learning (XISD6329) module. The software is intended for academic demonstration and portfolio purposes only.
+This project was developed for educational purposes as part of the Independent Institute of Education (IIE) Work Integrated Learning (XISD6329) module. The software is intended for academic demonstration.
