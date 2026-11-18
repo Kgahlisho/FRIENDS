@@ -8,7 +8,7 @@ The platform consists up of a mobile application and a responsive website with a
 
 | Team Member           | Role                               | Main Responsibilities                                                                                                           |
 | --------------------- | ---------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
-| **Ayanda Magocoba**   | Project Coordinator | Project coordination, project planning, DevOps, backend support, GitHub management, report integration and final quality review |
+| **Ayanda Magocoba**   | Project Coordinator | Project coordination, project planning,GitHub management and final quality review |
 | **Ivant Wambo**       | Mobile Application / Requirements  | Requirement analysis, mobile application planning, mobile wireframes and mobile functionality                                   |
 | **Kgahlisho Mokoala** | UI/UX / Web Development            | Website design, website wireframes, sitemap development, UI/UX and website implementation                                       |
 
